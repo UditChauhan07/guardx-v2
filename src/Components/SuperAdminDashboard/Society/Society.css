@@ -1,0 +1,210 @@
+/* General Container */
+.society-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-left: 300px;
+  margin-top: 120px;
+  z-index: 1000;
+  position: relative;
+  background-color: #ffffff;
+  margin-right: 30px;
+  border-radius: 20px;
+}
+
+/* Page Title */
+.society-page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Filters and Add Button Section */
+.filters-and-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 20px;
+}
+
+.add-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Table Styling */
+.society-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.society-table th, .society-table td {
+  padding: 15px;
+  text-align: left;
+}
+
+.society-table th {
+  background-color: #f0f8ff;
+}
+
+.society-table td {
+  background-color: #ffffff;
+}
+
+.society-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.society-table tr:hover {
+  background-color: #ddd;
+}
+
+.society-table tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.society-table tr:last-child {
+  border-bottom: none;
+}
+
+.status-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.action-btn {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Modal Styles */
+.edit-society-modal, .delete-confirmation-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  background-color: #218838;
+}
+
+.delete-confirmation-modal button {
+  background-color: #dc3545;
+}
+
+.delete-confirmation-modal button:hover {
+  background-color: #c82333;
+}
+
+.edit-society-modal {
+  width: 400px;
+}
+
+.delete-confirmation-modal {
+  width: 300px;
+}
+
+.input-wrapper {
+  margin-bottom: 15px;
+}
+
+.input-wrapper label {
+  display: block;
+  font-weight: bold;
+}
+
+.input-wrapper input, .input-wrapper select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #f2f2f2;
+}
+
+/* Action Icons */
+.view-icon, .edit-icon, .delete-icon {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.edit-icon {
+  color: blue;
+}
+
+.delete-icon {
+  color: red;
+}
+
+.view-icon:hover,
+.edit-icon:hover,
+.delete-icon:hover {
+  color: #007bff;
+}

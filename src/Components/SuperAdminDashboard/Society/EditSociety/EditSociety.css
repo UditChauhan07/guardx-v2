@@ -1,0 +1,99 @@
+.edit-society-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 10px;
+    z-index: 1000;
+    position: relative;
+    margin-left: 300px;
+  margin-top: 120px;
+  }
+  
+  .page-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .edit-society-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .input-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-wrapper label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  
+  .input-wrapper input, .input-wrapper select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .input-wrapper select {
+    cursor: pointer;
+  }
+  
+  .required {
+    color: red;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .save-button, .cancel-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .save-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .cancel-button {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-button:hover {
+    background-color: #999;
+  }
+  
+  .view-icon {
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .view-icon:hover {
+    color: #0056b3;
+  }
+  
