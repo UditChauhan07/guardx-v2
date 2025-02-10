@@ -1,83 +1,84 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../login/Login.css';
 import { toast } from 'react-toastify';
+import '../login/Login.css';
+
+const translations = {
+  en: {
+    loginTitle: "LOGIN",
+    emailLabel: "Email",
+    emailPlaceholder: "Enter your email",
+    passwordLabel: "Password",
+    passwordPlaceholder: "Enter your password",
+    submitButton: "Submit",
+    languageToggle: "English",
+  },
+  hi: {
+    loginTitle: "लॉगिन",
+    emailLabel: "ईमेल",
+    emailPlaceholder: "अपना ईमेल दर्ज करें",
+    passwordLabel: "पासवर्ड",
+    passwordPlaceholder: "अपना पासवर्ड दर्ज करें",
+    submitButton: "जमा करें",
+    languageToggle: "हिंदी",
+  }
+};
 
 const Login = () => {
-  const [identifier, setIdentifier] = useState(''); // For email or phone
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [language, setLanguage] = useState('en'); 
   const navigate = useNavigate();
 
-  // Validate email/phone and password before submitting
-  const validateForm = () => {
-    const formErrors = {};
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex = /^\+?[1-9]\d{1,14}$/; // Basic international phone format
-
-    if (!identifier) {
-      formErrors.identifier = 'Email or phone number is required';
-    } else if (!emailRegex.test(identifier) && !phoneRegex.test(identifier)) {
-      formErrors.identifier = 'Please enter a valid email or phone number';
-    }
-
-    if (!password) {
-      formErrors.password = 'Password is required';
-    }
-
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
-  };
   const handleLogin = async (e) => {
     e.preventDefault();
-  
-    if (!validateForm()) return;
-  
+
     try {
-      const response = await axios.post('http://localhost:5000/login', {
-        identifier, // Can be email or phone
-        password,
-      });
-  
-      const user = response.data.user;
-  
-      // Save user data to localStorage
-      localStorage.setItem('user', JSON.stringify(user));
-  
+      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/login', { email, password });
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       toast.success('Login successful!');
-      navigate('/dashboard');
+      navigate('/dashboard'); 
     } catch (error) {
       toast.error(error.response?.data?.error || 'Login failed');
     }
   };
-  
-  
 
   return (
     <div className="login-container">
+      {/* Language Toggle Switch */}
+      <div className="language-switch">
+        <label className="switch">
+          <input
+            type="checkbox"
+            onChange={() => setLanguage(language === 'en' ? 'hi' : 'en')}
+          />
+          <span className="slider round"></span>
+        </label>
+        <span className="language-label">{translations[language].languageToggle}</span>
+      </div>
+
       <div className="login-card">
-        <h2 className="login-title">LOGIN</h2>
+        <h2 className="login-title">{translations[language].loginTitle}</h2>
         <form onSubmit={handleLogin}>
-          <div className="input-wrapper1">
-            <label>Email or Phone</label>
+          <div className="input-wrapper">
+            <label>{translations[language].emailLabel}</label>
             <input
-              type="text"
-              placeholder="Enter your email or phone number"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
+              type="email"
+              placeholder={translations[language].emailPlaceholder}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
-            {errors.identifier && <span className="error">{errors.identifier}</span>}
           </div>
 
-          <div className="input-wrapper1">
-            <label>Password</label>
+          <div className="input-wrapper">
+            <label>{translations[language].passwordLabel}</label>
             <div className="password-wrapper">
               <input
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter your password"
+                placeholder={translations[language].passwordPlaceholder}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -89,10 +90,11 @@ const Login = () => {
                 {showPassword ? '🙈' : '👁️'}
               </span>
             </div>
-            {errors.password && <span className="error">{errors.password}</span>}
           </div>
 
-          <button type="submit" className="submit-button">Submit</button>
+          <button type="submit" className="submit-button0">
+            {translations[language].submitButton}
+          </button>
         </form>
       </div>
     </div>

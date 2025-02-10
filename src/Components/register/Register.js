@@ -7,14 +7,14 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [role, setRole] = useState('user'); // Default role
-  const [errors, setErrors] = useState({}); // Validation errors
-  const navigate =useNavigate()
-  // Form validation
+  const [role, setRole] = useState('user'); 
+  const [errors, setErrors] = useState({}); 
+  const navigate = useNavigate();
+
   const validateForm = () => {
     const formErrors = {};
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex = /^\+?[1-9]\d{1,14}$/; // Basic international phone format
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/; 
 
     if (!email) {
       formErrors.email = 'Email is required';
@@ -37,33 +37,30 @@ const Register = () => {
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
   
     if (!validateForm()) return;
   
     try {
-      const response = await axios.post('http://localhost:5000/register', {
+      // Send user data to backend (No Firebase Authentication)
+      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/register', {
         email,
-        password,
+        password, // Send password directly to backend (backend hashes it)
         phone,
         role,
       });
-  
-      const { uid } = response.data;
-  
-      // Save user data (including UID) to localStorage
-      const user = { uid, email, phone, role };
-      localStorage.setItem('user', JSON.stringify(user));
-  
+
+      // Store user details in localStorage (NO Token needed)
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
       toast.success('Registration successful!');
-      navigate('/');
+      navigate('/login'); // Redirect to login after successful registration
     } catch (error) {
       toast.error(error.response?.data?.error || 'Registration failed');
     }
   };
-  
-  
 
   return (
     <div className="register-container">
@@ -76,6 +73,7 @@ const Register = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           {errors.email && <span className="error">{errors.email}</span>}
         </div>
@@ -87,6 +85,7 @@ const Register = () => {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           {errors.password && <span className="error">{errors.password}</span>}
         </div>
@@ -98,6 +97,7 @@ const Register = () => {
             placeholder="Enter your phone number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            required
           />
           {errors.phone && <span className="error">{errors.phone}</span>}
         </div>
@@ -109,7 +109,6 @@ const Register = () => {
             <option value="admin">Admin</option>
           </select>
         </div>
-
         <button type="submit" className="submit-button">Register</button>
       </form>
     </div>

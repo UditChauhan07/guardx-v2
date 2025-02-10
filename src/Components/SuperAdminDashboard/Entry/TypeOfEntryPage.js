@@ -22,7 +22,7 @@ const TypeOfEntryPage = () => {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/get-all-type-of-entries');
+        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-type-of-entries');
         setEntries(response.data.entries);
       } catch (error) {
         console.error('Error fetching entries: ', error);
@@ -48,7 +48,7 @@ const TypeOfEntryPage = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/delete-type-of-entry/${entryToDelete}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-type-of-entry/${entryToDelete}`);
       setEntries(entries.filter(entry => entry.id !== entryToDelete));
       setShowDeleteModal(false);
     } catch (error) {
@@ -100,7 +100,7 @@ const TypeOfEntryPage = () => {
               <tr key={entry.id}>
                 <td>
                   <img 
-                    src={entry.logo ? `http://localhost:5000${entry.logo}` : '/path/to/default-image.jpg'} 
+                    src={entry.logo ? `https://api-kpur6ixuza-uc.a.run.app${entry.logo}` : '/path/to/default-image.jpg'} 
                     alt={entry.title} 
                     className={styles.entryLogo} 
                   />

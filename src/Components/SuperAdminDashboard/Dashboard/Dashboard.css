@@ -47,3 +47,17 @@
   font-size: 1.2rem;
   color: #333;
 }
+/* Graph Section */
+.graph-section {
+  background: white;
+  padding: 70px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  height: 380px;
+  margin-top: 20px;
+}
+
+.graph-section h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}

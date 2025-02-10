@@ -28,7 +28,7 @@ const AddEntryPage = () => {
     formData.append('logo', logo);
 
     try {
-      await axios.post('http://localhost:5000/api/add-type-of-entry', formData, {
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-type-of-entry', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

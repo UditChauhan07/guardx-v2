@@ -18,7 +18,7 @@ const EditEntry = () => {
   useEffect(() => {
     const fetchEntry = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/get-type-of-entry/${id}`);
+        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-type-of-entry/${id}`);
         const entryData = response.data.entry;
         setTitle(entryData.title);
         setEntryType(entryData.entryType);
@@ -47,7 +47,7 @@ const EditEntry = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/update-type-of-entry/${id}`, formData, {
+      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-type-of-entry/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -101,7 +101,7 @@ const EditEntry = () => {
             {existingLogo && (
               <div className={styles.existingLogo}>
                 <img 
-                  src={`http://localhost:5000${existingLogo}`} // Make sure it is prefixed with your server URL
+                  src={`https://api-kpur6ixuza-uc.a.run.app${existingLogo}`} // Ensure logo path is correct
                   alt="Existing Icon" 
                   className={styles.existingLogoImg} 
                 />

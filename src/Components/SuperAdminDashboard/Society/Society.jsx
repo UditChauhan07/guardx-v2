@@ -21,12 +21,10 @@ const Society = () => {
   const handleSidebarClick = (title) => {
     setModuleTitle(title);  
   };
-
-  // Fetch all societies
   useEffect(() => {
     const fetchSocieties = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/get-all-societies');
+        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-societies');
         setSocieties(response.data.societies);
         setFilteredSocieties(response.data.societies);
         setLoading(false);
@@ -69,7 +67,7 @@ const Society = () => {
 
   const handleDeleteSociety = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/delete-society/${selectedSociety.id}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-society/${selectedSociety.id}`);
       toast.success('Society deleted successfully!');
       setFilteredSocieties(filteredSocieties.filter(society => society.id !== selectedSociety.id)); 
       setShowDeleteConfirm(false);

@@ -12,6 +12,16 @@ import TypeOfEntryPage from './Components/SuperAdminDashboard/Entry/TypeOfEntryP
 import AddEntryPage from './Components/SuperAdminDashboard/Entry/add entry/AddEntryPage';
 import EditEntry from './Components/SuperAdminDashboard/Entry/editentry/EditEntry';
 import EditProfile from './Components/Navbar/edit profile/EditProfile';
+import AllPurposes from './Components/SuperAdminDashboard/purpose/AllPurposes';
+import Addpurpose from './Components/SuperAdminDashboard/purpose/addPurpose/Addpurpose';
+import EditPurpose from './Components/SuperAdminDashboard/purpose/editPurpose/EditPurpose';
+import AllRoles from './Components/SuperAdminDashboard/Roles/AllRoles';
+import AddRole from './Components/SuperAdminDashboard/Roles/addRole/AddRole';
+import EditRole from './Components/SuperAdminDashboard/Roles/editRole/EditRole';
+import AllUsers from './Components/SuperAdminDashboard/Users/AllUsers';
+import AddUser from './Components/SuperAdminDashboard/Users/Adduser/AddUser';
+import EditUser from './Components/SuperAdminDashboard/Users/EditUser/EditUser';
+import EditSocietyUser from './Components/SuperAdminDashboard/Society/EditSociety/EditSocietyUser/EditSocietyUser';
 
 function App() {
   return (
@@ -30,6 +40,16 @@ function App() {
           <Route path = "/type-of-entries" element= {<TypeOfEntryPage/>}/>
           <Route path="/add-entry" element={<AddEntryPage />} />
           <Route path="/edit-entry/:id" element={<EditEntry />} />
+          <Route path="/purpose" element={<AllPurposes />} />
+          <Route path="/add-purpose" element={<Addpurpose />} />
+          <Route path="/edit-purpose/:id" element={<EditPurpose />} />
+          <Route path="/roles" element={<AllRoles />} />
+          <Route path="/add-role" element={<AddRole />} />
+          <Route path="/edit-role/:id" element={<EditRole />} />
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/add-user" element={<AddUser />} />
+          <Route path="/edit-user/:id" element={<EditUser />} />
+          <Route path='/edit-society-user/:id' element= {<EditSocietyUser/>}></Route>
         </Routes>
       </Router>
     </>
