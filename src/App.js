@@ -24,6 +24,7 @@ import EditUser from './Components/SuperAdminDashboard/Users/EditUser/EditUser';
 import EditSocietyUser from './Components/SuperAdminDashboard/Society/EditSociety/EditSocietyUser/EditSocietyUser';
 
 function App() {
+  
   return (
     <>
       <ToastContainer />

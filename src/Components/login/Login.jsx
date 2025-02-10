@@ -44,6 +44,7 @@ const Login = () => {
       toast.error(error.response?.data?.error || 'Login failed');
     }
   };
+  console.log (process.env.REACT_APP_FIREBASE_API_KEY);
 
   return (
     <div className="login-container">
@@ -95,6 +96,7 @@ const Login = () => {
           <button type="submit" className="submit-button0">
             {translations[language].submitButton}
           </button>
+          { process.env.API_KEY}
         </form>
       </div>
     </div>
