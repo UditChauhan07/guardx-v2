@@ -15,22 +15,25 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
+  // Ensure only logged-in users can access protected routes
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
-    if (!userData || userData.role !== 'admin') {
-      toast.error('Unauthorized access');
-      navigate('/');
+    if (!userData) {
+      toast.error('Please log in to access this page.');
+      navigate('/'); // Redirect to login
       return;
     }
     setLocalProfile(userData);
     setFormData(userData);
   }, [navigate]);
 
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Update profile
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.phone || !formData.role) {
@@ -40,7 +43,7 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     try {
       const response = await axios.put('https://api-kpur6ixuza-uc.a.run.app/update-admin', { 
         ...formData, 
-        uid: localProfile.uid 
+        id: localProfile.id 
       });
 
       if (response.status === 200) {
@@ -55,23 +58,25 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     }
   };
 
+  // Delete profile
   const handleDeleteProfile = async () => {
     try {
       const confirm = window.confirm('Are you sure you want to delete your profile?');
       if (!confirm) return;
-      await axios.delete('https://api-kpur6ixuza-uc.a.run.app/delete-admin', { data: { uid: localProfile.uid } });
+      await axios.delete('https://api-kpur6ixuza-uc.a.run.app/delete-profile', { data: { id: localProfile.id } });
       toast.success('Profile deleted successfully!');
       localStorage.removeItem('user');
-      navigate('/');
+      navigate('/'); // Redirect to login
     } catch (error) {
       toast.error('Error deleting profile: ' + error.message);
     }
   };
 
+  // Logout user
   const handleLogout = () => {
     localStorage.removeItem('user');
     toast.success('Logged out successfully!');
-    navigate('/');
+    navigate('/'); // Redirect to login
   };
 
   return (
@@ -81,17 +86,17 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
         <h1 className="navbar-title">{moduleTitle || 'Dashboard'}</h1>
       </div>
 
-      {/* Admin Profile Icon */}
+      {/* User Profile Icon */}
       <FaUserCircle className="admin-icon" onClick={() => setIsDropdownModalOpen(true)} size={40} />
 
-      {/* Dropdown Modal (Replaces Dropdown Menu) */}
+      {/* Dropdown Modal */}
       <Modal open={isDropdownModalOpen} onClose={() => setIsDropdownModalOpen(false)}>
         <Box className="dropdown-modal-box">
-          <h2 className="modal-title">Admin Options</h2>
+          <h2 className="modal-title">Options</h2>
           <div className="modal-actions">
             <button onClick={() => { setIsDropdownModalOpen(false); setIsProfileModalOpen(true); }} className="dropdown-item">Profile</button>
             <button onClick={handleLogout} className="dropdown-item">Logout</button>
-            <button onClick={() => setIsDropdownModalOpen(false)}className="dropdown-item">Close</button>
+            <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
           </div>
         </Box>
       </Modal>
