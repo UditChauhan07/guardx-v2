@@ -37,9 +37,23 @@ const Login = () => {
 
     try {
       const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/login', { email, password });
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      toast.success('Login successful!');
-      navigate('/dashboard'); 
+
+      if (response.data.user) {
+        const user = response.data.user;
+
+        // Save user details including ID in localStorage
+        localStorage.setItem('user', JSON.stringify({
+          id: user.id,         // Storing the user ID for profile updates
+          email: user.email,
+          phone: user.phone,
+          role: user.role
+        }));
+
+        toast.success('Login successful!');
+        navigate('/dashboard'); 
+      } else {
+        toast.error('Invalid response from server');
+      }
     } catch (error) {
       toast.error(error.response?.data?.error || 'Login failed');
     }
@@ -100,4 +114,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

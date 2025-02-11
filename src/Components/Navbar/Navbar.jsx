@@ -33,37 +33,53 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Update profile
+  // Update profile using email
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.phone || !formData.role) {
-      toast.error('All fields are required');
-      return;
-    }
     try {
-      const response = await axios.put('https://api-kpur6ixuza-uc.a.run.app/update-admin', { 
-        ...formData, 
-        id: localProfile.id 
-      });
+      let updateData = {
+        email: localProfile.email, // Use email instead of ID
+        phone: formData.phone,
+      };
+
+      if (formData.password) {
+        updateData.password = formData.password;
+      }
+
+      if (formData.email !== localProfile.email) {
+        updateData.newEmail = formData.email; // Allow updating email
+      }
+
+      console.log('Updating profile:', updateData);
+
+      const response = await axios.put('https://api-kpur6ixuza-uc.a.run.app/update-admin', updateData);
 
       if (response.status === 200) {
         toast.success('Profile updated successfully!');
-        setLocalProfile(formData);
+
+        // Update localStorage
+        const updatedProfile = { ...localProfile, ...formData };
+        localStorage.setItem('user', JSON.stringify(updatedProfile));
+
+        // Update state
+        setLocalProfile(updatedProfile);
         setIsEditing(false);
         setIsProfileModalOpen(false);
-        setProfileFromProps(formData);
+        setProfileFromProps(updatedProfile);
       }
     } catch (error) {
-      toast.error('Error updating profile: ' + (error.response?.data?.error || error.message));
+      console.log('Error updating profile: ' + (error.response?.data?.error || error.message));
     }
   };
 
-  // Delete profile
+  // Delete profile using email
   const handleDeleteProfile = async () => {
     try {
-      const confirm = window.confirm('Are you sure you want to delete your profile?');
-      if (!confirm) return;
-      await axios.delete('https://api-kpur6ixuza-uc.a.run.app/delete-profile', { data: { id: localProfile.id } });
+      const confirmDelete = window.confirm('Are you sure you want to delete your profile?');
+      if (!confirmDelete) return;
+
+      await axios.delete('https://api-kpur6ixuza-uc.a.run.app/delete-admin', { data: { email: localProfile.email } });
+
       toast.success('Profile deleted successfully!');
       localStorage.removeItem('user');
       navigate('/'); // Redirect to login
@@ -132,12 +148,12 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
               <input type="text" name="phone" value={formData.phone || ''} onChange={handleInputChange} required />
             </div>
             <div className="input-wrapper">
-              <label>Role</label>
-              <input type="text" name="role" value={formData.role || ''} disabled />
+              <label>Password (Leave blank to keep current password)</label>
+              <input type="password" name="password" value={formData.password || ''} onChange={handleInputChange} />
             </div>
             <div className="actions">
               <button type="submit" className="save-button">Save Changes</button>
-              <button onClick={() => setIsEditing(false)} >Cancel</button>
+              <button type="button" onClick={() => setIsEditing(false)} >Cancel</button>
             </div>
           </form>
         </Box>
