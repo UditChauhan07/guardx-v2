@@ -10,8 +10,8 @@ const EditEntry = () => {
   const [moduleTitle, setModuleTitle] = useState('Edit Entry');
   const [title, setTitle] = useState('');
   const [entryType, setEntryType] = useState('regular');
-  const [logo, setLogo] = useState(null);
-  const [existingLogo, setExistingLogo] = useState('');
+  const [logoBase64, setLogoBase64] = useState(''); // Store Base64 logo
+  const [existingLogo, setExistingLogo] = useState(''); // Store existing logo URL
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const EditEntry = () => {
         const entryData = response.data.entry;
         setTitle(entryData.title);
         setEntryType(entryData.entryType);
-        setExistingLogo(entryData.logo); // Set the existing logo path
+        setExistingLogo(entryData.logo); 
       } catch (error) {
         console.error('Error fetching entry: ', error);
       }
@@ -33,27 +33,32 @@ const EditEntry = () => {
 
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleEntryTypeChange = (e) => setEntryType(e.target.value);
-  const handleLogoChange = (e) => setLogo(e.target.files[0]);
+
+  // Convert new image to Base64
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setLogoBase64(reader.result.split(',')[1]); 
+      };
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('entryType', entryType);
-    if (logo) {
-      formData.append('logo', logo);
-    }
-
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-type-of-entry/${id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-type-of-entry/${id}`, {
+        title,
+        entryType,
+        logoBase64: logoBase64 || null, // Send only if a new logo is selected
       });
+
       setLoading(false);
-      navigate('/type-of-entries');
+      navigate('/type-of-entries'); // Redirect after update
     } catch (error) {
       setLoading(false);
       console.error('Error updating entry: ', error);
@@ -73,7 +78,9 @@ const EditEntry = () => {
       <Navbar moduleTitle={moduleTitle} />
       <Sidebar onClick={handleSidebarClick} />
       <div className={styles.editEntryPageContainer}>
-        <button onClick={handleBackButton} className={styles.backButton}>← Back to Entries</button>
+        <button onClick={handleBackButton} className={styles.backButton}>
+          ← Back to Entries
+        </button>
         <h2 className={styles.pageTitle}>Edit Entry</h2>
         <form className={styles.editEntryForm} onSubmit={handleSubmit}>
           <div className={styles.inputWrapper}>
@@ -101,7 +108,7 @@ const EditEntry = () => {
             {existingLogo && (
               <div className={styles.existingLogo}>
                 <img 
-                  src={`https://api-kpur6ixuza-uc.a.run.app${existingLogo}`} // Ensure logo path is correct
+                  src={existingLogo} // Use existing logo URL
                   alt="Existing Icon" 
                   className={styles.existingLogoImg} 
                 />

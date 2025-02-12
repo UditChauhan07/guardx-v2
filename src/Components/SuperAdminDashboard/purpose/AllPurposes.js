@@ -12,7 +12,6 @@ const AllPurposes = () => {
   const [search, setSearch] = useState('');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [purposeToDelete, setPurposeToDelete] = useState(null);
-
   const navigate = useNavigate();
 
   // Fetch all purposes from the API
@@ -94,11 +93,28 @@ const AllPurposes = () => {
             {filteredPurposes.map((purpose) => (
               <tr key={purpose.id}>
                 <td>
-                  <img
-                    src={purpose.icon ? `https://api-kpur6ixuza-uc.a.run.app${purpose.icon}` : '/path/to/default-image.jpg'}
-                    alt={purpose.purpose}
-                    className={styles.entryLogo}
-                  />
+                  {/* Correctly display Base64 images or Firebase Storage URLs */}
+                  {purpose.icon ? (
+                    purpose.icon.startsWith("data:image") || purpose.icon.startsWith("https://storage.googleapis.com") ? (
+                      <img
+                        src={purpose.icon}
+                        alt={purpose.purpose}
+                        className={styles.entryLogo}
+                      />
+                    ) : (
+                      <img 
+                        src="/path/to/default-image.jpg"
+                        alt="Default Icon"
+                        className={styles.entryLogo}
+                      />
+                    )
+                  ) : (
+                    <img 
+                      src="/path/to/default-image.jpg"
+                      alt="Default Icon"
+                      className={styles.entryLogo}
+                    />
+                  )}
                 </td>
                 <td>{purpose.purpose}</td>
                 <td>{purpose.purposeType}</td>

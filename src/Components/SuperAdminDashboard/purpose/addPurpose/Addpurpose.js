@@ -10,40 +10,46 @@ const AddPurpose = () => {
   const [purpose, setPurpose] = useState('');
   const [purposeType, setPurposeType] = useState('occasional');
   const [icon, setIcon] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // Handle form input changes
   const handlePurposeChange = (e) => setPurpose(e.target.value);
   const handlePurposeTypeChange = (e) => setPurposeType(e.target.value);
-  const handleIconChange = (e) => setIcon(e.target.files[0]);
 
-  // Handle form submission
+  // Convert image to Base64
+  const handleIconChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setIcon(reader.result); // Store Base64 string
+      };
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const formData = new FormData();
-    formData.append('purpose', purpose);
-    formData.append('purposeType', purposeType);
-    if (icon) {
-      formData.append('icon', icon);
-    }
-
+  
+    const payload = {
+      purpose,
+      purposeType,
+      iconBase64: icon, // Send base64 image
+    };
+  
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-purpose', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-purpose', payload);
       setLoading(false);
-      navigate('/purpose'); // Redirect after successfully adding purpose
+      navigate('/purpose');
     } catch (error) {
       setLoading(false);
       console.error('Error adding purpose: ', error);
     }
   };
-
+  
   // Handle back button
   const handleBackButton = () => {
     navigate('/purpose'); // Navigate back to the purposes list
@@ -85,7 +91,7 @@ const AddPurpose = () => {
               <option value="Friends">Friends</option>
               <option value="Carpenter">Carpenter</option>
               <option value="Food">Food</option>
-              <option value="Reletives">Reletives</option>
+              <option value="Relatives">Relatives</option>
               <option value="LPG">LPG</option>
               <option value="Broker">Broker</option>
               <option value="Packers">Packers</option>
@@ -103,6 +109,11 @@ const AddPurpose = () => {
               accept="image/*"
               onChange={handleIconChange}
             />
+            {preview && (
+              <div className={styles.previewContainer}>
+                <img src={preview} alt="Purpose Preview" className={styles.previewImage} />
+              </div>
+            )}
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={loading}>

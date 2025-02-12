@@ -96,30 +96,47 @@ const TypeOfEntryPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredEntries.map((entry) => (
-              <tr key={entry.id}>
-                <td>
-                  <img 
-                    src={entry.logo ? `https://api-kpur6ixuza-uc.a.run.app${entry.logo}` : '/path/to/default-image.jpg'} 
-                    alt={entry.title} 
-                    className={styles.entryLogo} 
-                  />
-                </td>
-                <td>{entry.title}</td>
-                <td>{entry.entryType}</td>
-                <td>
-                  <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(entry.id)}>
-                    <FaEdit />
-                  </button>
-                  <button
-                    className={`${styles.actionButton} ${styles.delete}`}
-                    onClick={() => handleDeleteClick(entry.id)}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
+          {filteredEntries.map((entry) => (
+  <tr key={entry.id}>
+    <td>
+      {entry.logo ? (
+        entry.logo.startsWith("data:image") || entry.logo.startsWith("https://storage.googleapis.com") ? (
+          <img 
+            src={entry.logo} 
+            alt={entry.title} 
+            className={styles.entryLogo} 
+          />
+        ) : (
+          <img 
+            src="/path/to/default-image.jpg" 
+            alt="Default Logo" 
+            className={styles.entryLogo} 
+          />
+        )
+      ) : (
+        <img 
+          src="/path/to/default-image.jpg" 
+          alt="Default Logo" 
+          className={styles.entryLogo} 
+        />
+      )}
+    </td>
+    <td>{entry.title}</td>
+    <td>{entry.entryType}</td>
+    <td>
+      <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(entry.id)}>
+        <FaEdit />
+      </button>
+      <button
+        className={`${styles.actionButton} ${styles.delete}`}
+        onClick={() => handleDeleteClick(entry.id)}
+      >
+        <FaTrash />
+      </button>
+    </td>
+  </tr>
+))}
+
           </tbody>
         </table>
       </div>

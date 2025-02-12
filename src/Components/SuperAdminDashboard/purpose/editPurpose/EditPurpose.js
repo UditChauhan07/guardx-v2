@@ -11,7 +11,8 @@ const EditPurpose = () => {
   const [purpose, setPurpose] = useState('');
   const [purposeType, setPurposeType] = useState('occasional');
   const [icon, setIcon] = useState(null);
-  const [existingIcon, setExistingIcon] = useState('');  // For storing the existing icon URL
+  const [existingIcon, setExistingIcon] = useState('');
+  const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -22,7 +23,8 @@ const EditPurpose = () => {
         const purposeData = response.data.purpose;
         setPurpose(purposeData.purpose);
         setPurposeType(purposeData.purposeType);
-        setExistingIcon(purposeData.icon); // Set the existing icon
+        setExistingIcon(purposeData.icon);
+        setPreview(purposeData.icon); // Set preview to the existing icon
       } catch (error) {
         console.error('Error fetching purpose data: ', error);
       }
@@ -33,33 +35,43 @@ const EditPurpose = () => {
 
   const handlePurposeChange = (e) => setPurpose(e.target.value);
   const handlePurposeTypeChange = (e) => setPurposeType(e.target.value);
-  const handleIconChange = (e) => setIcon(e.target.files[0]);
+
+  // Convert image to Base64
+  const handleIconChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setIcon(reader.result); // Set Base64 image
+        setPreview(reader.result); // Show preview
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
-    const formData = new FormData();
-    formData.append('purpose', purpose);
-    formData.append('purposeType', purposeType);
-    if (icon) {
-      formData.append('icon', icon); // Append the new icon if provided
-    }
-  
+
+    const purposeData = {
+      purpose,
+      purposeType,
+      icon: icon || existingIcon, // Use new icon if updated, otherwise keep the old one
+    };
+
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-purpose/${id}`, formData, {
+      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-purpose/${id}`, purposeData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       setLoading(false);
-      navigate('/purpose'); // Navigate after update
+      navigate('/purpose');
     } catch (error) {
       setLoading(false);
       console.error('Error updating purpose: ', error);
     }
   };
-  
 
   return (
     <div className={styles.EditPurpose}>
@@ -97,7 +109,7 @@ const EditPurpose = () => {
               <option value="Friends">Friends</option>
               <option value="Carpenter">Carpenter</option>
               <option value="Food">Food</option>
-              <option value="Reletives">Reletives</option>
+              <option value="Relatives">Relatives</option>
               <option value="LPG">LPG</option>
               <option value="Broker">Broker</option>
               <option value="Packers">Packers</option>
@@ -115,16 +127,15 @@ const EditPurpose = () => {
               accept="image/*"
               onChange={handleIconChange}
             />
-            {existingIcon && (
-  <div className={styles.existingLogo}>
-    <img 
-      src={`https://api-kpur6ixuza-uc.a.run.app${existingIcon}`} 
-      alt="Existing Icon" 
-      className={styles.existingLogoImg} 
-    />
-  </div>
-)}
-
+            {preview && (
+              <div className={styles.existingLogo}>
+                <img 
+                  src={preview} 
+                  alt="Existing Icon" 
+                  className={styles.existingLogoImg} 
+                />
+              </div>
+            )}
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={loading}>
