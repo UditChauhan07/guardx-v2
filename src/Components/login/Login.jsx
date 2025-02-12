@@ -34,21 +34,23 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/login', { email, password });
-
+  
       if (response.data.user) {
         const user = response.data.user;
-
-        // Save user details including ID in localStorage
+  
+        // Save user details in localStorage
         localStorage.setItem('user', JSON.stringify({
-          id: user.id,         // Storing the user ID for profile updates
+          id: user.id,        
+          name: user.name || '',
           email: user.email,
-          phone: user.phone,
-          role: user.role
+          phone: user.phone || '',
+          role: user.role,
+          permissions: user.permissions || [],
         }));
-
+  
         toast.success('Login successful!');
         navigate('/dashboard'); 
       } else {
@@ -58,6 +60,7 @@ const Login = () => {
       toast.error(error.response?.data?.error || 'Login failed');
     }
   };
+  
 
   return (
     <div className="login-container">

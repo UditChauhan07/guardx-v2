@@ -44,19 +44,15 @@ const Register = () => {
     if (!validateForm()) return;
   
     try {
-      // Send user data to backend (No Firebase Authentication)
       const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/register', {
         email,
-        password, // Send password directly to backend (backend hashes it)
+        password, 
         phone,
         role,
       });
-
-      // Store user details in localStorage (NO Token needed)
       localStorage.setItem('user', JSON.stringify(response.data.user));
-
       toast.success('Registration successful!');
-      navigate('/login'); // Redirect to login after successful registration
+      navigate('/'); 
     } catch (error) {
       toast.error(error.response?.data?.error || 'Registration failed');
     }
@@ -106,7 +102,7 @@ const Register = () => {
           <label>Role</label>
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="user">User</option>
-            <option value="admin">Admin</option>
+            <option value="superadmin">SuperAdmin</option>
           </select>
         </div>
         <button type="submit" className="submit-button">Register</button>

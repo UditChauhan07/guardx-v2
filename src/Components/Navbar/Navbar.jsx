@@ -15,7 +15,6 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
-  // Ensure only logged-in users can access protected routes
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (!userData) {
@@ -27,13 +26,11 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     setFormData(userData);
   }, [navigate]);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Update profile using email
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
@@ -56,12 +53,9 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
 
       if (response.status === 200) {
         toast.success('Profile updated successfully!');
-
-        // Update localStorage
         const updatedProfile = { ...localProfile, ...formData };
         localStorage.setItem('user', JSON.stringify(updatedProfile));
 
-        // Update state
         setLocalProfile(updatedProfile);
         setIsEditing(false);
         setIsProfileModalOpen(false);
@@ -72,7 +66,6 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     }
   };
 
-  // Delete profile using email
   const handleDeleteProfile = async () => {
     try {
       const confirmDelete = window.confirm('Are you sure you want to delete your profile?');
@@ -88,7 +81,6 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     }
   };
 
-  // Logout user
   const handleLogout = () => {
     localStorage.removeItem('user');
     toast.success('Logged out successfully!');
@@ -97,12 +89,10 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
 
   return (
     <div className="navbar">
-      {/* Dashboard Title */}
       <div className="navbar-content">
         <h1 className="navbar-title">{moduleTitle || 'Dashboard'}</h1>
       </div>
 
-      {/* User Profile Icon */}
       <FaUserCircle className="admin-icon" onClick={() => setIsDropdownModalOpen(true)} size={40} />
 
       {/* Dropdown Modal */}
@@ -110,9 +100,18 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
         <Box className="dropdown-modal-box">
           <h2 className="modal-title">Options</h2>
           <div className="modal-actions">
-            <button onClick={() => { setIsDropdownModalOpen(false); setIsProfileModalOpen(true); }} className="dropdown-item">Profile</button>
-            <button onClick={handleLogout} className="dropdown-item">Logout</button>
-            <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
+            {localProfile.role === 'superadmin' ? (
+              <>
+                <button onClick={() => { setIsDropdownModalOpen(false); setIsProfileModalOpen(true); }} className="dropdown-item">Profile</button>
+                <button onClick={handleLogout} className="dropdown-item">Logout</button>
+                <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
+              </>
+            ) : (
+              <>
+                <button onClick={handleLogout} className="dropdown-item">Logout</button>
+                <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
+              </>
+            )}
           </div>
         </Box>
       </Modal>
@@ -125,11 +124,13 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
             <div className="modal-item"><strong>Email:</strong> {localProfile.email}</div>
             <div className="modal-item"><strong>Phone:</strong> {localProfile.phone}</div>
             <div className="modal-item"><strong>Role:</strong> {localProfile.role}</div>
-            <div className="modal-actions">
-              <button onClick={() => setIsEditing(true)} ><FaEdit /> Edit Profile</button>
-              <button onClick={handleDeleteProfile} ><FaTrash /> Delete Profile</button>
-              <button onClick={() => setIsProfileModalOpen(false)} >Close</button>
-            </div>
+            {localProfile.role === 'superadmin' && (
+              <div className="modal-actions">
+                <button onClick={() => setIsEditing(true)} ><FaEdit /> Edit Profile</button>
+                <button onClick={handleDeleteProfile} ><FaTrash /> Delete Profile</button>
+              </div>
+            )}
+            <button onClick={() => setIsProfileModalOpen(false)}>Close</button>
           </div>
         </Box>
       </Modal>
