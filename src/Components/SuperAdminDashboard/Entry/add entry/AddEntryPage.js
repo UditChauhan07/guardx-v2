@@ -23,7 +23,7 @@ const AddEntryPage = () => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
-        setLogoBase64(reader.result.split(',')[1]); // Extract only Base64 part
+        setLogoBase64(reader.result); 
       };
     }
   };
@@ -37,11 +37,11 @@ const AddEntryPage = () => {
       await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-type-of-entry', {
         title,
         entryType,
-        logoBase64, // Sending Base64 image instead of file
+        logoBase64, // Sending Base64 image to backend
       });
 
       setLoading(false);
-      navigate('/type-of-entries'); // Redirect to the Type of Entries page after adding
+      navigate('/type-of-entries'); // Redirect after adding
     } catch (error) {
       setLoading(false);
       console.error('Error adding entry: ', error);
@@ -58,7 +58,7 @@ const AddEntryPage = () => {
       <Sidebar onClick={handleSidebarClick} />
       <div className={styles.addEntryPageContainer}>
         <form className={styles.addEntryForm} onSubmit={handleSubmit}>
-          <button onClick={handleBackButton} className={styles.backButton}>
+          <button type="button" onClick={handleBackButton} className={styles.backButton}>
             ← Back to Entries
           </button>
 
@@ -85,6 +85,11 @@ const AddEntryPage = () => {
               onChange={handleLogoChange}
               required
             />
+            {logoBase64 && (
+              <div className={styles.imagePreview}>
+                <img src={logoBase64} alt="Preview" className={styles.previewImg} />
+              </div>
+            )}
           </div>
 
           <div className={styles.inputWrapper}>
