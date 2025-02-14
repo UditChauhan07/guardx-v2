@@ -196,3 +196,174 @@
 .cancelButton:hover {
   background-color: #c82333;
 }
+.entriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.entryCard {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.entrySelectCard.selected {
+  border: 3px solid green;
+}
+/* Modal Backdrop */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.addModal {
+  background: white;
+  width: 600px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Heading */
+.addModal h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Filter Section */
+.filterSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.filterSection select,
+.modalSearch {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.filterSection select {
+  background: white;
+  cursor: pointer;
+}
+
+.modalSearch {
+  flex: 1;
+  margin-left: 10px;
+}
+
+/* Grid for Entry Selection */
+.entrySelectionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Entry Selection Cards */
+.entrySelectCard {
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.entrySelectCard:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Selected Entry */
+.entrySelectCard.selected {
+  border: 3px solid #4CAF50;
+  background: #e8f5e9;
+}
+
+/* Entry Images */
+.entryLogo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+/* Submit & Close Buttons */
+.submitButton, .closeModalButton {
+  width: 48%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
+}
+
+.submitButton {
+  background: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.submitButton:hover {
+  background: #388E3C;
+}
+
+.closeModalButton {
+  background: #f44336;
+  color: white;
+  border: none;
+}
+
+.closeModalButton:hover {
+  background: #D32F2F;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Error Message */
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
