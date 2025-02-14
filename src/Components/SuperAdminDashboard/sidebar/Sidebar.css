@@ -63,4 +63,53 @@
     margin-left: 16rem;
     padding: 2rem;
   }
-  
+  /* Accordion Styling */
+.accordion-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 60%;
+  background-color: transparent;
+
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.accordion-chevron {
+  transition: transform 0.3s ease-in-out;
+}
+
+.accordion-button[aria-expanded="true"] .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+/* Regular Entries List */
+.regular-entries-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.regular-entry-item {
+  padding: 8px 20px;
+}
+
+.regular-entry-link {
+  color: rgb(21, 21, 21);
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+}
+
+.regular-entry-link:hover {
+  background-color: #007bff;
+  padding-left: 5px;
+  transition: 0.3s;
+}
+
+.no-entries-message {
+  color: #ccc;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}

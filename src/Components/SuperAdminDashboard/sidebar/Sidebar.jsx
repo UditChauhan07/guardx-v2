@@ -2,21 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   FaHome, FaBuilding, FaCalendarAlt, FaLightbulb, FaUsers, FaUserAlt,
-  FaClipboardList, FaUserCheck, FaHouseUser, FaClipboard
+  FaClipboardList, FaUserCheck, FaHouseUser, FaClipboard, FaChevronDown
 } from 'react-icons/fa';
+import axios from 'axios';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemHeading,
+  AccordionItemButton,
+  AccordionItemPanel
+} from 'react-accessible-accordion';
+import 'react-accessible-accordion/dist/fancy-example.css'; // Import Accordion styles
 import './Sidebar.css';
 
 const Sidebar = ({ onClick }) => {
   const [userRole, setUserRole] = useState(null);
+  const [societyId, setSocietyId] = useState(null);
+  const [regularEntries, setRegularEntries] = useState([]); // Regular Entries in the sidebar
 
   useEffect(() => {
-    // Fetch user role from localStorage
+    // Fetch user role and society ID from localStorage
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       setUserRole(userData.role);
+      setSocietyId(userData.societyId || null);
     }
   }, []);
+
+  useEffect(() => {
+    if (societyId) {
+      const fetchRegularEntries = async () => {
+        try {
+          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+          
+          // ✅ Filter only "Regular" entries
+          const regularEntriesData = response.data.entries.filter(entry => entry.entryType === 'regular');
+          setRegularEntries(regularEntriesData);
+        } catch (error) {
+          console.error('Error fetching regular entries:', error);
+        }
+      };
+
+      fetchRegularEntries();
+    }
+  }, [societyId]);
 
   return (
     <div className="sidebar">
@@ -94,12 +124,35 @@ const Sidebar = ({ onClick }) => {
                 Roles
               </NavLink>
             </li>
-            <li className="menu-item">
-              <NavLink to="/regular-entries" className="menu-link" activeClassName="active" onClick={() => onClick('Regular Entries')}>
-                <FaClipboardList className="menu-icon" />
-                Regular Entries
-              </NavLink>
-            </li>
+            {/* ✅ Regular Entries with Accordion */}
+ <li className="menu-item">
+ <Accordion allowZeroExpanded>
+   <AccordionItem>
+     <AccordionItemHeading>
+       <AccordionItemButton className="menu-link accordion-button">
+         <FaClipboardList className="menu-icon" />
+         Regular Entries
+         <FaChevronDown className="accordion-chevron" />
+       </AccordionItemButton>
+     </AccordionItemHeading>
+     <AccordionItemPanel>
+       <ul className="regular-entries-list">
+         {regularEntries.length > 0 ? (
+           regularEntries.map((entry) => (
+             <li key={entry.id} className="regular-entry-item">
+               <NavLink to={`/regular-entry/${entry.id}`} className="regular-entry-link">
+                 {entry.title}
+               </NavLink>
+             </li>
+           ))
+         ) : (
+           <li className="no-entries-message">No regular entries found.</li>
+         )}
+       </ul>
+     </AccordionItemPanel>
+   </AccordionItem>
+ </Accordion>
+</li>
             <li className="menu-item">
               <NavLink to="/guest-entries" className="menu-link" activeClassName="active" onClick={() => onClick('Guest Entries Request')}>
                 <FaUserCheck className="menu-icon" />
@@ -126,3 +179,4 @@ const Sidebar = ({ onClick }) => {
 };
 
 export default Sidebar;
+ 
