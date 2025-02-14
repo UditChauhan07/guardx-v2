@@ -22,6 +22,10 @@ import AllUsers from './Components/SuperAdminDashboard/Users/AllUsers';
 import AddUser from './Components/SuperAdminDashboard/Users/Adduser/AddUser';
 import EditUser from './Components/SuperAdminDashboard/Users/EditUser/EditUser';
 import EditSocietyUser from './Components/SuperAdminDashboard/Society/EditSociety/EditSocietyUser/EditSocietyUser';
+import Regular_entries from './Components/All_Users_Dashboard/regular_entries/Regular_entries';
+import Guset_Entries from './Components/All_Users_Dashboard/guest_entries/Guset_Entries';
+import House_list from './Components/All_Users_Dashboard/house_list/House_list';
+import Attendance from './Components/All_Users_Dashboard/attendance/Attendance';
 
 function App() {
   
@@ -51,6 +55,10 @@ function App() {
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/edit-user/:id" element={<EditUser />} />
           <Route path='/edit-society-user/:id' element= {<EditSocietyUser/>}></Route>
+          <Route path="/regular-entries" element={<Regular_entries />} />
+          <Route path="/guest-entries" element={<Guset_Entries />} />
+          <Route path="/house-list" element={<House_list />} />
+          <Route path="/attendance" element={<Attendance />} />
         </Routes>
       </Router>
     </>

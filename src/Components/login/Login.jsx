@@ -49,6 +49,7 @@ const Login = () => {
           phone: user.phone || '',
           role: user.role,
           permissions: user.permissions || [],
+          societyId: user.societyId || '',
         }));
   
         toast.success('Login successful!');
