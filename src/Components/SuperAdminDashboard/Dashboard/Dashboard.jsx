@@ -59,14 +59,10 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         if (userData && userData.role === 'superadmin') {
-          const societiesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-societies');
-          const entriesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-type-of-entries');
-          const purposesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-purposes');
-          const usersResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-users');
+          const societiesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-societies');
+          const entriesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-type-of-entries');
+          const purposesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-purposes');
+          const usersResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-users');
   
           setTotalSocieties(societiesResponse.data.societies.length);
           setTotalEntries(entriesResponse.data.entries.length);
@@ -89,14 +85,10 @@ const Dashboard = () => {
             }],
           });
         } else {
-          const regularEntriesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-regular-entries');
-          const houseListResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-house-list');
-          const entriesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-type-of-entries');
-          const purposesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-purposes');
+          const regularEntriesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-regular-entries');
+          const houseListResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-house-list');
+          const entriesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-type-of-entries');
+          const purposesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-purposes');
   
           setTotalRegularEntries(regularEntriesResponse.data.entries.length);
           setTotalHouseList(houseListResponse.data.houses.length);
