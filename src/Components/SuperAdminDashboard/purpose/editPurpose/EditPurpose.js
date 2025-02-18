@@ -19,7 +19,8 @@ const EditPurpose = () => {
   useEffect(() => {
     const fetchPurpose = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-purpose/${id}`);
+        const response = await axios.get(`http://localhost:5000
+/api/get-purpose/${id}`);
         const purposeData = response.data.purpose;
         setPurpose(purposeData.purpose);
         setPurposeType(purposeData.purposeType);
@@ -60,7 +61,8 @@ const EditPurpose = () => {
     };
 
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-purpose/${id}`, purposeData, {
+      await axios.put(`http://localhost:5000
+/api/update-purpose/${id}`, purposeData, {
         headers: {
           'Content-Type': 'application/json',
         },

@@ -40,7 +40,7 @@ const TypeOfEntryPage = () => {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-type-of-entries');
+        const response = await axios.get('http://localhost:5000/api/get-all-type-of-entries');
         setEntries(response.data.entries);
       } catch (error) {
         console.error('Error fetching entries: ', error);
@@ -65,7 +65,8 @@ const TypeOfEntryPage = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-type-of-entry/${entryToDelete}`);
+      await axios.delete(`http://localhost:5000
+/api/delete-type-of-entry/${entryToDelete}`);
       setEntries(entries.filter(entry => entry.id !== entryToDelete));
       setShowDeleteModal(false);
     } catch (error) {
@@ -87,7 +88,7 @@ const TypeOfEntryPage = () => {
     if (userRole !== 'superadmin' && societyId) {
       const fetchSocietyEntries = async () => {
         try {
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+          const response = await axios.get(`http://localhost:5000/api/society/get-entries/${societyId}`);
           setSocietyEntries(response.data.entries);
         } catch (error) {
           console.error('Error fetching society entries: ', error);
@@ -128,7 +129,7 @@ const TypeOfEntryPage = () => {
     try {
       await Promise.all(
         selectedEntries.map(entry =>
-          axios.post('https://api-kpur6ixuza-uc.a.run.app/api/society/add-entry', {
+          axios.post('http://localhost:5000/api/society/add-entry', {
             entryId: entry.id,
             societyId: societyId,
             userId: JSON.parse(localStorage.getItem('user')).id
@@ -147,7 +148,7 @@ const TypeOfEntryPage = () => {
   // Delete an entry from the society
   const handleDeleteEntry = async (entryId) => {
     try {
-      await axios.delete('https://api-kpur6ixuza-uc.a.run.app/api/society/delete-entry', {
+      await axios.delete('http://localhost:5000/api/society/delete-entry', {
         data: { entryId, societyId }
       });
 

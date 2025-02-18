@@ -1,0 +1,121 @@
+/* ✅ Main Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-left: 300px;
+  }
+  
+  /* ✅ Content Section */
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+
+  
+  }
+  
+  /* ✅ Back Button */
+  .backButton {
+    display: flex;
+    align-items: center;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    margin-right: 900px;
+  }
+  
+  .backButton:hover {
+    background: #0056b3;
+  }
+  
+  .backButton svg {
+    margin-right: 8px;
+  }
+  
+  /* ✅ Person Details Card */
+  .personCard {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+  }
+  
+  /* ✅ Image Section */
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* ✅ Image Box */
+  .imageBox {
+    text-align: center;
+  }
+  
+  /* ✅ Profile & Aadhar Images */
+  .profileImage,
+  .adharImage {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #ddd;
+    transition: transform 0.3s ease;
+  }
+  
+  .profileImage:hover,
+  .adharImage:hover {
+    transform: scale(1.1);
+  }
+  
+  /* ✅ Person Details */
+  .details {
+    font-size: 18px;
+  }
+  
+  .details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .details p {
+    margin: 8px 0;
+    color: #333;
+  }
+  
+  .details strong {
+    color: #007bff;
+  }
+  
+  /* ✅ Loading & Error Styles */
+  .loading, .error {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    color: red;
+  }
+  

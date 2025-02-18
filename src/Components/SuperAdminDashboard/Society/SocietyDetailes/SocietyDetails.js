@@ -23,7 +23,7 @@ const SocietyDetails = () => {
   useEffect(() => {
     const fetchSociety = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society/${id}`);
+        const response = await axios.get(`http://localhost:5000/api/get-society/${id}`);
         setSociety(response.data.society);
       } catch (error) {
         console.error('Error fetching society details:', error);
@@ -35,7 +35,8 @@ const SocietyDetails = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-users/${id}`);
+        const response = await axios.get(`http://localhost:5000
+/api/get-society-users/${id}`);
         setUsers(response.data.users);
       } catch (error) {
         console.error('Error fetching society users:', error);
@@ -47,7 +48,7 @@ const SocietyDetails = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+        const response = await axios.get('http://localhost:500/api/get-all-roles');
         setRoles(response.data.roles);
       } catch (error) {
         console.error('Error fetching roles:', error);
@@ -68,7 +69,7 @@ const SocietyDetails = () => {
       societyId: id,
     };
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-user', userData);
+      await axios.post('http://localhost:5000/api/add-user', userData);
       toast.success('User added successfully!');
       setUsers([...users, userData]);
       setLoading(false);
@@ -87,7 +88,8 @@ const SocietyDetails = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-user/${userToDelete}`);
+      await axios.delete(`http://localhost:5000
+/api/delete-user/${userToDelete}`);
       toast.success('User deleted successfully!');
       setUsers(users.filter(user => user.id !== userToDelete));
       setShowDeleteModal(false);

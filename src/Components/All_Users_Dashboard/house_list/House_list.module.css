@@ -1,0 +1,125 @@
+.housePageContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-left: 300px;
+  }
+  
+  .houseTableSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+  }
+  
+  .headerSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .searchBar {
+    width: 250px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .addButton {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    margin-right: 800px;
+  }
+  
+  .addButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .houseTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .houseTable th, .houseTable td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .houseTable th {
+    background-color: #f4f4f4;
+  }
+  
+  .actionButton {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 8px;
+  }
+  
+  .edit {
+    color: #28a745;
+  }
+  
+  .delete {
+    color: #dc3545;
+  }
+  
+  .modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .deleteModal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .modalActions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  .confirmButton {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .cancelButton {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+  

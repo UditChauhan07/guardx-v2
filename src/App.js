@@ -22,10 +22,16 @@ import AllUsers from './Components/SuperAdminDashboard/Users/AllUsers';
 import AddUser from './Components/SuperAdminDashboard/Users/Adduser/AddUser';
 import EditUser from './Components/SuperAdminDashboard/Users/EditUser/EditUser';
 import EditSocietyUser from './Components/SuperAdminDashboard/Society/EditSociety/EditSocietyUser/EditSocietyUser';
-import Regular_entries from './Components/All_Users_Dashboard/regular_entries/Regular_entries';
 import Guset_Entries from './Components/All_Users_Dashboard/guest_entries/Guset_Entries';
 import House_list from './Components/All_Users_Dashboard/house_list/House_list';
 import Attendance from './Components/All_Users_Dashboard/attendance/Attendance';
+import Add_House from './Components/All_Users_Dashboard/house_list/Add_house/Add_House';
+import Edit_House from './Components/All_Users_Dashboard/house_list/Edit_House/Edit_House';
+import House_Info from './Components/All_Users_Dashboard/house_list/House_info/House_Info';
+import AddPeopleEntry from './Components/All_Users_Dashboard/regular_entries/AddpeopleEntry/AddPeopleEntry';
+import RegularEntries from './Components/All_Users_Dashboard/regular_entries/Regular_entries';
+import EditPersonDetails from './Components/All_Users_Dashboard/regular_entries/editpersondetails/EditPersonDetails';
+import PersonDetails from './Components/All_Users_Dashboard/regular_entries/persondetails/PersonDetails';
 
 function App() {
   
@@ -42,7 +48,7 @@ function App() {
           <Route path="/society-details/:id" element={<SocietyDetails />} />
           <Route path="/edit-society/:id" element={<EditSociety />} /> 
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path = "/type-of-entries" element= {<TypeOfEntryPage/>}/>
+          <Route path ="/type-of-entries" element= {<TypeOfEntryPage/>}/>
           <Route path="/add-entry" element={<AddEntryPage />} />
           <Route path="/edit-entry/:id" element={<EditEntry />} />
           <Route path="/purpose" element={<AllPurposes />} />
@@ -55,10 +61,17 @@ function App() {
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/edit-user/:id" element={<EditUser />} />
           <Route path='/edit-society-user/:id' element= {<EditSocietyUser/>}></Route>
-          <Route path="/regular-entries" element={<Regular_entries />} />
+          <Route path="/regular-entries/:entryId" element={<RegularEntries />} />
           <Route path="/guest-entries" element={<Guset_Entries />} />
           <Route path="/house-list" element={<House_list />} />
-          <Route path="/attendance" element={<Attendance />} />
+          <Route path="/attendance/:personId" element={<Attendance />} />
+          <Route path="/add-house" element={<Add_House />} />
+          <Route path="/edit-house/:houseId" element={<Edit_House />} />
+          <Route path="/house-info/:houseId" element={<House_Info />} />
+          <Route path="/add-person/:entryId" element={<AddPeopleEntry/>} />
+          <Route path="/edit-person/:personId" element={<EditPersonDetails />} />
+          <Route path="/person-details/:personId" element={<PersonDetails/>} />
+
         </Routes>
       </Router>
     </>

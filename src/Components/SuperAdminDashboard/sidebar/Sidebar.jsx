@@ -18,8 +18,7 @@ import './Sidebar.css';
 const Sidebar = ({ onClick }) => {
   const [userRole, setUserRole] = useState(null);
   const [societyId, setSocietyId] = useState(null);
-  const [regularEntries, setRegularEntries] = useState([]); // Regular Entries in the sidebar
-
+  const [regularEntries, setRegularEntries] = useState([]); 
   useEffect(() => {
     // Fetch user role and society ID from localStorage
     const storedUser = localStorage.getItem('user');
@@ -34,7 +33,7 @@ const Sidebar = ({ onClick }) => {
     if (societyId) {
       const fetchRegularEntries = async () => {
         try {
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+          const response = await axios.get(`http://localhost:5000/api/society/get-entries/${societyId}`);
           
           // ✅ Filter only "Regular" entries
           const regularEntriesData = response.data.entries.filter(entry => entry.entryType === 'regular');
@@ -140,9 +139,9 @@ const Sidebar = ({ onClick }) => {
          {regularEntries.length > 0 ? (
            regularEntries.map((entry) => (
              <li key={entry.id} className="regular-entry-item">
-               <NavLink to={`/regular-entry/${entry.id}`} className="regular-entry-link">
-                 {entry.title}
-               </NavLink>
+               <NavLink to={`/regular-entries/${entry.id}`} className="regular-entry-link">
+  {entry.title}
+</NavLink>
              </li>
            ))
          ) : (

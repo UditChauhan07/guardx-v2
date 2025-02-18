@@ -78,7 +78,7 @@ const AddRole = () => {
     console.log("Final roleData sent to API:", roleData); // Debugging log
   
     try {
-      const response = await axios.post("https://api-kpur6ixuza-uc.a.run.app/api/add-role", roleData);
+      const response = await axios.post("http://localhost:5000/api/add-role", roleData);
       console.log("API Response:", response.data);
       toast.success("Role added successfully!");
       navigate("/roles");

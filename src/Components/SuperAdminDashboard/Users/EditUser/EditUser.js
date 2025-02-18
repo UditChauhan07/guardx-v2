@@ -21,13 +21,13 @@ const EditUser = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-user/${id}`);
+        const userResponse = await axios.get(`http://localhost:5000/api/get-user/${id}`);
         const userData = userResponse.data.user;
         setName(userData.name);
         setPhone(userData.phone);
         setEmail(userData.email);
         setRole(userData.role);
-        const rolesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+        const rolesResponse = await axios.get('http://localhost:5000/api/get-all-roles');
         setRoles(rolesResponse.data.roles);
       } catch (error) {
         console.error('Error fetching user details:', error);
@@ -50,7 +50,8 @@ const EditUser = () => {
     };
 
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-user/${id}`, updatedUserData);
+      await axios.put(`http://localhost:5000
+/api/update-user/${id}`, updatedUserData);
       toast.success('User updated successfully!');
       navigate('/users');
     } catch (error) {

@@ -38,7 +38,8 @@ const EditRole = () => {
   useEffect(() => {
     const fetchRole = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-role/${id}`);
+        const response = await axios.get(`http://localhost:5000
+/api/get-role/${id}`);
         const roleData = response.data.role;
 
         setRoleTitle(roleData.title);
@@ -94,7 +95,8 @@ const EditRole = () => {
     };
 
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-role/${id}`, updatedRoleData);
+      await axios.put(`http://localhost:5000
+/api/update-role/${id}`, updatedRoleData);
       setLoading(false);
       navigate('/roles');
     } catch (error) {

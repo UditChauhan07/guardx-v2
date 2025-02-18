@@ -1,0 +1,185 @@
+/* Main container with modern layout */
+.houseInfoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 40px;
+  margin-top: 100px;
+  margin-left: 80px;
+  flex-wrap: wrap;
+  position: relative; 
+}
+
+/* Card Styling */
+.houseCard, .ownerCard {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: left;
+  animation: fadeIn 0.5s ease-in-out;
+  z-index: 1000;
+  margin-top: 50px;
+}
+
+/* Title Styling */
+.pageTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+/* Info Item Styling */
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+/* Labels and Values */
+.label {
+  font-weight: bold;
+  color: #444;
+}
+
+.value {
+  color: #555;
+  font-size: 18px;
+}
+
+/* Status Colors */
+.approved {
+  color: green;
+  font-weight: bold;
+}
+
+.notApproved {
+  color: red;
+  font-weight: bold;
+}
+
+/* Owner Image */
+.ownerImageContainer {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.ownerImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ddd;
+}
+
+/* No Owner Assigned */
+.noOwner {
+  color: #999;
+  text-align: center;
+  font-size: 16px;
+}
+
+.addOwnerButton {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.addOwnerButton:hover {
+  background: #45a049;
+}
+
+/* Modal Styles */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContainer {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modalContainer h3 {
+  margin-bottom: 15px;
+}
+
+.modalContainer input {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submitButton {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.submitButton:hover {
+  background: #218838;
+}
+
+.cancelButton {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cancelButton:hover {
+  background: #c82333;
+}
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 250px;
+  background-color: #151515;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

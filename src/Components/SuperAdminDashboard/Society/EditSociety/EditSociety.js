@@ -22,7 +22,8 @@ const EditSociety = () => {
   useEffect(() => {
     const fetchSociety = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society/${id}`);
+        const response = await axios.get(`http://localhost:5000
+/api/get-society/${id}`);
         const society = response.data.society;
         setFormData({
           societyName: society.societyName,
@@ -53,7 +54,8 @@ const EditSociety = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-society/${id}`, formData);
+      await axios.put(`http://localhost:5000
+/api/update-society/${id}`, formData);
       history('/society'); 
     } catch (error) {
       console.error('Error updating society:', error);

@@ -33,7 +33,7 @@ const AddSociety = () => {
 
     try {
       // Send API request to backend in JSON format
-      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-society', formData, {
+      const response = await axios.post('http://localhost:5000/api/add-society', formData, {
         headers: {
           'Content-Type': 'application/json', // Send as JSON
         },

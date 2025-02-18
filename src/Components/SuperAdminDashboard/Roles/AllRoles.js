@@ -15,7 +15,7 @@ const AllRoles = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+                const response = await axios.get('http://localhost:5000/api/get-all-roles');
                 setRoles(response.data.roles);
             } catch (error) {
                 console.error('Error fetching roles: ', error);
@@ -41,7 +41,8 @@ const AllRoles = () => {
 
     const handleDeleteConfirmation = async () => {
         try {
-            await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-role/${roleToDelete}`);
+            await axios.delete(`http://localhost:5000
+/api/delete-role/${roleToDelete}`);
             setRoles(roles.filter(role => role.id !== roleToDelete));
             setShowDeleteModal(false);
         } catch (error) {
