@@ -32,7 +32,8 @@ const House_Info = () => {
           setError("House ID is missing.");
           return;
         }
-        const houseResponse = await axios.get(`http://localhost:5000/api/get-house/${houseId}`);
+        const houseResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/get-house/${houseId}`);
         setHouse(houseResponse.data.house);
       } catch (error) {
         console.error("Error fetching house details:", error);
@@ -46,7 +47,8 @@ const House_Info = () => {
   useEffect(() => {
     const fetchOwnerDetails = async () => {
       try {
-        const ownerResponse = await axios.get(`http://localhost:5000/api/get-house-owner/${houseId}`);
+        const ownerResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/get-house-owner/${houseId}`);
         if (ownerResponse.data.owner) {
           setOwner(ownerResponse.data.owner); 
           console.log("Fetched Owner:", ownerResponse.data.owner); // Debugging
@@ -104,7 +106,8 @@ const House_Info = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/add-house-owner', {
+      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app
+/api/add-house-owner', {
         houseId,
         ownerName,
         mobileNo,
@@ -134,7 +137,8 @@ const House_Info = () => {
     }
   
     try {
-      await axios.put(`http://localhost:5000/api/update-house-owner/${owner.id}`, {
+      await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+/api/update-house-owner/${owner.id}`, {
         ownerName,
         mobileNo,
         adharNo,
@@ -160,7 +164,8 @@ const House_Info = () => {
     }
   
     try {
-      await axios.delete(`http://localhost:5000/api/delete-house-owner/${owner.id}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+/api/delete-house-owner/${owner.id}`);
       setOwner(null);
       window.location.reload();
     } catch (error) {

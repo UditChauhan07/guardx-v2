@@ -42,8 +42,10 @@ const RegularEntries = () => {
   // ✅ Fetch all people in this regular entry
   const fetchPeople = async () => {
     try {
-      console.log(`🔍 API Request: http://localhost:5000/getPeopleByEntry/${entryId}/${societyId}`);
-      const response = await axios.get(`http://localhost:5000/getPeopleByEntry/${entryId}/${societyId}`);
+      console.log(`🔍 API Request: https://api-kpur6ixuza-uc.a.run.app
+/getPeopleByEntry/${entryId}/${societyId}`);
+      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/getPeopleByEntry/${entryId}/${societyId}`);
   
       console.log("✅ API Response:", response.data);
   
@@ -64,7 +66,8 @@ const RegularEntries = () => {
   // ✅ Delete person
   const handleDelete = async (personId) => {
     try {
-      await axios.delete(`http://localhost:5000/deletePersonFromEntry/${personId}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+/deletePersonFromEntry/${personId}`);
       fetchPeople(); // Refresh list
     } catch (error) {
       console.error('Error deleting person:', error);

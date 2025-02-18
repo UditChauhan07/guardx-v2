@@ -49,7 +49,8 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
 
       console.log('Updating profile:', updateData);
 
-      const response = await axios.put('http://localhost:5000/update-admin', updateData);
+      const response = await axios.put('https://api-kpur6ixuza-uc.a.run.app
+/update-admin', updateData);
 
       if (response.status === 200) {
         toast.success('Profile updated successfully!');
@@ -71,7 +72,8 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
       const confirmDelete = window.confirm('Are you sure you want to delete your profile?');
       if (!confirmDelete) return;
 
-      await axios.delete('http://localhost:5000/delete-admin', { data: { email: localProfile.email } });
+      await axios.delete('https://api-kpur6ixuza-uc.a.run.app
+/delete-admin', { data: { email: localProfile.email } });
 
       toast.success('Profile deleted successfully!');
       localStorage.removeItem('user');

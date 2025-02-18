@@ -36,7 +36,8 @@ const Login = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app
+/login', { email, password });
   
       if (response.data.user) {
         const user = response.data.user;

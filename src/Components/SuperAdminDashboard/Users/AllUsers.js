@@ -19,7 +19,8 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/get-all-users');
+        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app
+/api/get-all-users');
         setUsers(response.data.users);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -49,7 +50,7 @@ const AllUsers = () => {
   // Handle delete confirmation
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`http://localhost:5000
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
 /api/delete-user/${userToDelete}`);
       setUsers(users.filter(user => user.id !== userToDelete));
       setShowDeleteModal(false);

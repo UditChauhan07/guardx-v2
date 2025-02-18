@@ -38,7 +38,8 @@ const AllPurposes = () => {
   useEffect(() => {
     const fetchAllPurposes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/get-all-purposes');
+        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app
+/api/get-all-purposes');
         setAllPurposes(response.data.purposes);
       } catch (error) {
         console.error('Error fetching all purposes:', error);
@@ -62,7 +63,8 @@ const AllPurposes = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/delete-purpose/${purposeToDelete}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+/api/delete-purpose/${purposeToDelete}`);
       setPurposes(purposes.filter((purpose) => purpose.id !== purposeToDelete));
       setShowDeleteModal(false);
     } catch (error) {
@@ -83,7 +85,8 @@ const AllPurposes = () => {
     if (userRole !== 'superadmin' && societyId){
       const fetchSocietyPurposes = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/api/society/get-purposes/${societyId}`);
+          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/society/get-purposes/${societyId}`);
           setSocietyPurposes(response.data.purposes);
         } catch (error) {
           console.error('Error fetching society purposes:', error);
@@ -120,7 +123,8 @@ const AllPurposes = () => {
   // Delete a purpose from society
   const handleDeletePurpose = async (purposeId) => {
     try {
-      await axios.delete('http://localhost:5000/api/society/delete-purpose', {
+      await axios.delete('https://api-kpur6ixuza-uc.a.run.app
+/api/society/delete-purpose', {
         data: { purposeId, societyId },
       });
       setSocietyPurposes(societyPurposes.filter((purpose) => purpose.id !== purposeId));
@@ -155,7 +159,8 @@ const AllPurposes = () => {
     try {
       await Promise.all(
         selectedPurposes.map((purpose) =>
-          axios.post('http://localhost:5000/api/society/add-purpose', {
+          axios.post('https://api-kpur6ixuza-uc.a.run.app
+/api/society/add-purpose', {
             purposeId: purpose.id,
             societyId: societyId,
             userId: JSON.parse(localStorage.getItem('user')).id,

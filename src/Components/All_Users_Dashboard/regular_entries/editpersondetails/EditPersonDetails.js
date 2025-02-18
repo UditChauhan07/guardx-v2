@@ -37,7 +37,8 @@ const EditPersonDetails = () => {
   // ✅ Fetch person's existing details
   useEffect(() => {
     if (personId) {
-      axios.get(`http://localhost:5000/getPersonById/${personId}`)
+      axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/getPersonById/${personId}`)
         .then((response) => {
           console.log("✅ API Response:", response.data.person); // Debugging
           const personData = response.data.person;
@@ -58,7 +59,8 @@ const EditPersonDetails = () => {
   // ✅ Fetch available houses
   useEffect(() => {
     if (societyId) {
-      axios.get(`http://localhost:5000/api/get-houses/${societyId}`)
+      axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/get-houses/${societyId}`)
         .then((response) => {
           setHouses(response.data.houses);
         })
@@ -129,7 +131,8 @@ const EditPersonDetails = () => {
 
       console.log("📤 Update Payload:", payload);
 
-      const response = await axios.put(`http://localhost:5000/updatePersonDetails/${personId}`, payload);
+      const response = await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+/updatePersonDetails/${personId}`, payload);
       
       toast.success("✅ Person details updated successfully!");
       navigate(-1);
@@ -178,7 +181,8 @@ const EditPersonDetails = () => {
   <label>Current Image:</label>
   {formData.image && (
     <img 
-      src={formData.image.startsWith("data:image") ? formData.image : `http://localhost:5000/uploads/${formData.image}`} 
+      src={formData.image.startsWith("data:image") ? formData.image : `https://api-kpur6ixuza-uc.a.run.app
+/uploads/${formData.image}`} 
       alt="Person" 
       className={styles.previewImage} 
     />
@@ -191,7 +195,8 @@ const EditPersonDetails = () => {
   <label>Current Aadhar Image:</label>
   {formData.adharImage && (
     <img 
-      src={formData.adharImage.startsWith("data:image") ? formData.adharImage : `http://localhost:5000/uploads/${formData.adharImage}`} 
+      src={formData.adharImage.startsWith("data:image") ? formData.adharImage : `https://api-kpur6ixuza-uc.a.run.app
+/uploads/${formData.adharImage}`} 
       alt="Aadhar" 
       className={styles.previewImage} 
     />

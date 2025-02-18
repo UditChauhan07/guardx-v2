@@ -34,7 +34,8 @@ const AddEntryPage = () => {
     setLoading(true);
 
     try {
-      await axios.post('http://localhost:5000/api/add-type-of-entry', {
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app
+/api/add-type-of-entry', {
         title,
         entryType,
         logoBase64, // Sending Base64 image to backend

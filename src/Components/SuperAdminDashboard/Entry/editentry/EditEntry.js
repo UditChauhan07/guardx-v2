@@ -19,7 +19,7 @@ const EditEntry = () => {
     const fetchEntry = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000
+          `https://api-kpur6ixuza-uc.a.run.app
 /api/get-type-of-entry/${id}`
         );
         const entryData = response.data.entry;
@@ -54,7 +54,7 @@ const EditEntry = () => {
     setLoading(true);
 
     try {
-      await axios.put(`http://localhost:5000
+      await axios.put(`https://api-kpur6ixuza-uc.a.run.app
 /api/update-type-of-entry/${id}`, {
         title,
         entryType,

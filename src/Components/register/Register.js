@@ -44,7 +44,8 @@ const Register = () => {
     if (!validateForm()) return;
   
     try {
-      const response = await axios.post('http://localhost:5000/register', {
+      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app
+/register', {
         email,
         password, 
         phone,

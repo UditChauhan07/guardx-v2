@@ -11,7 +11,8 @@ const Attendance = () => {
   // ✅ Fetch Attendance Data
   // useEffect(() => {
   //   axios
-  //     .get("http://localhost:5000/getAttendanceRecords")
+  //     .get("https://api-kpur6ixuza-uc.a.run.app
+/getAttendanceRecords")
   //     .then((response) => {
   //       setAttendance(response.data.records);
   //       setLoading(false);
@@ -27,7 +28,8 @@ const Attendance = () => {
   //   if (!window.confirm("Are you sure you want to delete this record?")) return;
 
   //   axios
-  //     .delete(`http://localhost:5000/deleteAttendance/${id}`)
+  //     .delete(`https://api-kpur6ixuza-uc.a.run.app
+/deleteAttendance/${id}`)
   //     .then(() => {
   //       toast.success("✅ Attendance record deleted!");
   //       setAttendance((prev) => prev.filter((record) => record.id !== id));
