@@ -33,9 +33,7 @@ const Sidebar = ({ onClick }) => {
     if (societyId) {
       const fetchRegularEntries = async () => {
         try {
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
-/api/society/get-entries/${societyId}`);
-          
+          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
           // ✅ Filter only "Regular" entries
           const regularEntriesData = response.data.entries.filter(entry => entry.entryType === 'regular');
           setRegularEntries(regularEntriesData);

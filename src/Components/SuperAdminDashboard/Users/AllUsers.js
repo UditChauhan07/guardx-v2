@@ -15,20 +15,31 @@ const AllUsers = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch all users
+  // Fetch logged-in user info (assuming stored in localStorage)
+  const loggedInUser = JSON.parse(localStorage.getItem('user')) || {};
+  const { role, societyId } = loggedInUser;
+
+  // Fetch users based on role
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-users');
-        setUsers(response.data.users);
+        let response;
+        if (role === 'superadmin') {
+          response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-users');
+        } else if (societyId) {
+          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-users/${societyId}`);
+        }
+
+        if (response) {
+          setUsers(response.data.users);
+        }
       } catch (error) {
         console.error('Error fetching users:', error);
       }
     };
 
     fetchUsers();
-  }, []);
+  }, [role, societyId]);
 
   // Handle search change
   const handleSearchChange = (e) => {
@@ -50,8 +61,7 @@ const AllUsers = () => {
   // Handle delete confirmation
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
-/api/delete-user/${userToDelete}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-user/${userToDelete}`);
       setUsers(users.filter(user => user.id !== userToDelete));
       setShowDeleteModal(false);
       toast.success('User deleted successfully!');
@@ -95,8 +105,8 @@ const AllUsers = () => {
           <thead>
             <tr>
               <th>Email</th>
-              <th>Status</th>
               <th>Password</th>
+              <th>Status</th>
               <th>Role</th>
               <th>Actions</th>
             </tr>

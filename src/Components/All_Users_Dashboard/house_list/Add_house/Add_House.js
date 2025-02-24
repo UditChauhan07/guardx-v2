@@ -26,8 +26,7 @@ const AddHouse = () => {
     }
 
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app
-/api/add-house', {
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-house', {
         houseNo,
         blockNo,
         status,

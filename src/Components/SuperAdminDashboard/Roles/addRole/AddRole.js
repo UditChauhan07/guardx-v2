@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../../Navbar/Navbar';
 import Sidebar from '../../sidebar/Sidebar';
 import axios from 'axios';
@@ -11,9 +11,20 @@ const AddRole = () => {
   const [roleTitle, setRoleTitle] = useState('');
   const [roleDescription, setRoleDescription] = useState('');
   const [roleType, setRoleType] = useState('');
+  const [permissions, setPermissions] = useState({});
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
-  // Default permissions for SaaS role
+  // Load user data from localStorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUserData(parsedUser);
+    }
+  }, []);
+
+  // Default permissions for SaaS role (global roles)
   const saasPermissions = {
     society: { view: false, create: false, edit: false, delete: false, show: false },
     entries: { view: false, create: false, edit: false, delete: false, show: false },
@@ -31,20 +42,28 @@ const AddRole = () => {
     houseList: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
     users: { view: false, create: false, edit: false, delete: false, show: false },
-    attendance: { read: false, show: false } // Attendance only has read and show
+    attendance: { read: false, show: false }
   };
 
-  // State for managing permissions dynamically
-  const [permissions, setPermissions] = useState({});
+  // Default permissions for Guard Access role (society-specific)
+  const guardAccessPermissions = {
+    guardAccess: { public: false }
+  };
 
   // Handle input changes
   const handleRoleTitleChange = (e) => setRoleTitle(e.target.value);
   const handleRoleDescriptionChange = (e) => setRoleDescription(e.target.value);
 
-  // Handle role type change and reset permissions
+  // Handle role type change and set default permissions based on user type
   const handleRoleTypeChange = (type) => {
     setRoleType(type);
-    setPermissions(type === 'saas' ? saasPermissions : societyPermissions);
+    // If the user has a societyId, they can only create "society" or "guard access" roles.
+    if (userData && userData.societyId) {
+      setPermissions(type === 'guard access' ? guardAccessPermissions : societyPermissions);
+    } else {
+      // Otherwise, for superadmin or global users, allow SaaS roles.
+      setPermissions(type === 'saas' ? saasPermissions : societyPermissions);
+    }
   };
 
   // Handle permission checkbox toggles
@@ -53,33 +72,42 @@ const AddRole = () => {
       ...prevPermissions,
       [module]: {
         ...prevPermissions[module],
-        [action]: !prevPermissions[module][action], // Toggle value
+        [action]: !prevPermissions[module][action],
       },
     }));
   };
-  
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!roleType) {
       toast.error("Please select a role type.");
       return;
     }
-  
+
     const roleData = {
       title: roleTitle,
       description: roleDescription,
       roleType,
-      permissions, 
+      permissions,
     };
-  
-    console.log("Final roleData sent to API:", roleData); // Debugging log
-  
+
+    // If the user has a societyId, include it so that the role is created for that society
+    if (userData && userData.societyId) {
+      roleData.societyId = userData.societyId;
+    }
+
+    console.log("Final roleData sent to API:", roleData);
+
     try {
-      const response = await axios.post("https://api-kpur6ixuza-uc.a.run.app
-/api/add-role", roleData);
+      // Choose the endpoint based on user type: superadmin uses the global role endpoint,
+      // while society users use the society role endpoint.
+      const endpoint = userData && userData.societyId
+        ? "https://api-kpur6ixuza-uc.a.run.app/api/add-society-role"
+        : "https://api-kpur6ixuza-uc.a.run.app/api/add-role";
+
+      const response = await axios.post(endpoint, roleData);
       console.log("API Response:", response.data);
       toast.success("Role added successfully!");
       navigate("/roles");
@@ -88,7 +116,6 @@ const AddRole = () => {
       toast.error("Error adding role.");
     }
   };
-  
 
   return (
     <div className={styles.AddRole}>
@@ -132,26 +159,55 @@ const AddRole = () => {
           <div className={styles.inputWrapper}>
             <label>Role Type</label>
             <div className={styles.radioGroup}>
-              <label>
-                <input
-                  type="radio"
-                  name="roleType"
-                  value="saas"
-                  checked={roleType === 'saas'}
-                  onChange={() => handleRoleTypeChange('saas')}
-                />
-                SaaS
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="roleType"
-                  value="society"
-                  checked={roleType === 'society'}
-                  onChange={() => handleRoleTypeChange('society')}
-                />
-                Society
-              </label>
+              {userData && userData.societyId ? (
+                // If the user belongs to a society, allow only Society and Guard Access roles
+                <>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="society"
+                      checked={roleType === 'society'}
+                      onChange={() => handleRoleTypeChange('society')}
+                    />
+                    Society
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="guard access"
+                      checked={roleType === 'guard access'}
+                      onChange={() => handleRoleTypeChange('guard access')}
+                    />
+                    Guard Access
+                  </label>
+                </>
+              ) : (
+                // Otherwise, for superadmin or global users, allow SaaS and Society roles
+                <>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="saas"
+                      checked={roleType === 'saas'}
+                      onChange={() => handleRoleTypeChange('saas')}
+                    />
+                    SaaS
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="society"
+                      checked={roleType === 'society'}
+                      onChange={() => handleRoleTypeChange('society')}
+                    />
+                    Society
+                  </label>
+                </>
+              )}
             </div>
           </div>
 

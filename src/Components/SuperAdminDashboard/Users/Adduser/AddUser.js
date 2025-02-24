@@ -20,8 +20,7 @@ const AddUser = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-roles');
+        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
         setRoles(response.data.roles);
       } catch (error) {
         console.error('Error fetching roles:', error);
@@ -44,8 +43,7 @@ const AddUser = () => {
     };
 
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app
-/api/add-user', userData);
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-user', userData);
       toast.success('User added successfully!');
       navigate('/users');
     } catch (error) {

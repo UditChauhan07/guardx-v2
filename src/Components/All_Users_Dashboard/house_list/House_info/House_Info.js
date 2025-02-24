@@ -106,8 +106,7 @@ const House_Info = () => {
     }
 
     try {
-      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app
-/api/add-house-owner', {
+      const response = await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-house-owner', {
         houseId,
         ownerName,
         mobileNo,

@@ -70,8 +70,7 @@ const SocietyDetails = () => {
       societyId: id,
     };
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app
-/api/add-user', userData);
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-user', userData);
       toast.success('User added successfully!');
       setUsers([...users, userData]);
       setLoading(false);

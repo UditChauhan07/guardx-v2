@@ -13,9 +13,10 @@ const EditRole = () => {
   const [roleType, setRoleType] = useState('');
   const [permissions, setPermissions] = useState({});
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
-  // Default permissions based on role type
+  // Default permissions for SaaS role
   const saasPermissions = {
     society: { view: false, create: false, edit: false, delete: false, show: false },
     entries: { view: false, create: false, edit: false, delete: false, show: false },
@@ -24,6 +25,7 @@ const EditRole = () => {
     users: { view: false, create: false, edit: false, delete: false, show: false }
   };
 
+  // Default permissions for Society role
   const societyPermissions = {
     entries: { view: false, create: false, edit: false, delete: false, show: false },
     guestEntriesRequest: { view: false, create: false, edit: false, delete: false, show: false },
@@ -32,22 +34,50 @@ const EditRole = () => {
     houseList: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
     users: { view: false, create: false, edit: false, delete: false, show: false },
-    attendance: { read: false, show: false } // Only read and show for attendance
+    attendance: { read: false, show: false }
   };
 
+  // Default permissions for Guard Access role (society-specific)
+  const guardAccessPermissions = {
+    guardAccess: { public: false }
+  };
+
+  // Load logged-in user data from localStorage
   useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUserData(parsedUser);
+    }
+  }, []);
+
+  // Fetch role data to edit using the appropriate endpoint based on user type
+  useEffect(() => {
+    if (!userData) return;
     const fetchRole = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
-/api/get-role/${id}`);
+        let response;
+        if (userData.societyId) {
+          // For society users, fetch society role details
+          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-role/${id}`);
+        } else {
+          // For superadmin/global roles, fetch global role details
+          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-role/${id}`);
+        }
         const roleData = response.data.role;
 
         setRoleTitle(roleData.title);
         setRoleDescription(roleData.description);
         setRoleType(roleData.roleType);
 
-        // Merge existing permissions with default values
-        const defaultPermissions = roleData.roleType === 'saas' ? saasPermissions : societyPermissions;
+        // Determine defaults: for "guard access" use its own defaults; otherwise, use SaaS or Society defaults.
+        let defaultPermissions;
+        if (roleData.roleType === 'guard access') {
+          defaultPermissions = guardAccessPermissions;
+        } else {
+          defaultPermissions = roleData.roleType === 'saas' ? saasPermissions : societyPermissions;
+        }
+        // Merge the default permissions with the saved permissions
         const mergedPermissions = { ...defaultPermissions, ...roleData.permissions };
 
         setPermissions(mergedPermissions);
@@ -56,15 +86,20 @@ const EditRole = () => {
       }
     };
     fetchRole();
-  }, [id]);
+  }, [id, userData]);
 
   // Handle changes
   const handleRoleTitleChange = (e) => setRoleTitle(e.target.value);
   const handleRoleDescriptionChange = (e) => setRoleDescription(e.target.value);
 
+  // When role type changes, update default permissions accordingly
   const handleRoleTypeChange = (type) => {
     setRoleType(type);
-    setPermissions(type === 'saas' ? saasPermissions : societyPermissions);
+    if (userData && userData.societyId) {
+      setPermissions(type === 'guard access' ? guardAccessPermissions : societyPermissions);
+    } else {
+      setPermissions(type === 'saas' ? saasPermissions : societyPermissions);
+    }
   };
 
   const handlePermissionChange = (module, action, value) => {
@@ -95,8 +130,12 @@ const EditRole = () => {
     };
 
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app
-/api/update-role/${id}`, updatedRoleData);
+      // Choose the endpoint based on whether the user has a societyId
+      const endpoint = userData && userData.societyId
+        ? `https://api-kpur6ixuza-uc.a.run.app/api/update-society-role/${id}`
+        : `https://api-kpur6ixuza-uc.a.run.app/api/update-role/${id}`;
+
+      await axios.put(endpoint, updatedRoleData);
       setLoading(false);
       navigate('/roles');
     } catch (error) {
@@ -111,7 +150,9 @@ const EditRole = () => {
       <Sidebar onClick={(title) => setModuleTitle(title)} />
 
       <div className={styles.editRoleContainer}>
-        <button onClick={() => navigate('/roles')} className={styles.backButton}>← Back to Roles</button>
+        <button onClick={() => navigate('/roles')} className={styles.backButton}>
+          ← Back to Roles
+        </button>
         <h2 className={styles.pageTitle}>Edit Role</h2>
 
         <form className={styles.editRoleForm} onSubmit={handleSubmit}>
@@ -146,26 +187,53 @@ const EditRole = () => {
           <div className={styles.inputWrapper}>
             <label>Role Type</label>
             <div className={styles.radioGroup}>
-              <label>
-                <input
-                  type="radio"
-                  name="roleType"
-                  value="saas"
-                  checked={roleType === 'saas'}
-                  onChange={() => handleRoleTypeChange('saas')}
-                />
-                SaaS
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="roleType"
-                  value="society"
-                  checked={roleType === 'society'}
-                  onChange={() => handleRoleTypeChange('society')}
-                />
-                Society
-              </label>
+              {userData && userData.societyId ? (
+                <>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="society"
+                      checked={roleType === 'society'}
+                      onChange={() => handleRoleTypeChange('society')}
+                    />
+                    Society
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="guard access"
+                      checked={roleType === 'guard access'}
+                      onChange={() => handleRoleTypeChange('guard access')}
+                    />
+                    Guard Access
+                  </label>
+                </>
+              ) : (
+                <>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="saas"
+                      checked={roleType === 'saas'}
+                      onChange={() => handleRoleTypeChange('saas')}
+                    />
+                    SaaS
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="roleType"
+                      value="society"
+                      checked={roleType === 'society'}
+                      onChange={() => handleRoleTypeChange('society')}
+                    />
+                    Society
+                  </label>
+                </>
+              )}
             </div>
           </div>
 

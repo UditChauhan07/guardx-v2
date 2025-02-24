@@ -42,15 +42,13 @@ const RegularEntries = () => {
   // ✅ Fetch all people in this regular entry
   const fetchPeople = async () => {
     try {
-      console.log(`🔍 API Request: https://api-kpur6ixuza-uc.a.run.app
-/getPeopleByEntry/${entryId}/${societyId}`);
-      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
-/getPeopleByEntry/${entryId}/${societyId}`);
+      console.log(`🔍 API Request: https://api-kpur6ixuza-uc.a.run.app/getPeopleByEntry/${entryId}/${societyId}`);
+      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/getPeopleByEntry/${entryId}/${societyId}`);
   
       console.log("✅ API Response:", response.data);
   
       if (Array.isArray(response.data.people)) {
-        setPeople(response.data.people); // ✅ Ensure array is assigned
+        setPeople(response.data.people);
       } else {
         console.warn("⚠️ API response does not contain an array. Check backend response.");
         setPeople([]); // Fallback to empty array

@@ -41,8 +41,7 @@ const AddPurpose = () => {
     };
   
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app
-/api/add-purpose', payload);
+      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-purpose', payload);
       setLoading(false);
       navigate('/purpose');
     } catch (error) {

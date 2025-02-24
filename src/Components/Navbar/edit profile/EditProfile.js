@@ -38,8 +38,7 @@ const EditProfile = () => {
     setLoading(true);
 
     try {
-      await axios.put('https://api-kpur6ixuza-uc.a.run.app
-/update-admin', { ...formData, uid: userData.uid });
+      await axios.put('https://api-kpur6ixuza-uc.a.run.app/update-admin', { ...formData, uid: userData.uid });
       localStorage.setItem('user', JSON.stringify({ ...userData, ...formData }));
       setLoading(false);
       navigate('/dashboard');

@@ -28,8 +28,7 @@ const EditUser = () => {
         setPhone(userData.phone);
         setEmail(userData.email);
         setRole(userData.role);
-        const rolesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app
-/api/get-all-roles');
+        const rolesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
         setRoles(rolesResponse.data.roles);
       } catch (error) {
         console.error('Error fetching user details:', error);
