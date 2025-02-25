@@ -39,7 +39,8 @@ const AllPurposes = () => {
     const fetchAllPurposes = async () => {
       try {
         const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-purposes');
-        setAllPurposes(response.data.purposes);
+        console.log('Fetched all purposes:', response.data);
+        setAllPurposes(response.data.purposes || []);
       } catch (error) {
         console.error('Error fetching all purposes:', error);
       }
@@ -50,7 +51,7 @@ const AllPurposes = () => {
     setSearch(e.target.value);
   };
 
-  const filteredPurposes = purposes.filter((purpose) =>
+  const filteredPurposes = (societyId ? societyPurposes : allPurposes).filter((purpose) =>
     purpose.purpose.toLowerCase().includes(search.toLowerCase()) ||
     purpose.purposeType.toLowerCase().includes(search.toLowerCase())
   );
@@ -97,12 +98,6 @@ const AllPurposes = () => {
   const handleSearchChangeSociety = (e) => {
     setSearch(e.target.value);
   };
-
-  // Sorting functionality
-  const handleSortChange = (e) => {
-    setSortOrder(e.target.value);
-  };
-
   // Apply sorting to purposes
   const sortedPurposes = [...societyPurposes].sort((a, b) => {
     if (sortOrder === 'asc') {
@@ -120,14 +115,16 @@ const AllPurposes = () => {
   // Delete a purpose from society
   const handleDeletePurpose = async (purposeId) => {
     try {
-      await axios.delete('https://api-kpur6ixuza-uc.a.run.ap/api/society/delete-purpose', {
-        data: { purposeId, societyId },
+      await axios.delete('https://api-kpur6ixuza-uc.a.run.app/api/society/delete-purpose', {
+        data: { purposeId, societyId }, 
       });
+  
       setSocietyPurposes(societyPurposes.filter((purpose) => purpose.id !== purposeId));
     } catch (error) {
       console.error('Error deleting purpose:', error);
     }
   };
+  
 
   // Open Add Purpose Modal
   const handleAddClick = () => {
@@ -205,7 +202,6 @@ const AllPurposes = () => {
             {filteredPurposes.map((purpose) => (
               <tr key={purpose.id}>
                 <td>
-                  {/* Correctly display Base64 images or Firebase Storage URLs */}
                   {purpose.icon ? (
                     purpose.icon.startsWith("data:image") || purpose.icon.startsWith("https://storage.googleapis.com") ? (
                       <img
@@ -318,10 +314,6 @@ const AllPurposes = () => {
               onChange={(e) => setModalSearch(e.target.value)}
               placeholder="Search purposes..."
             />
-             <select className={styles.sortDropdown} onChange={handleSortChange} value={sortOrder}>
-            <option value="asc">A-Z</option>
-            <option value="desc">Z-A</option>
-          </select>
 
             {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 
