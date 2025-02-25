@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../../Navbar/Navbar';
 import Sidebar from '../../sidebar/Sidebar';
 import axios from 'axios';
-import styles from './AddUser.module.css'; 
+import styles from './AddUser.module.css';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,18 +17,29 @@ const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Get societyId from localStorage
+  const societyId = JSON.parse(localStorage.getItem('user'))?.societyId || null;
+
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+        let response;
+        if (societyId) {
+          // Fetch society-specific roles
+          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
+        } else {
+          // Fetch all roles
+          response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+        }
         setRoles(response.data.roles);
       } catch (error) {
         console.error('Error fetching roles:', error);
+        toast.error('Failed to fetch roles.');
       }
     };
 
     fetchRoles();
-  }, []);
+  }, [societyId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,10 +51,18 @@ const AddUser = () => {
       email,
       password,
       roleTitle,
+      societyId, // Always get societyId from localStorage
     };
 
     try {
-      await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-user', userData);
+      if (societyId) {
+        // Add society user
+        await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-society-user', userData);
+      } else {
+        // Add normal user
+        await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-user', userData);
+      }
+
       toast.success('User added successfully!');
       navigate('/users');
     } catch (error) {
@@ -83,9 +102,13 @@ const AddUser = () => {
             <label htmlFor="role">Role</label>
             <select id="role" value={roleTitle} onChange={(e) => setRole(e.target.value)} required>
               <option value="">Select Role</option>
-              {roles.map((role) => (
-                <option key={role.id} value={role.title}>{role.title}</option>
-              ))}
+              {roles.length > 0 ? (
+                roles.map((role) => (
+                  <option key={role.id} value={role.title}>{role.title}</option>
+                ))
+              ) : (
+                <option disabled>No roles available</option>
+              )}
             </select>
           </div>
           <button type="submit" className={styles.submitButton} disabled={loading}>

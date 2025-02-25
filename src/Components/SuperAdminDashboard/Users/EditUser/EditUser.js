@@ -18,25 +18,44 @@ const EditUser = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Get societyId from localStorage
+  const societyId = JSON.parse(localStorage.getItem('user'))?.societyId || null;
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
-/api/get-user/${id}`);
+        let userResponse;
+        if (societyId) {
+          // Fetch society user details
+          userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-user/${id}`);
+        } else {
+          // Fetch normal user details
+          userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-user/${id}`);
+        }
+
         const userData = userResponse.data.user;
         setName(userData.name);
         setPhone(userData.phone);
         setEmail(userData.email);
         setRole(userData.role);
-        const rolesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+
+        let rolesResponse;
+        if (societyId) {
+          // Fetch roles for society users
+          rolesResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
+        } else {
+          // Fetch all roles for normal users
+          rolesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+        }
         setRoles(rolesResponse.data.roles);
       } catch (error) {
         console.error('Error fetching user details:', error);
+        toast.error('Failed to fetch user details.');
       }
     };
 
     fetchUserDetails();
-  }, [id]);
+  }, [id, societyId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,8 +70,14 @@ const EditUser = () => {
     };
 
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app
-/api/update-user/${id}`, updatedUserData);
+      if (societyId) {
+        // Update society user
+        await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-society-user/${id}`, updatedUserData);
+      } else {
+        // Update normal user
+        await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-user/${id}`, updatedUserData);
+      }
+
       toast.success('User updated successfully!');
       navigate('/users');
     } catch (error) {
@@ -86,7 +111,7 @@ const EditUser = () => {
           </div>
           <div className={styles.inputWrapper}>
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className={styles.inputWrapper}>
             <label htmlFor="role">Role</label>

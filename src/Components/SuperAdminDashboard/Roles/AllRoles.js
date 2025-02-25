@@ -20,14 +20,14 @@ const AllRoles = () => {
       setUserData(parsedUser);
     }
   }, []);
-
+  const societyId = JSON.parse(localStorage.getItem('user'))?.societyId || null;
   // Fetch roles based on user role
   useEffect(() => {
     const fetchRoles = async () => {
       try {
         if (userData && userData.role !== 'superadmin') {
           // Fetch society-specific roles using societyId from localStorage
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles?societyId=${userData.societyId}`);
+          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
           setRoles(response.data.roles);
         } else {
           // Global roles for superadmin

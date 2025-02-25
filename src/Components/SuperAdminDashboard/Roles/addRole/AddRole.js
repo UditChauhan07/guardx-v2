@@ -170,7 +170,7 @@ const AddRole = () => {
                       checked={roleType === 'society'}
                       onChange={() => handleRoleTypeChange('society')}
                     />
-                    Society
+                    Society Level Role
                   </label>
                   <label>
                     <input

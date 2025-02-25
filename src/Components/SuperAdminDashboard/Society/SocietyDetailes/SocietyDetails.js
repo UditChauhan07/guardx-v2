@@ -36,8 +36,7 @@ const SocietyDetails = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
-/api/get-society-users/${id}`);
+        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-users/${id}`);
         setUsers(response.data.users);
       } catch (error) {
         console.error('Error fetching society users:', error);
@@ -49,7 +48,7 @@ const SocietyDetails = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('http://localhost:500/api/get-all-roles');
+        const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
         setRoles(response.data.roles);
       } catch (error) {
         console.error('Error fetching roles:', error);
@@ -89,8 +88,7 @@ const SocietyDetails = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
-/api/delete-user/${userToDelete}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-user/${userToDelete}`);
       toast.success('User deleted successfully!');
       setUsers(users.filter(user => user.id !== userToDelete));
       setShowDeleteModal(false);
