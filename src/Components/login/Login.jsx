@@ -40,20 +40,40 @@ const Login = () => {
   
       if (response.data.user) {
         const user = response.data.user;
+        const loginTime = new Date().toISOString(); // Get current date & time in ISO format
   
         // Save user details in localStorage
         localStorage.setItem('user', JSON.stringify({
-          id: user.id,        
+          id: user.id,
           name: user.name || '',
           email: user.email,
           phone: user.phone || '',
           role: user.role,
-          permissions: user.permissions || [],
+          permissions: user.permissions || {},
           societyId: user.societyId || '',
+          loginTime,
         }));
   
         toast.success('Login successful!');
-        navigate('/dashboard'); 
+  
+        // 🔹 **Save Attendance Record**
+        await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/attendance/login', {
+          userId: user.id,
+          email: user.email,
+          name: user.name || '',
+          societyId: user.societyId || '',
+        }).then(() => {
+          console.log("✅ Attendance recorded successfully");
+        }).catch((err) => {
+          console.error("⚠️ Error recording attendance:", err);
+        });
+  
+        // 🔹 **Navigate Based on Permissions**
+        if (user.permissions?.guardAccess?.public) {
+          navigate('/guard-dashboard'); 
+        } else {
+          navigate('/dashboard'); // 🚀 Redirect to Main Dashboard
+        } 
       } else {
         toast.error('Invalid response from server');
       }
@@ -61,8 +81,6 @@ const Login = () => {
       toast.error(error.response?.data?.error || 'Login failed');
     }
   };
-  
-
   return (
     <div className="login-container">
       <div className="language-switch">

@@ -80,18 +80,90 @@
     color: #333;
   }
   
-  /* ✅ Delete Button */
-  .deleteButton {
-    background: #d9534f;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .deleteButton:hover {
-    background: #c9302c;
-  }
-  
+ /* ✅ Default delete button */
+.deleteButton {
+  background-color: #ff4b4b;
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.deleteButton:hover {
+  background-color: #cc0000;
+}
+
+/* ✅ Disabled delete button */
+.disabledButton {
+  background-color: #ccc !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ✅ Active Clock-Out Row (Stylish Light Green Background) */
+.activeRow {
+  background: linear-gradient(135deg, #d4edda, #a8e6a3); /* Modern gradient */
+  box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.2); /* Soft green glow */
+  border-radius: 8px; /* Slightly rounded corners */
+  transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Smooth Hover Effect */
+.activeRow:hover {
+  background: linear-gradient(135deg, #b8f2c2, #8ddc87);
+  box-shadow: 0px 6px 12px rgba(0, 128, 0, 0.3);
+}
+
+/* ✅ Filters (Search & Date) */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* 🔎 Search Bar */
+.searchBar {
+  position: relative;
+  width: 250px;
+  margin-right: 100px;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 10px 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.searchBar input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 14px;
+}
+
+/* 📅 Date Picker */
+.dateFilter {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.dateFilter:hover {
+  border-color: #007bff;
+}

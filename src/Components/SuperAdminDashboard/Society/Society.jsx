@@ -67,8 +67,7 @@ const Society = () => {
 
   const handleDeleteSociety = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
-/api/delete-society/${selectedSociety.id}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-society/${selectedSociety.id}`);
       toast.success('Society deleted successfully!');
       setFilteredSocieties(filteredSocieties.filter(society => society.id !== selectedSociety.id)); 
       setShowDeleteConfirm(false);

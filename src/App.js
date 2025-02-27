@@ -32,6 +32,8 @@ import AddPeopleEntry from './Components/All_Users_Dashboard/regular_entries/Add
 import RegularEntries from './Components/All_Users_Dashboard/regular_entries/Regular_entries';
 import EditPersonDetails from './Components/All_Users_Dashboard/regular_entries/editpersondetails/EditPersonDetails';
 import PersonDetails from './Components/All_Users_Dashboard/regular_entries/persondetails/PersonDetails';
+import Guard_Dashboard from './Components/Guard_Dashboard/Guard_Dashboard';
+import UserAttendanceHistorty from './Components/All_Users_Dashboard/attendance/attendanceHistorty/UserAttendanceHistorty';
 
 function App() {
   
@@ -64,14 +66,15 @@ function App() {
           <Route path="/regular-entries/:entryId" element={<RegularEntries />} />
           <Route path="/guest-entries" element={<Guset_Entries />} />
           <Route path="/house-list" element={<House_list />} />
-          <Route path="/attendance/:personId" element={<Attendance />} />
+          <Route path="/attendance" element={<Attendance />} />
           <Route path="/add-house" element={<Add_House />} />
           <Route path="/edit-house/:houseId" element={<Edit_House />} />
           <Route path="/house-info/:houseId" element={<House_Info />} />
           <Route path="/add-person/:entryId" element={<AddPeopleEntry/>} />
           <Route path="/edit-person/:personId" element={<EditPersonDetails />} />
           <Route path="/person-details/:personId" element={<PersonDetails/>} />
-
+          <Route path="/guard-dashboard" element={<Guard_Dashboard />} />
+          <Route path="/user-attendance-history" element={<UserAttendanceHistorty />} />
         </Routes>
       </Router>
     </>

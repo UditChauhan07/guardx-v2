@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaUserCircle, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaUserCircle, FaEdit, FaTrash, FaClipboardList } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
@@ -13,6 +13,8 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isDropdownModalOpen, setIsDropdownModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loginTime, setLoginTime] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -80,13 +82,57 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
       toast.error('Error deleting profile: ' + error.message);
     }
   };
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+      setLoginTime(storedUser.loginTime);
+    }
+  }, []);
+  const handleLogout = async () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const logoutTime = new Date().toISOString(); 
+    if (storedUser.role === "SuperAdmin") {
+      console.log("🔹 Super Admin detected. Logging out directly...");
+      localStorage.setItem("logoutTime", logoutTime);
+      localStorage.removeItem("user");
+      navigate("/");
+      return;
+    }
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    toast.success('Logged out successfully!');
-    navigate('/'); // Redirect to login
+    try {
+      // 🔹 **Check if the user is in the Attendance API**
+      const response = await axios.get(
+        `https://api-kpur6ixuza-uc.a.run.app/api/attendance/${storedUser.id}`
+      );
+  
+      if (response.data) {
+        await axios.post("https://api-kpur6ixuza-uc.a.run.app/api/attendance/logout", {
+          userId: storedUser.id,
+        });
+  
+        console.log("✅ Logout time recorded successfully in Attendance API!");
+      } else {
+        console.warn("⚠️ User is not in Attendance API, skipping logout recording.");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.warn("⚠️ User not found in Attendance API, skipping API call.");
+      } else {
+        console.error("🔥 Error checking/logout from Attendance API:", error);
+      }
+    }
+  
+    // ✅ Store logout time in localStorage (for reference)
+    localStorage.setItem("logoutTime", logoutTime);
+  
+    // ✅ Remove user from localStorage
+    localStorage.removeItem("user");
+  
+    // ✅ Redirect to login page
+    navigate("/");
   };
-
+  
   return (
     <div className="navbar">
       <div className="navbar-content">
@@ -108,6 +154,9 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
               </>
             ) : (
               <>
+              <button className="dropdown-item" onClick={() => navigate('/user-attendance-history')}>
+                            Attendance
+                            </button>
                 <button onClick={handleLogout} className="dropdown-item">Logout</button>
                 <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
               </>
