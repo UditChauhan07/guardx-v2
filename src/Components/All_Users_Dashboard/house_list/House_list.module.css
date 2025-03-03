@@ -7,7 +7,21 @@
     margin-top: 100px;
     margin-left: 300px;
   }
-  
+ /* Styles for disabled buttons */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: #d3d3d3 !important; /* Light gray background */
+  color: #a0a0a0 !important; /* Dimmed text */
+  border: 1px solid #ccc !important;
+}
+
+/* Optional: Prevent hover effects for disabled buttons */
+button:disabled:hover {
+  background-color: #d3d3d3 !important;
+  color: #a0a0a0 !important;
+}
+ 
   .houseTableSection {
     display: flex;
     flex-direction: column;

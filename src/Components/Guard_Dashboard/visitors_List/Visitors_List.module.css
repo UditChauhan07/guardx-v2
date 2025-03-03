@@ -1,0 +1,113 @@
+.container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .backButton {
+    display: flex;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .backButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .backIcon {
+    margin-right: 8px;
+  }
+  
+  .heading {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* ✅ Search Bar Styling */
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .searchIcon {
+    color: #888;
+    margin-right: 10px;
+  }
+  
+  .searchInput {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+  
+  /* ✅ Table Styling */
+  .tableContainer {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .evenRow {
+    background-color: #f9f9f9;
+  }
+  
+  .oddRow {
+    background-color: #fff;
+  }
+  
+  .clockOutBtn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .clockOutBtn:hover {
+    background: #218838;
+  }
+  
+  .disabledBtn {
+    background: gray;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: not-allowed;
+  }
+  
+  .noData {
+    padding: 20px;
+    font-weight: bold;
+    color: #888;
+  }
+  

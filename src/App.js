@@ -34,6 +34,9 @@ import EditPersonDetails from './Components/All_Users_Dashboard/regular_entries/
 import PersonDetails from './Components/All_Users_Dashboard/regular_entries/persondetails/PersonDetails';
 import Guard_Dashboard from './Components/Guard_Dashboard/Guard_Dashboard';
 import UserAttendanceHistorty from './Components/All_Users_Dashboard/attendance/attendanceHistorty/UserAttendanceHistorty';
+import Visitors_List from './Components/Guard_Dashboard/visitors_List/Visitors_List';
+import Add_Visitors from './Components/Guard_Dashboard/Add_Visitors/Add_Visitors';
+import Guest_Entries_info from './Components/All_Users_Dashboard/guest_entries/Guest_Entries_info';
 
 function App() {
   
@@ -75,6 +78,9 @@ function App() {
           <Route path="/person-details/:personId" element={<PersonDetails/>} />
           <Route path="/guard-dashboard" element={<Guard_Dashboard />} />
           <Route path="/user-attendance-history" element={<UserAttendanceHistorty />} />
+          <Route path="/visitors_list" element={<Visitors_List/>} />
+          <Route path="/add_visitor" element={<Add_Visitors/>} />
+          <Route path="/visitor-details/:entryId" element={<Guest_Entries_info/>} />
         </Routes>
       </Router>
     </>

@@ -15,8 +15,10 @@ const Attendance = () => {
 
   // ✅ Get the user object from localStorage & extract societyId
   const user = JSON.parse(localStorage.getItem("user"));
-  const societyId = user?.societyId;
-
+  const { societyId, role, permissions } = user;
+  
+  // ✅ Check if user has permission to view attendance
+  const hasAttendanceAccess = role === "superadmin" || permissions?.attendance?.read;
   useEffect(() => {
     const fetchAttendance = async () => {
       try {
@@ -102,6 +104,10 @@ const Attendance = () => {
 
       <div className={styles.content}>
         <h2 className={styles.heading}>📅 Attendance Records</h2>
+        {!hasAttendanceAccess ? (
+          <p className={styles.noAccess}>❌ You do not have permission to view attendance history.</p>
+        ) : (
+          <>
 
         {/* ✅ Search Bar & Date Filter */}
         <div className={styles.filters}>
@@ -161,6 +167,8 @@ const Attendance = () => {
             </tbody>
           </table>
         )}
+        </>
+      )}
       </div>
     </div>
   );

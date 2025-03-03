@@ -1,0 +1,353 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.progressBar {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.step {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.entriesGrid, .purposeGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.entryCard, .purposeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background: white;
+  max-width: 150px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.entryCard:hover, .purposeCard:hover {
+  transform: scale(1.05);
+}
+
+.logo, .purposeIcon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
+.purposeList {
+  list-style: none;
+  padding: 0;
+}
+
+.purposeItem {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.backButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.houseList {
+  list-style: none;
+  padding: 0;
+}
+
+.houseItem {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.submitButton {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.closeButton{
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 100%;
+}
+/* Style for the form container */
+.visitorForm {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 50%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: auto;
+}
+
+/* Form title */
+.visitorForm h2 {
+  color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Labels */
+.visitorForm label {
+  display: block;
+  font-weight: bold;
+  color: #34495e;
+  margin-top: 15px;
+  text-align: left;
+}
+
+/* Input fields */
+.visitorForm input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.visitorForm input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* File upload button */
+.visitorForm input[type="file"] {
+  padding: 8px;
+  background: #ecf0f1;
+  cursor: pointer;
+}
+
+/* Image previews */
+.previewContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  border: 2px solid #3498db;
+  object-fit: cover;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Submit button */
+.submitButton {
+  background: #27ae60;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 20px;
+}
+
+.submitButton:hover {
+  background: #2ecc71;
+}
+
+/* Back button */
+.backButton {
+  background: #e74c3c;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.backButton:hover {
+  background: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .visitorForm {
+    width: 90%;
+  }
+
+  .preview {
+    width: 100px;
+    height: 100px;
+  }
+}
+/* Button styles */
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cameraButton {
+  background: #f39c12;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cameraButton:hover {
+  background: #e67e22;
+}
+
+/* Live Camera Preview */
+.cameraPreview {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+}
+
+.video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.captureButton {
+  background: #27ae60;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.captureButton:hover {
+  background: #2ecc71;
+}
+
+.closeButton {
+  background: #e74c3c;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.closeButton:hover {
+  background: #c0392b;
+}
+
+/* Image Preview */
+.previewContainer {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Ensure video is properly visible */
+.video {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background: black; /* Ensures visibility even if camera takes time to load */
+}
+
+/* Ensure Camera Preview is not hidden */
+.cameraPreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Capture and Close Button Styles */
+.captureButton, .closeButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+}
+
+.closeButton {
+  background-color: #f44336;
+}

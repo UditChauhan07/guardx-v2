@@ -15,18 +15,26 @@ const AllUsers = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch logged-in user info (assuming stored in localStorage)
+  // ✅ Load user data from localStorage
   const loggedInUser = JSON.parse(localStorage.getItem('user')) || {};
-  const { role, societyId } = loggedInUser;
+  const { role, societyId, permissions } = loggedInUser || {};
 
-  // Fetch users based on role
+  // ✅ Check Permissions (Defaults to NO PERMISSIONS)
+  const hasPermissions = permissions?.users !== undefined;
+  const canCreate = hasPermissions && permissions.users.create;
+  const canEdit = hasPermissions && permissions.users.edit;
+  const canDelete = hasPermissions && permissions.users.delete;
+
+  // ✅ Fetch Users Based on Role & Society ID
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         let response;
         if (role === 'superadmin') {
+          // ✅ Super Admin → Fetch All Users
           response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-users');
         } else if (societyId) {
+          // ✅ Other Users → Fetch Society Users
           response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-users/${societyId}`);
         }
 
@@ -35,46 +43,44 @@ const AllUsers = () => {
         }
       } catch (error) {
         console.error('Error fetching users:', error);
+        toast.error('Error fetching users.');
       }
     };
 
     fetchUsers();
   }, [role, societyId]);
 
-  // Handle search change
+  // ✅ Handle Search Input
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
 
-  // Filter users by search term
+  // ✅ Filter Users by Search Term
   const filteredUsers = users.filter(user =>
     user.email.toLowerCase().includes(search.toLowerCase()) ||
     (user.role && user.role.toLowerCase().includes(search.toLowerCase()))
   );
 
-  // Handle delete user
+  // ✅ Handle Delete Click
   const handleDeleteClick = (userId) => {
     setUserToDelete(userId);
     setShowDeleteModal(true);
   };
 
-  // Handle delete confirmation
+  // ✅ Handle Delete Confirmation
   const handleDeleteConfirmation = async () => {
     try {
       await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-user/${userToDelete}`);
       setUsers(users.filter(user => user.id !== userToDelete));
       setShowDeleteModal(false);
-      toast.success('User deleted successfully!');
+      toast.success('✅ User deleted successfully!');
     } catch (error) {
-      console.error('Error deleting user:', error);
-      toast.error('Error deleting user.');
+      console.error('❌ Error deleting user:', error);
+      toast.error('❌ Error deleting user.');
     }
   };
 
-  const handleEditClick = (id) => {
-    navigate(`/edit-user/${id}`);
-  };
-
+  // ✅ Handle Cancel Delete
   const handleCancelDelete = () => {
     setShowDeleteModal(false);
     setUserToDelete(null);
@@ -86,11 +92,14 @@ const AllUsers = () => {
       <Sidebar onClick={(title) => setModuleTitle(title)} />
 
       <div className={styles.usersTableSection}>
-        {/* Header Section */}
+        {/* ✅ Header Section */}
         <div className={styles.entriesHeader}>
-          <button className={styles.addButton} onClick={() => navigate('/add-user')}>
-            Add +
-          </button>
+          {/* ✅ Show "Add User" Button If User Has Create Permission */}
+          {canCreate && (
+            <button className={styles.addButton} onClick={() => navigate('/add-user')}>
+              Add +
+            </button>
+          )}
           <input
             type="text"
             className={styles.searchBar}
@@ -100,7 +109,7 @@ const AllUsers = () => {
           />
         </div>
 
-        {/* Table */}
+        {/* ✅ Users Table */}
         <table className={styles.entriesTable}>
           <thead>
             <tr>
@@ -119,23 +128,39 @@ const AllUsers = () => {
                 <td>{user.status}</td>
                 <td>{user.role}</td>
                 <td>
-                  <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(user.id)}>
-                    <FaEdit />
-                  </button>
-                  <button
-                    className={`${styles.actionButton} ${styles.delete}`}
-                    onClick={() => handleDeleteClick(user.id)}
-                  >
-                    <FaTrash />
-                  </button>
+                  {/* ✅ Show Edit Button If User Has Edit Permission */}
+                  {canEdit && (
+                    <button
+                      className={`${styles.actionButton} ${styles.edit}`}
+                      onClick={() => navigate(`/edit-user/${user.id}`)}
+                    >
+                      <FaEdit />
+                    </button>
+                  )}
+                  {/* ✅ Show Delete Button If User Has Delete Permission */}
+                  {canDelete && (
+                    <button
+                      className={`${styles.actionButton} ${styles.delete}`}
+                      onClick={() => handleDeleteClick(user.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+
+        {/* ✅ Show Message if No Permissions */}
+        {!hasPermissions && role !== 'superadmin' && (
+          <div className={styles.noAccessMessage}>
+            ❌ You do not have permission to manage users.
+          </div>
+        )}
       </div>
 
-      {/* Delete Confirmation Modal */}
+      {/* ✅ Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className={styles.modalBackdrop}>
           <div className={styles.deleteModal}>

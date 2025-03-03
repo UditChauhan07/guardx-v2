@@ -11,16 +11,23 @@ const HouseList = () => {
   const [houses, setHouses] = useState([]);
   const [search, setSearch] = useState('');
   const [societyId, setSocietyId] = useState(null);
+  const [permissions, setPermissions] = useState({
+    view: false,
+    create: false,
+    edit: false,
+    delete: false
+  });
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [houseToDelete, setHouseToDelete] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch user society ID from localStorage
+  // Fetch user society ID and permissions from localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const userData = JSON.parse(storedUser);
       setSocietyId(userData.societyId);
+      setPermissions(userData.permissions?.houseList || {});
     }
   }, []);
 
@@ -60,10 +67,12 @@ const HouseList = () => {
   const handleEditHouse = (id) => {
     navigate(`/edit-house/${id}`);
   };
- // Navigate to Edit House page
- const handleHouseInfo = (id) => {
-  navigate(`/house-info/${id}`);
-};
+
+  // Navigate to House Info page
+  const handleHouseInfo = (id) => {
+    navigate(`/house-info/${id}`);
+  };
+
   // Show delete confirmation modal
   const handleDeleteClick = (id) => {
     setHouseToDelete(id);
@@ -88,7 +97,6 @@ const HouseList = () => {
     setShowDeleteModal(false);
     setHouseToDelete(null);
   };
-
   return (
     <div className={styles.housePageContainer}>
       <Navbar moduleTitle={moduleTitle} />
@@ -97,7 +105,13 @@ const HouseList = () => {
       <div className={styles.houseTableSection}>
         {/* Header Section */}
         <div className={styles.headerSection}>
-          <button className={styles.addButton} onClick={handleAddHouse}>Add +</button>
+        <button
+            className={styles.addButton}
+            onClick={handleAddHouse}
+            disabled={!permissions.create} 
+          >
+            Add +
+          </button>
           <input
             type="text"
             className={styles.searchBar}
@@ -124,13 +138,25 @@ const HouseList = () => {
                 <td>{house.blockNo}</td>
                 <td>{house.status}</td>
                 <td>
-                <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleHouseInfo(house.id)}>
+                <button
+                    className={`${styles.actionButton} ${styles.view}`}
+                    onClick={() => handleHouseInfo(house.id)}
+                    disabled={!permissions.view} 
+                  >
                     <FaEye />
                   </button>
-                  <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditHouse(house.id)}>
+                  <button
+                    className={`${styles.actionButton} ${styles.edit}`}
+                    onClick={() => handleEditHouse(house.id)}
+                    disabled={!permissions.edit} 
+                  >
                     <FaEdit />
                   </button>
-                  <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteClick(house.id)}>
+                  <button
+                    className={`${styles.actionButton} ${styles.delete}`}
+                    onClick={() => handleDeleteClick(house.id)}
+                    disabled={!permissions.delete} 
+                  >
                     <FaTrash />
                   </button>
                  
