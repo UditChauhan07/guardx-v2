@@ -216,34 +216,33 @@ const AddRole = () => {
             <div className={styles.permissionsWrapper}>
               <h3>Permissions</h3>
               <table>
-                <thead>
-                  <tr>
-                    <th>Module Name</th>
-                    <th>Module Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(permissions).map((module) => (
-                    <tr key={module}>
-                      <td>{module.charAt(0).toUpperCase() + module.slice(1)}</td>
-                      <td>
-                        {Object.keys(permissions[module]).map((action) => (
-                          <div key={action} className={styles.permissionItem}>
-                            <label>
-                              <input
-                                type="checkbox"
-                                checked={permissions[module][action]}
-                                onChange={() => handlePermissionChange(module, action)}
-                              />
-                              {action.charAt(0).toUpperCase() + action.slice(1)}
-                            </label>
-                          </div>
-                        ))}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+  <thead>
+    <tr>
+      <th>Module Name</th>
+      <th>Module Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.keys(permissions).map((module) => (
+      <tr key={module}>
+        <td>{module.charAt(0).toUpperCase() + module.slice(1)}</td>
+        <td className={styles.permissionsContainer}> 
+          {Object.keys(permissions[module]).map((action) => (
+            <label key={action} className={styles.permissionItem}>
+              <input
+                type="checkbox"
+                checked={permissions[module][action]}
+                onChange={() => handlePermissionChange(module, action)}
+              />
+              {action.charAt(0).toUpperCase() + action.slice(1)}
+            </label>
+          ))}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
             </div>
           )}
 

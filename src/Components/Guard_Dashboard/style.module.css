@@ -1,59 +1,113 @@
+/* 🔹 Dashboard Container */
 .dashboardContainer {
-    max-width: 90%;
-    margin: 20px auto;
-    padding: 20px;
-    text-align: center;
+  max-width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #0056b3, #007bff, #00c6ff);
+  overflow: hidden;
+  text-align: center;
+}
+
+
+/* 🔹 Title Heading */
+.heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
+  margin-bottom: 30px;
+}
+
+/* 🔹 Box Container */
+.boxContainer {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* 🔹 Box Styling (3D Effect & Neon Glow) */
+.box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  width: 280px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🔹 Adding Gradient Glow */
+.box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(60deg, #ff416c, #ff4b2b, #ffbb00);
+  opacity: 0.15;
+  z-index: 0;
+  transition: 0.4s ease;
+}
+
+.box:hover::before {
+  transform: rotate(180deg);
+  opacity: 0.3;
+}
+
+/* 🔹 Hover Effects (3D Lift & Glow) */
+.box:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0px 10px 25px rgba(255, 255, 255, 0.3);
+}
+
+/* 🔹 Heading Inside Box */
+.box h3 {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔹 Paragraph Inside Box */
+.box p {
+  font-size: 15px;
+  opacity: 0.85;
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 30px 10px;
   }
-  
+
   .heading {
-    font-size: 26px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 2rem;
   }
-  
-  .boxContainer {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    flex-wrap:wrap;
-  }
-  
+
   .box {
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    width: 250px;
+    width: 90%;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
-  .box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+
+  .boxContainer {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .box h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .box p {
-    font-size: 14px;
-    opacity: 0.9;
-  }
-  
-  @media (max-width: 600px) {
-    .boxContainer {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .box {
-      width: 90%;
-    }
-  }
-  
+}

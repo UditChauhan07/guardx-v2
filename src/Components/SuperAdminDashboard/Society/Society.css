@@ -124,57 +124,110 @@ button:disabled:hover {
   border: 1px solid #ccc;
 }
 
-/* Table Styling */
+/* 🔹 Table Container */
 .society-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.society-table th, .society-table td {
-  padding: 15px;
-  text-align: left;
+/* 🔹 Table Header */
+.society-table thead {
+  background: linear-gradient(135deg, #007bff, #004085);
+  color: white;
+  text-transform: uppercase;
 }
 
+/* 🔹 Table Header Cells */
 .society-table th {
-  background-color: #f0f8ff;
+  padding: 14px;
+  text-align: left;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
+/* 🔹 Table Body */
+.society-table tbody tr {
+  transition: background 0.3s ease-in-out;
+}
+
+/* 🔹 Alternating Row Colors */
+.society-table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.society-table tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* 🔹 Row Hover Effect */
+.society-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.01);
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Table Data Cells */
 .society-table td {
-  background-color: #ffffff;
+  padding: 14px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+  color: black;
 }
 
-.society-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.society-table tr:hover {
-  background-color: #ddd;
-}
-
-.society-table tr {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.society-table tr:last-child {
-  border-bottom: none;
-}
-
-.status-btn {
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #28a745;
-  color: white;
-  border: none;
+/* 🔹 Action Icons */
+.viewIcon, .editIcon, .deleteIcon {
   cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  transition: transform 0.3s ease-in-out;
 }
 
-.action-btn {
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
+/* 🔹 View Icon */
+.viewIcon {
+  color: #17a2b8;
+}
+
+.viewIcon:hover {
+  transform: scale(1.2);
+  color: #138496;
+}
+
+/* 🔹 Edit Icon */
+.editIcon {
+  color: #ffc107;
+}
+
+.editIcon:hover {
+  transform: scale(1.2);
+  color: #e0a800;
+}
+
+/* 🔹 Delete Icon */
+.deleteIcon {
+  color: #dc3545;
+}
+
+.deleteIcon:hover {
+  transform: scale(1.2);
+  color: #c82333;
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+  .society-table th, .society-table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .viewIcon, .editIcon, .deleteIcon {
+    font-size: 18px;
+  }
 }
 
 /* Modal Styles */

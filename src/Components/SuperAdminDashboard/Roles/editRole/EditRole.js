@@ -239,7 +239,7 @@ const EditRole = () => {
 
           {/* Permissions Table */}
           {roleType && (
-            <div className={styles.permissionTable}>
+            <div className={styles.permissionsWrapper}>
               <h4>Permissions</h4>
               <table>
                 <thead>
@@ -252,7 +252,7 @@ const EditRole = () => {
                   {Object.keys(permissions).map((module) => (
                     <tr key={module}>
                       <td>{module.charAt(0).toUpperCase() + module.slice(1)}</td>
-                      <td>
+                      <td className={styles.permissionsContainer}>
                         {Object.keys(permissions[module]).map((action) => (
                           <div key={action} className={styles.permissionItem}>
                             <label>

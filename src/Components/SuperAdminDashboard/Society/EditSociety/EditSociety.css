@@ -1,99 +1,155 @@
+/* 🔹 Main Container */
 .edit-society-container {
-    max-width: 1000px;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 10px;
-    z-index: 1000;
-    position: relative;
-    margin-left: 300px;
-  margin-top: 120px;
+  width: 50%;
+  margin: 120px 500px;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* 🔹 Title */
+.page-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 🔹 Form */
+.edit-society-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 🔹 Form Sections */
+.form-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+.form-section:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 🔹 Input Wrapper */
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.input-wrapper label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: black;
+  text-transform: uppercase;
+}
+
+/* 🔹 Input Fields */
+.input-wrapper input, 
+.input-wrapper select {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(11, 11, 11);
+  transition: all 0.3s ease-in-out;
+}
+
+.input-wrapper input:focus, 
+.input-wrapper select:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* 🔹 Required Field Indicator */
+.required {
+  color: #ff4b2b;
+}
+
+/* 🔹 Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* 🔹 Buttons */
+.save-button, 
+.cancel-button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* 🔹 Save Button */
+.save-button {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+}
+
+.save-button:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transform: scale(1.05);
+}
+
+/* 🔹 Cancel Button */
+.cancel-button {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  color: white;
+}
+
+.cancel-button:hover {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  transform: scale(1.05);
+}
+
+/* 🔹 Icon Styling */
+.view-icon {
+  color: #00c6ff;
+  cursor: pointer;
+}
+
+.view-icon:hover {
+  color: #0072ff;
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+  .edit-society-container {
+    max-width: 95%;
+    margin: 100px auto;
+    padding: 20px;
   }
-  
-  .page-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .edit-society-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
+
   .form-section {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  .input-wrapper {
-    flex: 1;
-    display: flex;
     flex-direction: column;
   }
-  
-  .input-wrapper label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 14px;
-  }
-  
-  .input-wrapper input, .input-wrapper select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-  }
-  
-  .input-wrapper select {
-    cursor: pointer;
-  }
-  
-  .required {
-    color: red;
-  }
-  
+
   .form-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    flex-direction: column;
   }
-  
-  .save-button, .cancel-button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .save-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .cancel-button {
-    background-color: #ccc;
-    color: #333;
-  }
-  
-  .save-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .cancel-button:hover {
-    background-color: #999;
-  }
-  
-  .view-icon {
-    color: #007bff;
-    cursor: pointer;
-  }
-  
-  .view-icon:hover {
-    color: #0056b3;
-  }
-  
+}

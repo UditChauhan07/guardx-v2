@@ -1,112 +1,277 @@
-
-.AddRole{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    max-width: 100%;
-    margin: 0 auto;
-    margin-top: 100px;
-    margin-left: 300px;
+/* 🔹 Main Container */
+.AddRole {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 100px;
+  margin-left: 300px;
 }
+
+/* 🔹 Form Container */
 .addRolePageContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
-    z-index: 1000;
-    background-color: white;
-    border-radius: 20px;
-    padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  margin: auto;
+  animation: fadeIn 0.5s ease-in-out;
+  width: 100%;
 }
 
+/* 🔹 Back Button */
+.backButton {
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.3s ease-in-out;
+}
+
+.backButton:hover {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  transform: scale(1.05);
+}
+
+/* 🔹 Page Title */
 .pageTitle {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: rgb(15, 15, 15);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 🔹 Input Wrapper */
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 🔹 Labels */
+.inputWrapper label {
+  font-weight: bold;
+  font-size: 15px;
+  color: rgb(17, 17, 17);
+  text-transform: uppercase;
+}
+
+/* 🔹 Input Fields */
+.inputWrapper input,
+.inputWrapper textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1 px solid rgba(255, 255, 255, 0.2);
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(11, 11, 11);
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Input Focus Effect */
+.inputWrapper input:focus,
+.inputWrapper textarea:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* 🔹 Role Type Radio Buttons */
+.radioGroup {
+  flex-direction: row;
+  gap: 15px;
+  justify-content: center;
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  color: rgb(12, 12, 12);
+  cursor: pointer;
+}
+
+.radioGroup input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* 🔹 Permissions Section */
+.permissionsWrapper {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.permissionsWrapper h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(19, 19, 19);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* 🔹 Permissions Table */
+.permissionsWrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.permissionsWrapper th,
+.permissionsWrapper td {
+  padding: 12px;
+  text-align: left;
+  font-size: 1rem;
+  color: rgb(5, 5, 5);
+}
+
+.permissionsWrapper th {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: rgb(7, 7, 7);
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+/* ✅ Align Module Actions (Checkboxes) in a Row */
+.permissionsContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 20px; /* Space between checkboxes */
+  align-items: center;
+}
+/* ✅ Make Checkboxes Horizontal */
+.permissionItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Checkbox Styling */
+.permissionItem input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  appearance: none; 
+  border: 2px solid rgb(16, 16, 16);
+  border-radius: 4px;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.permissionItem label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: rgb(10, 10, 10);
+}
+
+/* ✅ Custom Checkbox when Checked */
+.permissionItem input:checked {
+  background: linear-gradient(135deg, #4caf50, #2e8b57);
+  border-color: #4caf50;
+}
+
+/* 🔹 Hover Effects */
+.permissionItem label:hover {
+  color: #ffd700;
+}
+
+.permissionItem input:hover {
+  border-color: #ffd700;
+}
+
+/* 🔹 Submit Button */
+.submitButton {
+  padding: 12px;
+  background: linear-gradient(135deg, #4caf50, #2e8b57);
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background: linear-gradient(135deg, #2e8b57, #4caf50);
+  transform: scale(1.05);
+}
+
+
+/* 🔹 Submit Button */
+.submitButton {
+  padding: 12px;
+  background: linear-gradient(135deg, #4caf50, #2e8b57);
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.submitButton:hover {
+  background: linear-gradient(135deg, #2e8b57, #4caf50);
+  transform: scale(1.05);
+}
+
+/* 🔹 Responsive Design */
+@media (max-width: 768px) {
+  .addRolePageContainer {
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
   }
-  
-  .inputWrapper {
-    margin-bottom: 15px;
-  }
-  
-  .inputWrapper label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .inputWrapper input,
-  .inputWrapper textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .permissionsWrapper {
-    margin-bottom: 20px;
-  }
-  
-  .permissionsWrapper h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .permissionsWrapper table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .permissionsWrapper th,
-  .permissionsWrapper td {
-    padding: 12px;
-    text-align: left;
-    font-size: 1rem;
-  }
-  
-  .permissionsWrapper th {
-    background-color: #007bff;
-    color: white;
-    text-transform: uppercase;
-  }
-  
-  .permissionsWrapper td {
-    border-top: 1px solid #ccc;
-    
-  }
-  
-  .permissionItem {
-    margin-bottom: 10px;
-    
-  }
-  
-  .permissionItem label {
-    margin-right: 15px;
-    
-  }
-  
-  .submitButton {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .submitButton:hover {
-    background-color: #0056b3;
-  }
-  
+
   .backButton {
-    padding: 10px 20px;
-    background-color: #f1f1f1;
-    color: #007bff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 160px;
+    width: 100%;
+    text-align: center;
   }
-  
-  .backButton:hover {
-    background-color: #e2e2e2;
+}
+
+/* 🔹 Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

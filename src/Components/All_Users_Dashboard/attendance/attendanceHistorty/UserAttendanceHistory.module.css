@@ -1,121 +1,121 @@
-/* Main Container */
+/* 🔹 Main Container */
 .container {
-    width: 80%;
-    margin: 40px auto;
-    padding: 20px;
-    background: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    text-align: center;
-  }
-  
-  /* User Info Section */
-  .userInfo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .avatar {
-    width: 50px;
-    height: 50px;
-    background: #3498db;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    text-transform: uppercase;
-  }
-  
-  /* Attendance Table */
-  .tableContainer {
-    overflow-x: auto;
-  }
-  
-  .attendanceTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .attendanceTable th,
-  .attendanceTable td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .attendanceTable th {
-    background: #3498db;
-    color: white;
-    font-weight: bold;
-  }
-  
-  .attendanceTable tr:nth-child(even) {
-    background: #f2f2f2;
-  }
-  
-  /* No Data Message */
-  .noData {
-    font-size: 18px;
-    color: #888;
-    margin-top: 20px;
-  }
-  
-  /* Back Button */
-  .backButton {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #2ecc71;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.3s ease;
-  }
-  
-  .backButton:hover {
-    background: #27ae60;
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .backButton {
-    background-color: #ff4b4b;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .backButton:hover {
-    background-color: #cc0000;
-  }
-  
+  max-width: 90%;
+  margin: 50px auto;
+  padding: 25px;
+  background: linear-gradient(135deg, #007bff, #0056b3, #00c6ff);
+  border-radius: 12px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(15px);
+}
+
+/* 🔹 Header Section (Back Button & Search) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* 🔹 Back Button */
+.backButton {
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.backButton:hover {
+  background: linear-gradient(135deg, #ee0979, #ff6a00);
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(255, 106, 0, 0.5);
+}
+
+/* 🔹 Search Bar */
+.searchBar {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.searchBar:focus {
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* 🔹 Title */
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* 🔹 Loading, Error, and No Data Text */
+.loading,
+.error,
+.noData {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px;
+}
+
+/* 🔹 Attendance Table */
+.attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+/* 🔹 Table Headers */
+th {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+/* 🔹 Table Rows */
+td {
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* 🔹 Alternating Row Colors */
+tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* 🔹 Table Hover Effects */
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.02);
+  transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Responsive Adjustments */
+@media (max-width: 768px) {
   .searchBar {
+    width: 80%;
+  }
+
+  th, td {
+    font-size: 14px;
     padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
   }
-  
-  .searchBar:focus {
-    border-color: #007bff;
-  }
-  
+}

@@ -39,8 +39,8 @@ const UserAttendanceHistory = () => {
 
         if (response.ok) {
           console.log("User Attendance History:", result.data);
-          setAttendanceData(result.data || []); // ✅ Store full attendance data
-          setFilteredData(result.data || []); // ✅ Default filtered data
+          setAttendanceData(result.data || []); 
+          setFilteredData(result.data || []); 
           setUserName(userData.name || "User");
         } else {
           console.error("Error fetching attendance:", result.message);
