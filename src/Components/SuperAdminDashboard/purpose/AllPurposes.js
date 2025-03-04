@@ -21,6 +21,7 @@ const AllPurposes = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [purposeToDelete, setPurposeToDelete] = useState(null);
   const [userRole, setUserRole] = useState(null);
+  const [permissions, setPermissions] = useState({ create: false, edit: false, delete: false });
 
   const navigate = useNavigate();
 
@@ -31,6 +32,11 @@ const AllPurposes = () => {
       const userData = JSON.parse(storedUser);
       setUserRole(userData.role);
       setSocietyId(userData.societyId || null);
+      setPermissions(
+        userData.role === 'superadmin'
+          ? { create: true, edit: true, delete: true }
+          : userData.permissions?.purposeOfOccasional || { create: false, edit: false, delete: false }
+      );
     }
   }, []);
 
@@ -173,13 +179,17 @@ const AllPurposes = () => {
       <Navbar moduleTitle={moduleTitle} />
       <Sidebar onClick={(title) => setModuleTitle(title)} />
       {/* superadmin ui */}
-      {userRole === 'superadmin' && (
+      {(userRole === 'superadmin' || societyId === null) && (
       <>
       <div className={styles.purposeTableSection}>
         <div className={styles.entriesHeader}>
-          <button className={styles.addButton} onClick={() => navigate('/add-purpose')}>
-            Add +
-          </button>
+        <button
+              className={styles.addButton}
+              onClick={() => navigate('/add-purpose')}
+              disabled={!permissions.create}
+            >
+              Add +
+            </button>
           <input
             type="text"
             className={styles.searchBar}
@@ -227,15 +237,12 @@ const AllPurposes = () => {
                 <td>{purpose.purpose}</td>
                 <td>{purpose.purposeType}</td>
                 <td>
-                  <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(purpose.id)}>
-                    <FaEdit />
-                  </button>
-                  <button
-                    className={`${styles.actionButton} ${styles.delete}`}
-                    onClick={() => handleDeleteClick(purpose.id)}
-                  >
-                    <FaTrash />
-                  </button>
+                <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(purpose.id)} disabled={!permissions.edit}>
+                      <FaEdit />
+                    </button>
+                    <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteClick(purpose.id)} disabled={!permissions.delete}>
+                      <FaTrash />
+                    </button>
                 </td>
               </tr>
             ))}
@@ -261,12 +268,14 @@ const AllPurposes = () => {
       )}</>
     )}
       {/* Society User UI */}
-      {userRole !== 'superadmin' && (
+      {userRole !== 'superadmin' && societyId !== null && (
 <>
 <div className={styles.purposeTableSection}>
         <div className={styles.entriesHeader}>
-          <button className={styles.addButton} onClick={handleAddClick}>Add Purpose</button>
-          <input
+        <button className={styles.addButton} onClick={() => setShowAddModal(true)} disabled={!permissions.create}>
+              Add Purpose
+            </button>         
+             <input
             type="text"
             className={styles.searchBar}
             value={search}
@@ -292,9 +301,9 @@ const AllPurposes = () => {
                 <td>{purpose.purpose}</td>
                 <td>{purpose.purposeType}</td>
                 <td>
-                  <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeletePurpose(purpose.id)}>
-                    <FaTrash />
-                  </button>
+                <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteClick(purpose.id)} disabled={!permissions.delete}>
+                      <FaTrash />
+                    </button>
                 </td>
               </tr>
             ))}

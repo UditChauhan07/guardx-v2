@@ -11,6 +11,71 @@
   margin-right: 30px;
   border-radius: 20px;
 }
+/* Disabled Button Styles */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: #d3d3d3 !important; /* Light gray background */
+  color: #a0a0a0 !important; /* Dimmed text */
+  border: 1px solid #ccc !important;
+  pointer-events: none; /* Prevent clicks */
+}
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Disabled Button (Ensures Proper Styling) */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: #d3d3d3 !important;
+  color: #a0a0a0 !important;
+  border: 1px solid #ccc !important;
+}
+/* Disabled Icons (View, Edit, Delete) */
+.view-icon[disabled],
+.edit-icon[disabled],
+.delete-icon[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Prevent hover effects for disabled buttons */
+button:disabled:hover {
+  background-color: #d3d3d3 !important;
+  color: #a0a0a0 !important;
+}
+
+/* Add Button Disabled */
+.add-button:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  border: none;
+}
+
+/* Delete Button Disabled */
+.delete-icon[disabled] {
+  color: #721c24 !important;
+  background-color: #f8d7da !important;
+  border: 1px solid #f5c6cb !important;
+}
+
+/* Edit Button Disabled */
+.edit-icon[disabled] {
+  color: #004085 !important;
+  background-color: #cce5ff !important;
+  border: 1px solid #b8daff !important;
+}
+
+/* View Button Disabled */
+.view-icon[disabled] {
+  color: #6c757d !important;
+  background-color: #e2e3e5 !important;
+  border: 1px solid #d6d8db !important;
+}
 
 /* Page Title */
 .society-page-title {

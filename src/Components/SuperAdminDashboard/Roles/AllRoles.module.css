@@ -8,7 +8,22 @@
     margin-top: 100px;
     margin-left: 300px;
 }
-
+/* Disabled Button Styles */
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #d3d3d3 !important;
+    color: #a0a0a0 !important;
+    border: 1px solid #ccc !important;
+    pointer-events: none;
+  }
+  
+  .addButton:disabled {
+    background-color: #cccccc !important;
+    color: #666666 !important;
+    border: none;
+  }
+  
 .entriesTableSection {
     display: flex;
     flex-direction: column;

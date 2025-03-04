@@ -13,18 +13,18 @@ const RegularEntries = () => {
   const navigate = useNavigate();
   const { entryId } = useParams(); 
   const [societyId, setSocietyId] = useState(null); 
+  const [permissions, setPermissions] = useState({ create: true, edit: true, view: true, delete: true });
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const userData = JSON.parse(storedUser);
-      console.log("✅ Retrieved Society ID from Local Storage:", userData.societyId); // Debugging
+      setUserRole(userData.role);
       setSocietyId(userData.societyId || null);
-    } else {
-      console.warn("⚠️ No user data found in local storage.");
+      setPermissions(userData.permissions?.entries || { create: true, edit: true, view: true, delete: true });
     }
   }, []);
-  
   useEffect(() => {
     console.log("✅ Entry ID from URL:", entryId); // Debugging
   
@@ -64,8 +64,7 @@ const RegularEntries = () => {
   // ✅ Delete person
   const handleDelete = async (personId) => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
-/deletePersonFromEntry/${personId}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/deletePersonFromEntry/${personId}`);
       fetchPeople(); // Refresh list
     } catch (error) {
       console.error('Error deleting person:', error);
@@ -80,7 +79,11 @@ const RegularEntries = () => {
       <div className={styles.content}>
         {/* ✅ Top Bar with Add Button and Search */}
         <div className={styles.topBar}>
-          <button className={styles.addButton} onClick={() => navigate(`/add-person/${entryId}`)}>
+        <button
+            className={styles.addButton}
+            onClick={() => navigate(`/add-person/${entryId}`)}
+            disabled={!permissions.create}
+          >
             <FaPlus /> Add Person
           </button>
           <div className={styles.searchContainer}>
@@ -112,18 +115,27 @@ const RegularEntries = () => {
         <td>{person.gender}</td>
         <td>{person.adharNo}</td>
         <td className={styles.actionButtons}>
-        <button className={styles.editBtn} onClick={() => navigate(`/edit-person/${person.id}`)}>
-  <FaEdit />
-</button>
-          <button className={styles.viewBtn} onClick={() => navigate(`/person-details/${person.id}`)}>
-            <FaEye />
-          </button>
-          <button className={styles.deleteBtn} onClick={() => handleDelete(person.id)}>
-            <FaTrash />
-          </button>
-          <button className={styles.fingerprintBtn} onClick={() => navigate(`/attendance/${person.id}`)}>
-            <FaFingerprint />
-          </button>
+        <button
+                      className={styles.editBtn}
+                      onClick={() => navigate(`/edit-person/${person.id}`)}
+                      disabled={!permissions.edit}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className={styles.viewBtn}
+                      onClick={() => navigate(`/person-details/${person.id}`)}
+                      disabled={!permissions.view}
+                    >
+                      <FaEye />
+                    </button>
+                    <button
+                      className={styles.deleteBtn}
+                      onClick={() => handleDelete(person.id)}
+                      disabled={!permissions.delete}
+                    >
+                      <FaTrash />
+                    </button>
         </td>
       </tr>
     ))

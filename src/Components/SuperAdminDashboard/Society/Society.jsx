@@ -18,9 +18,22 @@ const Society = () => {
   const [selectedSociety, setSelectedSociety] = useState(null); 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); 
   const [moduleTitle, setModuleTitle] = useState('Society Details');
+  const [permissions, setPermissions] = useState({ create: true, view: true, edit: true, delete: true });
+  const [userRole, setUserRole] = useState(null);
+  const [societyId, setSocietyId] = useState(null);
   const handleSidebarClick = (title) => {
     setModuleTitle(title);  
   };
+   // Fetch user role, society ID, and permissions from localStorage
+   useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser);
+      setUserRole(userData.role);
+      setSocietyId(userData.societyId || null);
+      setPermissions(userData.permissions?.society || { create: true, view: true, edit: true, delete: true });
+    }
+  }, []);
   useEffect(() => {
     const fetchSocieties = async () => {
       try {
@@ -89,9 +102,14 @@ const Society = () => {
         {/* Filters and Add Button */}
         <div className="filters-and-add">
           <div className="add-button-container">
-            <Link to="/add-society">
-              <button className="add-button">Add Society</button>
-            </Link>
+          <Link
+    to={permissions.create ? "/add-society" : "#"}
+    className={permissions.create ? "" : "disabled-link"}
+    onClick={(e) => !permissions.create && e.preventDefault()} 
+    
+  >
+    <button className="add-button" disabled={!permissions.create}>Add Society</button>
+  </Link>
           </div>
           <div className="filters">
             <input
@@ -139,14 +157,34 @@ const Society = () => {
                 <td>{society.status}</td>
                 <td>{society.createdAt}</td>
                 <td>
-                  <FaEye className="view-icon" onClick={() => window.location.href = `/society-details/${society.id}`} />
+                <FaEye
+                    className="view-icon"
+                    onClick={() => {
+                      if (permissions.view) {
+                        window.location.href = `/society-details/${society.id}`;
+                      }
+                    }}
+                    style={{ opacity: permissions.view ? 1 : 0.5, cursor: permissions.view ? 'pointer' : 'not-allowed' }}
+                  />
                   <Link to={`/edit-society/${society.id}`}>
-                    <FaEdit className="edit-icon" />
+                    <FaEdit
+                      className="edit-icon"
+                      style={{ opacity: permissions.edit ? 1 : 0.5, cursor: permissions.edit ? 'pointer' : 'not-allowed' }}
+                      onClick={(e) => {
+                        if (!permissions.edit) e.preventDefault();
+                      }}
+                    />
                   </Link>
-                  <FaTrash className="delete-icon" onClick={() => {
-                    setSelectedSociety(society); 
-                    setShowDeleteConfirm(true);
-                  }} />
+                  <FaTrash
+                    className="delete-icon"
+                    onClick={() => {
+                      if (permissions.delete) {
+                        setSelectedSociety(society);
+                        setShowDeleteConfirm(true);
+                      }
+                    }}
+                    style={{ opacity: permissions.delete ? 1 : 0.5, cursor: permissions.delete ? 'pointer' : 'not-allowed' }}
+                  />
                 </td>
               </tr>
             ))}

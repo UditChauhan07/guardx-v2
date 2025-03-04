@@ -20,22 +20,23 @@ const TypeOfEntryPage = () => {
   const [errorMessage, setErrorMessage] = useState(''); 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [entryToDelete, setEntryToDelete] = useState(null);
+  const [permissions, setPermissions] = useState({ create: false, edit: false, delete: false });
   const navigate = useNavigate();
 
   const handleSidebarClick = (title) => {
     setModuleTitle(title);
   };
 
-  // Fetch user role and society ID from localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setUserRole(userData.role);
-      setSocietyId(userData.societyId || null);
-    }
-  }, []);
-
+ // Fetch user role, society ID, and permissions from localStorage
+ useEffect(() => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    const userData = JSON.parse(storedUser);
+    setUserRole(userData.role);
+    setSocietyId(userData.societyId || null);
+    setPermissions(userData.role === 'superadmin' ? { create: true, edit: true, delete: true } : userData.permissions?.entries || { create: false, edit: false, delete: false });
+  }
+}, []);
   // Fetch global entries (SuperAdmin)
   useEffect(() => {
     const fetchEntries = async () => {
@@ -82,21 +83,22 @@ const TypeOfEntryPage = () => {
     setEntryToDelete(null);
   };
 
-  // Fetch society-specific entries
-  useEffect(() => {
-    if (userRole !== 'superadmin' && societyId) {
-      const fetchSocietyEntries = async () => {
-        try {
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
-          setSocietyEntries(response.data.entries);
-        } catch (error) {
-          console.error('Error fetching society entries: ', error);
-        }
-      };
 
-      fetchSocietyEntries();
-    }
-  }, [userRole, societyId]);
+// Fetch society-specific entries
+useEffect(() => {
+  if (userRole !== 'superadmin' && societyId) {
+    const fetchSocietyEntries = async () => {
+      try {
+        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+        setSocietyEntries(response.data.entries);
+      } catch (error) {
+        console.error('Error fetching society entries: ', error);
+      }
+    };
+
+    fetchSocietyEntries();
+  }
+}, [userRole, societyId]);
 
   const handleSearchChangesociety = (e) => {
     setSearch(e.target.value);
@@ -169,12 +171,12 @@ const TypeOfEntryPage = () => {
       <Sidebar onClick={handleSidebarClick} />
   
       {/* SuperAdmin UI */}
-      {userRole === 'superadmin' && (
+      {(userRole === 'superadmin' || societyId === null) && (
         <>
           <div className={styles.entriesTableSection}>
             {/* Header Section */}
             <div className={styles.entriesHeader}>
-              <button className={styles.addButton} onClick={() => navigate('/add-entry')}>
+              <button className={styles.addButton}  disabled={!permissions.create} onClick={() => navigate('/add-entry')}>
                 Add +
               </button>
               <input
@@ -205,12 +207,12 @@ const TypeOfEntryPage = () => {
                     <td>{entry.title}</td>
                     <td>{entry.entryType}</td>
                     <td>
-                      <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(entry.id)}>
-                        <FaEdit />
-                      </button>
-                      <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteClick(entry.id)}>
-                        <FaTrash />
-                      </button>
+                    <button className={`${styles.actionButton} ${styles.edit}`} onClick={() => handleEditClick(entry.id)} disabled={!permissions.edit}>
+                      <FaEdit />
+                    </button>
+                    <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteClick(entry.id)} disabled={!permissions.delete}>
+                      <FaTrash />
+                    </button>
                     </td>
                   </tr>
                 ))}
@@ -238,13 +240,13 @@ const TypeOfEntryPage = () => {
       )}
   
       {/* Society User UI */}
-      {userRole !== 'superadmin' && (
+      {userRole !== 'superadmin' && societyId !== null && (
         <>
           <div className={styles.entriesTableSection}>
             <div className={styles.entriesHeader}>
-              <button className={styles.addButton} onClick={handleAddClick}>
-                Add +
-              </button>
+            <button className={styles.addButton} onClick={() => setShowAddModal(true)} disabled={!permissions.create}>
+              Add +
+            </button>
               <input
                 type="text"
                 className={styles.searchBar}
@@ -270,9 +272,9 @@ const TypeOfEntryPage = () => {
                     <td>{entry.title}</td>
                     <td>{entry.entryType}</td>
                     <td>
-                      <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteEntry(entry.id)}>
-                        <FaTrash />
-                      </button>
+                    <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteEntry(entry.id)} disabled={!permissions.delete}>
+                      <FaTrash />
+                    </button>
                     </td>
                   </tr>
                 ))}

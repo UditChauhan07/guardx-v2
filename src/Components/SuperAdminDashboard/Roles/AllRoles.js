@@ -15,40 +15,41 @@ const AllRoles = () => {
   const [roleToDelete, setRoleToDelete] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ Load user data from localStorage
-  const loggedInUser = JSON.parse(localStorage.getItem('user')) || {};
-  const { role, societyId, permissions } = loggedInUser || {};
-
-  // ✅ Check Permissions (Defaults to NO PERMISSIONS)
-  const hasPermissions = permissions?.roles !== undefined;
-  const canCreate = hasPermissions && permissions.roles.create;
-  const canEdit = hasPermissions && permissions.roles.edit;
-  const canDelete = hasPermissions && permissions.roles.delete;
+   // ✅ Load user data from localStorage
+   const loggedInUser = JSON.parse(localStorage.getItem('user')) || {};
+   const { role, societyId, permissions } = loggedInUser || {};
+ 
+   // ✅ If SuperAdmin, Full Access
+   const isSuperAdmin = role === 'superadmin';
+   const hasPermissions = permissions?.roles !== undefined;
+ 
+   // ✅ Define Permissions Based on Role
+   const canCreate = isSuperAdmin || (hasPermissions && permissions.roles.create);
+   const canEdit = isSuperAdmin || (hasPermissions && permissions.roles.edit);
+   const canDelete = isSuperAdmin || (hasPermissions && permissions.roles.delete);
 
   // ✅ Fetch Roles Based on Role & Society ID
-  useEffect(() => {
-    const fetchRoles = async () => {
-      try {
-        let response;
-        if (role === 'superadmin') {
-          // ✅ Super Admin → Fetch All Roles
-          response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
-        } else if (societyId) {
-          // ✅ Other Users → Fetch Society Roles
-          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
-        }
-
-        if (response) {
-          setRoles(response.data.roles);
-        }
-      } catch (error) {
-        console.error('Error fetching roles:', error);
-        toast.error('Error fetching roles.');
+ useEffect(() => {
+  const fetchRoles = async () => {
+    try {
+      let response;
+        response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
+        if (societyId) {
+        // ✅ Society Users Only
+        response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
       }
-    };
 
-    fetchRoles();
-  }, [role, societyId]);
+      if (response) {
+        setRoles(response.data.roles);
+      }
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+      toast.error('❌ Error fetching roles.');
+    }
+  };
+
+  fetchRoles();
+}, [isSuperAdmin, societyId]);;
 
   // ✅ Handle Search Input
   const handleSearchChange = (e) => {
@@ -67,10 +68,11 @@ const AllRoles = () => {
     setShowDeleteModal(true);
   };
 
+  
   // ✅ Handle Delete Confirmation
   const handleDeleteConfirmation = async () => {
     try {
-      const endpoint = role === 'superadmin'
+      const endpoint = isSuperAdmin
         ? `https://api-kpur6ixuza-uc.a.run.app/api/delete-role/${roleToDelete}`
         : `https://api-kpur6ixuza-uc.a.run.app/api/delete-society-role/${roleToDelete}`;
 
@@ -83,6 +85,7 @@ const AllRoles = () => {
       toast.error('❌ Error deleting role.');
     }
   };
+
 
   // ✅ Handle Cancel Delete
   const handleCancelDelete = () => {
@@ -98,12 +101,13 @@ const AllRoles = () => {
       <div className={styles.entriesTableSection}>
         {/* ✅ Header Section */}
         <div className={styles.entriesHeader}>
-          {/* ✅ Show "Add Role" Button If User Has Create Permission */}
-          {canCreate && (
-            <button className={styles.addButton} onClick={() => navigate('/add-role')}>
-              Add +
-            </button>
-          )}
+          <button
+            className={styles.addButton}
+            onClick={() => navigate('/add-role')}
+            disabled={!canCreate}
+          >
+            Add +
+          </button>
           <input
             type="text"
             className={styles.searchBar}
@@ -129,23 +133,21 @@ const AllRoles = () => {
                 <td>{role.description}</td>
                 <td>
                   {/* ✅ Show Edit Button If User Has Edit Permission */}
-                  {canEdit && (
-                    <button
-                      className={`${styles.actionButton} ${styles.edit}`}
-                      onClick={() => navigate(`/edit-role/${role.id}`)}
-                    >
-                      <FaEdit />
-                    </button>
-                  )}
+                  <button
+                    className={`${styles.actionButton} ${styles.edit}`}
+                    onClick={() => navigate(`/edit-role/${role.id}`)}
+                    disabled={!canEdit}
+                  >
+                    <FaEdit />
+                  </button>
                   {/* ✅ Show Delete Button If User Has Delete Permission */}
-                  {canDelete && (
-                    <button
-                      className={`${styles.actionButton} ${styles.delete}`}
-                      onClick={() => handleDeleteClick(role.id)}
-                    >
-                      <FaTrash />
-                    </button>
-                  )}
+                  <button
+                    className={`${styles.actionButton} ${styles.delete}`}
+                    onClick={() => handleDeleteClick(role.id)}
+                    disabled={!canDelete}
+                  >
+                    <FaTrash />
+                  </button>
                 </td>
               </tr>
             ))}

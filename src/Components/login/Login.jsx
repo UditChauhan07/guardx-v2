@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import '../login/Login.css';
+import styles from './Login.module.css';
 
 const translations = {
   en: {
     loginTitle: "LOGIN",
-    emailLabel: "Email",
+    emailLabel: "Email",  
     emailPlaceholder: "Enter your email",
     passwordLabel: "Password",
     passwordPlaceholder: "Enter your password",
@@ -82,23 +82,24 @@ const Login = () => {
     }
   };
   return (
-    <div className="login-container">
-      <div className="language-switch">
-        <label className="switch">
+    <div className={styles.loginContainer}>
+      <div className={styles.languageSwitch}>
+        <label className={styles.switch}>
           <input
             type="checkbox"
             onChange={() => setLanguage(language === 'en' ? 'hi' : 'en')}
           />
-          <span className="slider round"></span>
+          <span className={styles.slider}></span>
         </label>
-        <span className="language-label">{translations[language].languageToggle}</span>
+        <span className={styles.languageLabel}>{translations[language].languageToggle}</span>
       </div>
 
-      <div className="login-card">
-        <h2 className="login-title">{translations[language].loginTitle}</h2>
+      <div className={styles.loginCard}>
+        <h2 className={styles.loginTitle}>{translations[language].loginTitle}</h2>
         <form onSubmit={handleLogin}>
-          <div className="input-wrapper">
+          <div className={styles.inputWrapper}>
             <label>{translations[language].emailLabel}</label>
+            <div className={styles.passwordWrapper}>
             <input
               type="email"
               placeholder={translations[language].emailPlaceholder}
@@ -106,11 +107,12 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            </div>
           </div>
 
-          <div className="input-wrapper">
+          <div className={styles.inputWrapper}>
             <label>{translations[language].passwordLabel}</label>
-            <div className="password-wrapper">
+            <div className={styles.passwordWrapper}>
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder={translations[language].passwordPlaceholder}
@@ -119,7 +121,7 @@ const Login = () => {
                 required
               />
               <span
-                className="toggle-password"
+                className={styles.togglePassword}
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? '🙈' : '👁️'}
@@ -127,7 +129,7 @@ const Login = () => {
             </div>
           </div>
 
-          <button type="submit" className="submit-button0">
+          <button type="submit" className={styles.submitButton}>
             {translations[language].submitButton}
           </button>
         </form>

@@ -96,7 +96,7 @@ const Sidebar = ({ onClick }) => {
                 </NavLink>
               </li>
             )}
-            {hasPermission('user') && (
+            {hasPermission('users') && (
               <li className="menu-item">
                 <NavLink to="/users" className="menu-link" activeClassName="active" onClick={() => onClick('Users')}>
                   <FaUsers className="menu-icon" />
@@ -104,7 +104,7 @@ const Sidebar = ({ onClick }) => {
                 </NavLink>
               </li>
             )}
-            {hasPermission('role') && (
+            {hasPermission('roles') && (
               <li className="menu-item">
                 <NavLink to="/roles" className="menu-link" activeClassName="active" onClick={() => onClick('Roles')}>
                   <FaUserAlt className="menu-icon" />

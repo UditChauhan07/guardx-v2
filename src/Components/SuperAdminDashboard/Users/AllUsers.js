@@ -15,26 +15,28 @@ const AllUsers = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ Load user data from localStorage
-  const loggedInUser = JSON.parse(localStorage.getItem('user')) || {};
-  const { role, societyId, permissions } = loggedInUser || {};
+ // ✅ Load user data from localStorage
+ const loggedInUser = JSON.parse(localStorage.getItem('user')) || {};
+ const { role, societyId, permissions } = loggedInUser || {};
 
-  // ✅ Check Permissions (Defaults to NO PERMISSIONS)
-  const hasPermissions = permissions?.users !== undefined;
-  const canCreate = hasPermissions && permissions.users.create;
-  const canEdit = hasPermissions && permissions.users.edit;
-  const canDelete = hasPermissions && permissions.users.delete;
+ // ✅ If SuperAdmin, Full Access
+ const isSuperAdmin = role === 'superadmin';
+ const hasPermissions = permissions?.users !== undefined;
+
+ // ✅ Define Permissions Based on Role
+ const canCreate = isSuperAdmin || (hasPermissions && permissions.users.create);
+ const canEdit = isSuperAdmin || (hasPermissions && permissions.users.edit);
+ const canDelete = isSuperAdmin || (hasPermissions && permissions.users.delete);
+
+
 
   // ✅ Fetch Users Based on Role & Society ID
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         let response;
-        if (role === 'superadmin') {
-          // ✅ Super Admin → Fetch All Users
           response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-users');
-        } else if (societyId) {
-          // ✅ Other Users → Fetch Society Users
+         if (societyId) {
           response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-users/${societyId}`);
         }
 
@@ -43,12 +45,13 @@ const AllUsers = () => {
         }
       } catch (error) {
         console.error('Error fetching users:', error);
-        toast.error('Error fetching users.');
+        toast.error('❌ Error fetching users.');
       }
     };
 
     fetchUsers();
-  }, [role, societyId]);
+  }, [isSuperAdmin, societyId]);
+
 
   // ✅ Handle Search Input
   const handleSearchChange = (e) => {
@@ -129,23 +132,19 @@ const AllUsers = () => {
                 <td>{user.role}</td>
                 <td>
                   {/* ✅ Show Edit Button If User Has Edit Permission */}
-                  {canEdit && (
                     <button
                       className={`${styles.actionButton} ${styles.edit}`}
-                      onClick={() => navigate(`/edit-user/${user.id}`)}
+                      onClick={() => navigate(`/edit-user/${user.id}`)} disabled={!canEdit}
                     >
                       <FaEdit />
                     </button>
-                  )}
                   {/* ✅ Show Delete Button If User Has Delete Permission */}
-                  {canDelete && (
                     <button
                       className={`${styles.actionButton} ${styles.delete}`}
-                      onClick={() => handleDeleteClick(user.id)}
+                      onClick={() => handleDeleteClick(user.id)} disabled={!canDelete}
                     >
                       <FaTrash />
                     </button>
-                  )}
                 </td>
               </tr>
             ))}

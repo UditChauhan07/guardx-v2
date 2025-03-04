@@ -367,3 +367,46 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
+/* Disabled Button Styles */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background-color: #d3d3d3 !important; /* Light gray background */
+  color: #a0a0a0 !important; /* Dimmed text */
+  border: 1px solid #ccc !important;
+  pointer-events: none; /* Prevent clicks */
+}
+
+/* Optional: Prevent hover effects for disabled buttons */
+button:disabled:hover {
+  background-color: #d3d3d3 !important;
+  color: #a0a0a0 !important;
+}
+
+/* Disabled Action Buttons (Edit & Delete) */
+.actionButton:disabled {
+  background-color: #f0f0f0 !important; /* Slightly lighter than normal */
+  color: #b0b0b0 !important; /* Grayed out */
+  border: 1px solid #ddd !important;
+}
+
+/* Add Button Disabled */
+.addButton:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  border: none;
+}
+
+/* Delete Button Disabled */
+.delete:disabled {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  border: 1px solid #f5c6cb !important;
+}
+
+/* Edit Button Disabled */
+.edit:disabled {
+  background-color: #cce5ff !important;
+  color: #004085 !important;
+  border: 1px solid #b8daff !important;
+}
