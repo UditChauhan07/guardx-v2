@@ -6,6 +6,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { toast } from 'react-toastify';
 import './Navbar.css';
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton } from '@mui/material';
 
 const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
   const [localProfile, setLocalProfile] = useState({});
@@ -37,7 +39,7 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     e.preventDefault();
     try {
       let updateData = {
-        email: localProfile.email, // Use email instead of ID
+        email: localProfile.email, 
         phone: formData.phone,
       };
 
@@ -46,7 +48,7 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
       }
 
       if (formData.email !== localProfile.email) {
-        updateData.newEmail = formData.email; // Allow updating email
+        updateData.newEmail = formData.email; 
       }
 
       console.log('Updating profile:', updateData);
@@ -92,7 +94,7 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
   const handleLogout = async () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const logoutTime = new Date().toISOString(); 
-    if (storedUser.role === "SuperAdmin") {
+    if (storedUser.role === "superAdmin") {
       console.log("🔹 Super Admin detected. Logging out directly...");
       localStorage.setItem("logoutTime", logoutTime);
       localStorage.removeItem("user");
@@ -122,14 +124,8 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
         console.error("🔥 Error checking/logout from Attendance API:", error);
       }
     }
-  
-    // ✅ Store logout time in localStorage (for reference)
     localStorage.setItem("logoutTime", logoutTime);
-  
-    // ✅ Remove user from localStorage
     localStorage.removeItem("user");
-  
-    // ✅ Redirect to login page
     navigate("/");
   };
   
@@ -143,71 +139,105 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
 
       {/* Dropdown Modal */}
       <Modal open={isDropdownModalOpen} onClose={() => setIsDropdownModalOpen(false)}>
-        <Box className="dropdown-modal-box">
-          <h2 className="modal-title">Options</h2>
-          <div className="modal-actions">
-            {localProfile.role === 'superadmin' ? (
-              <>
-                <button onClick={() => { setIsDropdownModalOpen(false); setIsProfileModalOpen(true); }} className="dropdown-item">Profile</button>
-                <button onClick={handleLogout} className="dropdown-item">Logout</button>
-                <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
-              </>
-            ) : (
-              <>
-              <button className="dropdown-item" onClick={() => navigate('/user-attendance-history')}>
-                            Attendance
-                            </button>
-                <button onClick={handleLogout} className="dropdown-item">Logout</button>
-                <button onClick={() => setIsDropdownModalOpen(false)} className="dropdown-item">Close</button>
-              </>
-            )}
-          </div>
-        </Box>
-      </Modal>
+      <Box className="dropdown-modal-box">
+        {/* Close Button at Top Right */}
+        <IconButton className="close-button" onClick={() => setIsDropdownModalOpen(false)}>
+          <CloseIcon />
+        </IconButton>
+
+        <h2 className="modal-title">Options</h2>
+
+        <div className="modal-actions">
+          {localProfile.role === "superadmin" ? (
+            <>
+              <button
+                onClick={() => {
+                  setIsDropdownModalOpen(false);
+                  setIsProfileModalOpen(true);
+                }}
+                className="dropdown-item"
+              >
+                Profile
+              </button>
+              <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            </>
+          ) : (
+            <>
+              <button className="dropdown-item" onClick={() => navigate("/user-attendance-history")}>
+                Attendance
+              </button>
+              <button onClick={handleLogout} className="dropdown-item">Logout</button>
+            </>
+          )}
+        </div>
+      </Box>
+    </Modal>
 
       {/* Profile Modal */}
       <Modal open={isProfileModalOpen} onClose={() => setIsProfileModalOpen(false)}>
-        <Box className="modal-box">
-          <h2 className="modal-title">Profile Details</h2>
-          <div className="modal-content">
-            <div className="modal-item"><strong>Email:</strong> {localProfile.email}</div>
-            <div className="modal-item"><strong>Phone:</strong> {localProfile.phone}</div>
-            <div className="modal-item"><strong>Role:</strong> {localProfile.role}</div>
-            {localProfile.role === 'superadmin' && (
-              <div className="modal-actions">
-                <button onClick={() => setIsEditing(true)} ><FaEdit /> Edit Profile</button>
-                <button onClick={handleDeleteProfile} ><FaTrash /> Delete Profile</button>
-              </div>
-            )}
-            <button onClick={() => setIsProfileModalOpen(false)}>Close</button>
-          </div>
-        </Box>
-      </Modal>
+      <Box className="profile-modal-box">
+        {/* Close Button at Top Right */}
+        <IconButton className="close-button" onClick={() => setIsProfileModalOpen(false)}>
+          <CloseIcon />
+        </IconButton>
+
+        <h2 className="modal-title">Profile Details</h2>
+
+        <div className="modal-content">
+          <div className="modal-item"><strong>Email:</strong> {localProfile.email}</div>
+          <div className="modal-item"><strong>Phone:</strong> {localProfile.phone}</div>
+          <div className="modal-item"><strong>Role:</strong> {localProfile.role}</div>
+
+          {localProfile.role === "superadmin" && (
+            <div className="modal-actions">
+              <button className="edit-button" onClick={() => setIsEditing(true)}>
+                <FaEdit /> Edit Profile
+              </button>
+              <button className="delete-button" onClick={handleDeleteProfile}>
+                <FaTrash /> Delete Profile
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Close Button */}
+        <button className="close-modal-btn" onClick={() => setIsProfileModalOpen(false)}>Close</button>
+      </Box>
+    </Modal>
 
       {/* Edit Profile Modal */}
       <Modal open={isEditing} onClose={() => setIsEditing(false)}>
-        <Box className="modal-box">
-          <h2 className="modal-title">Edit Profile</h2>
-          <form className="edit-form" onSubmit={handleUpdateProfile}>
-            <div className="input-wrapper">
-              <label>Email</label>
-              <input type="email" name="email" value={formData.email || ''} onChange={handleInputChange} required />
-            </div>
-            <div className="input-wrapper">
-              <label>Phone</label>
-              <input type="text" name="phone" value={formData.phone || ''} onChange={handleInputChange} required />
-            </div>
-            <div className="input-wrapper">
-              <label>Password (Leave blank to keep current password)</label>
-              <input type="password" name="password" value={formData.password || ''} onChange={handleInputChange} />
-            </div>
-            <div className="actions">
-              <button type="submit" className="save-button">Save Changes</button>
-              <button type="button" onClick={() => setIsEditing(false)} >Cancel</button>
-            </div>
-          </form>
-        </Box>
-      </Modal>
+      <Box className="edit-profile-modal-box">
+        {/* Close Button at Top Right */}
+        <IconButton className="close-button" onClick={() => setIsEditing(false)}>
+          <CloseIcon />
+        </IconButton>
+
+        <h2 className="modal-title">Edit Profile</h2>
+
+        <form className="edit-form" onSubmit={handleUpdateProfile}>
+          <div className="input-wrapper1">
+            <label>Email</label>
+            <input type="email" name="email" value={formData.email || ''} onChange={handleInputChange} required />
+          </div>
+
+          <div className="input-wrapper1">
+            <label>Phone</label>
+            <input type="text" name="phone" value={formData.phone || ''} onChange={handleInputChange} required />
+          </div>
+
+          <div className="input-wrapper1">
+            <label>Password (Leave blank to keep current password)</label>
+            <input type="password" name="password" value={formData.password || ''} onChange={handleInputChange} />
+          </div>
+
+          <div className="modal-actions">
+            <button type="submit" className="save-button">Save Changes</button>
+            <button type="button" className="cancel-button" onClick={() => setIsEditing(false)}>Cancel</button>
+          </div>
+        </form>
+      </Box>
+    </Modal>
     </div>
   );
 };

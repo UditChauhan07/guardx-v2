@@ -71,6 +71,7 @@ button:disabled:hover {
     padding: 12px;
     border: 1px solid #ddd;
     text-align: left;
+    color: black;
   }
   
   .houseTable th {

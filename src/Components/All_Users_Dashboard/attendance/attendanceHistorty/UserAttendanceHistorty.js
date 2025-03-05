@@ -5,8 +5,8 @@ import styles from "./UserAttendanceHistory.module.css";
 const UserAttendanceHistory = () => {
   const navigate = useNavigate();
   const [attendanceData, setAttendanceData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]); // Filtered data
-  const [searchDate, setSearchDate] = useState(""); // Search date
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchDate, setSearchDate] = useState(new Date().toISOString().split("T")[0]); // Default to today's date
   const [userName, setUserName] = useState("User");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,9 +39,18 @@ const UserAttendanceHistory = () => {
 
         if (response.ok) {
           console.log("User Attendance History:", result.data);
-          setAttendanceData(result.data || []); 
-          setFilteredData(result.data || []); 
+          setAttendanceData(result.data || []);
           setUserName(userData.name || "User");
+
+          // **Filter data for the present date by default**
+          const todayRecords = (result.data || []).filter((record) => {
+            const recordDate = new Date(record.loginTime._seconds * 1000)
+              .toISOString()
+              .split("T")[0]; // Convert to YYYY-MM-DD
+            return recordDate === searchDate; // Filter by today's date
+          });
+
+          setFilteredData(todayRecords);
         } else {
           console.error("Error fetching attendance:", result.message);
           setError(result.message || "Failed to fetch attendance records.");
@@ -57,7 +66,7 @@ const UserAttendanceHistory = () => {
     fetchUserAttendance();
   }, []);
 
-  // Filter attendance by selected date
+  // Filter attendance based on selected date
   useEffect(() => {
     if (searchDate) {
       const filtered = attendanceData.filter((record) => {
@@ -94,7 +103,7 @@ const UserAttendanceHistory = () => {
       ) : error ? (
         <p className={styles.error}>{error}</p>
       ) : filteredData.length === 0 ? (
-        <p className={styles.noData}>No attendance records found.</p>
+        <p className={styles.noData}>No attendance records found for this date.</p>
       ) : (
         <table className={styles.attendanceTable}>
           <thead>
@@ -111,8 +120,7 @@ const UserAttendanceHistory = () => {
               const logout = formatDateTime(record.logoutTime);
               const duration = record.logoutTime?._seconds
                 ? `${Math.floor(
-                    (record.logoutTime._seconds - record.loginTime._seconds) /
-                      60
+                    (record.logoutTime._seconds - record.loginTime._seconds) / 60
                   )} mins`
                 : "Still Active";
 

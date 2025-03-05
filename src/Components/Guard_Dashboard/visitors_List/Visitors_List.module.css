@@ -69,11 +69,7 @@
   font-size: 18px;
 }
 
-/* 🔹 Table Styling */
-.tableContainer {
-  overflow-x: auto;
-  border-radius: 12px;
-}
+
 
 .table {
   width: 100%;

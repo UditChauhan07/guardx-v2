@@ -1,76 +1,157 @@
 /* Sidebar */
 .sidebar {
-    width: 16rem;
-    height: 100vh;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    margin-left: 20px;
-    border-radius: 25px;
-    z-index: 1000;
+  width: 16rem;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-radius: 25px;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 1.5rem 0;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.sidebar-logo {
+  width: 150px
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 1rem;
+}
+
+/* ✅ Sidebar Menu Item */
+.menu-item {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+/* ✅ Accordion Button */
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 15px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+
+.menu-link:hover {
+  background: linear-gradient(135deg, #0056b3, #004080);
+  transform: translateX(5px);
+}
+
+/* ✅ Menu Icon */
+.menu-icon {
+  font-size: 1.2rem;
+}
+
+/* ✅ Accordion Chevron (Arrow) */
+.accordion-chevron {
+  margin-left: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.accordion-button[aria-expanded="true"] .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+/* ✅ Accordion Panel */
+.accordion-item {
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.accordion-item-panel {
+  background: #f9f9f9;
+  padding: 10px 15px;
+}
+
+/* ✅ Regular Entries List */
+.regular-entries-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 8px;
+}
+
+/* ✅ Individual Entry Item */
+.regular-entry-item {
+  padding: 10px;
+  border-radius: 6px;
+  background: rgba(0, 123, 255, 0.1);
+  transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.regular-entry-item:hover {
+  background: rgba(0, 123, 255, 0.2);
+  transform: scale(1.05);
+}
+
+/* ✅ Regular Entry Link */
+.regular-entry-link {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ✅ No Entries Message */
+.no-entries-message {
+  text-align: center;
+  color: #888;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+  .menu-link {
+    font-size: 0.9rem;
   }
 
-  .sidebar-header {
-    text-align: center;
-    padding: 1.5rem 0;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
+  .regular-entry-link {
+    font-size: 0.9rem;
   }
-  .sidebar-logo{
-    width: 150px
-  }
-  .sidebar-menu {
-    list-style: none;
-    padding: 1rem;
-  }
-  
-  .menu-item {
-    margin: 0.5rem 0;
-  }
-  
-  .menu-link {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #555;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .menu-icon {
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    color: #007bff;
-  }
-  
-  .menu-link:hover,
-  .menu-link.active {
-    background-color: #e7f0ff;
-    color: #007bff;
-  }
-  
-  /* Main Content */
-  .main-content {
-    margin-left: 16rem;
-    padding: 2rem;
-  }
-  /* Accordion Styling */
+}
+
+
+/* Main Content */
+.main-content {
+  margin-left: 16rem;
+  padding: 2rem;
+}
+
+/* Accordion Styling */
 .accordion-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 60%;
+  width: 82%;
   background-color: transparent;
-
   padding: 12px 20px;
   cursor: pointer;
 }
@@ -92,19 +173,6 @@
 
 .regular-entry-item {
   padding: 8px 20px;
-}
-
-.regular-entry-link {
-  color: rgb(21, 21, 21);
-  text-decoration: none;
-  font-size: 14px;
-  display: block;
-}
-
-.regular-entry-link:hover {
-  background-color: #007bff;
-  padding-left: 5px;
-  transition: 0.3s;
 }
 
 .no-entries-message {

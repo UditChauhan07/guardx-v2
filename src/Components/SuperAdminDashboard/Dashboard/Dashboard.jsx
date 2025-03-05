@@ -21,18 +21,15 @@ const Dashboard = () => {
   const [moduleTitle, setModuleTitle] = useState('Dashboard');
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
-
   // Metrics for SuperAdmin
   const [totalSocieties, setTotalSocieties] = useState(0);
   const [totalEntries, setTotalEntries] = useState(0);
   const [totalPurposes, setTotalPurposes] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
-
   // Metrics for Other Users
   const [totalRegularEntries, setTotalRegularEntries] = useState(0);
   // For non-superadmin, totalEntries represents all society entries
   const [totalHouseList, setTotalHouseList] = useState(0);
-
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [{
