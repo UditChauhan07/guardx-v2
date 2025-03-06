@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   FaHome, FaBuilding, FaCalendarAlt, FaLightbulb, FaUsers, FaUserAlt,
-  FaClipboardList, FaUserCheck, FaHouseUser, FaClipboard, FaChevronDown
+  FaClipboardList, FaUserCheck, FaHouseUser, FaClipboard, FaChevronDown,
+  FaSubscript,
+  FaLaptop
 } from 'react-icons/fa';
 import axios from 'axios';
 import {
@@ -93,6 +95,14 @@ const Sidebar = ({ onClick }) => {
                 <NavLink to="/purpose" className="menu-link" activeClassName="active" onClick={() => onClick('Purpose of Occasional')}>
                   <FaLightbulb className="menu-icon" />
                   Purpose of Occasional
+                </NavLink>
+              </li>
+            )}
+            {hasPermission('subscription') && (
+              <li className='menu-item'>
+                <NavLink to="/subscription" className="menu-link" activeClassName="active" onClick={() => onClick('Subscription')}>
+                  <FaLaptop className="menu-icon" />
+                  Subscription
                 </NavLink>
               </li>
             )}

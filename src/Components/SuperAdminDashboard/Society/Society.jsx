@@ -79,10 +79,7 @@ const Society = () => {
 
   return (
     <div className="society-container">
-      {/* Navbar */}
       <Navbar moduleTitle={moduleTitle} />
-      
-      {/* Sidebar */}
       <Sidebar onClick={handleSidebarClick} />
 
       <div className="society-content">

@@ -33,20 +33,20 @@
   gap: 20px;
 }
 
-.input-wrapper {
+.input-wrapper2 {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.input-wrapper label {
+.input-wrapper2 label {
   font-size: 1rem;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.input-wrapper input,
-.input-wrapper select {
+.input-wrapper2 input,
+.input-wrapper2 select {
   padding: 12px;
   font-size: 1rem;
   border-radius: 8px;
@@ -54,8 +54,8 @@
   width: 90%;
 }
 
-.input-wrapper input:focus,
-.input-wrapper select:focus {
+.input-wrapper2 input:focus,
+.input-wrapper2 select:focus {
   border-color: #007bff;
   outline: none;
 }

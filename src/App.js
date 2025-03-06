@@ -36,6 +36,9 @@ import UserAttendanceHistorty from './Components/All_Users_Dashboard/attendance/
 import Visitors_List from './Components/Guard_Dashboard/visitors_List/Visitors_List';
 import Add_Visitors from './Components/Guard_Dashboard/Add_Visitors/Add_Visitors';
 import Guest_Entries_info from './Components/All_Users_Dashboard/guest_entries/Guest_Entries_info';
+import All_Subscriptions from './Components/SuperAdminDashboard/Subscription/All_Subscriptions';
+import Add_Subscription_Plan from './Components/SuperAdminDashboard/Subscription/Add_plan/Add_Subscription_Plan';
+import Edit_Plan from './Components/SuperAdminDashboard/Subscription/Edit_Plan/Edit_Plan';
 
 function App() {
   
@@ -79,6 +82,9 @@ function App() {
           <Route path="/visitors_list" element={<Visitors_List/>} />
           <Route path="/add_visitor" element={<Add_Visitors/>} />
           <Route path="/visitor-details/:entryId" element={<Guest_Entries_info/>} />
+          <Route  path='/subscription' element= {<All_Subscriptions/>}/>
+          <Route path='/add-plan' element = {<Add_Subscription_Plan/>}/>
+          <Route path='/edit/:planId' element = {<Edit_Plan/>}/>
         </Routes>
       </Router>
     </>

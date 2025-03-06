@@ -22,7 +22,8 @@ const EditRole = () => {
     entries: { view: false, create: false, edit: false, delete: false, show: false },
     purpose: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
-    users: { view: false, create: false, edit: false, delete: false, show: false }
+    users: { view: false, create: false, edit: false, delete: false, show: false },
+    subscription: { view: false, create: false, edit: false, delete: false, show: false }
   };
 
   // Default permissions for Society role

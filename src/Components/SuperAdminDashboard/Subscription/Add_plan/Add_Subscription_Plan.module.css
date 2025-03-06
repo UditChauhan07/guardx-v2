@@ -1,0 +1,116 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f4f7f9;
+    min-height: 100vh;
+}
+
+.formContainer {
+    width: 78%;
+    background: #ffffff;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+    border-radius: 20px;
+    margin-left: 300px;
+    margin-top: 120px;
+    z-index: 1000;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputGroup {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input {
+    width: 98%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-size: 16px;
+    background: #fafafa;
+}
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-size: 16px;
+    background: #fafafa;
+}
+textarea{
+    width: 98%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-size: 16px;
+    background: #fafafa;
+}
+
+select:hover, input:hover, textarea:hover {
+    border-color: #4caf50;
+}
+
+select:focus, input:focus, textarea:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+.submitButton {
+    background: linear-gradient(to right, #4caf50, #45a049);
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.submitButton:hover {
+    background: linear-gradient(to right, #45a049, #3e8e41);
+    transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

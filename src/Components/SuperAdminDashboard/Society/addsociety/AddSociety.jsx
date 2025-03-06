@@ -77,7 +77,7 @@ const back = () => {
       <div className="add-society-content">
         <form className="add-society-form" onSubmit={handleSubmit}>
           <div className="form-row">
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>Society Name <span className="required">*</span></label>
               <input
                 type="text"
@@ -87,7 +87,7 @@ const back = () => {
                 required
               />
             </div>
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>Address <span className="required">*</span></label>
               <input
                 type="text"
@@ -100,7 +100,7 @@ const back = () => {
           </div>
 
           <div className="form-row">
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>State <span className="required">*</span></label>
               <input
                 type="text"
@@ -110,7 +110,7 @@ const back = () => {
                 required
               />
             </div>
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>City <span className="required">*</span></label>
               <input
                 type="text"
@@ -123,7 +123,7 @@ const back = () => {
           </div>
 
           <div className="form-row">
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>Contact No. <span className="required">*</span></label>
               <input
                 type="text"
@@ -133,7 +133,7 @@ const back = () => {
                 required
               />
             </div>
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>Society Registration No. <span className="required">*</span></label>
               <input
                 type="text"
@@ -146,7 +146,7 @@ const back = () => {
           </div>
 
           <div className="form-row">
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>Society Email <span className="required">*</span></label>
               <input
                 type="email"
@@ -156,7 +156,7 @@ const back = () => {
                 required
               />
             </div>
-            <div className="input-wrapper">
+            <div className="input-wrapper2">
               <label>No. of Houses in Society <span className="required">*</span></label>
               <select
                 name="houses"

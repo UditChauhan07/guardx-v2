@@ -29,7 +29,7 @@ const Dashboard = () => {
   // Metrics for Other Users
   const [totalRegularEntries, setTotalRegularEntries] = useState(0);
   // For non-superadmin, totalEntries represents all society entries
-  const [totalHouseList, setTotalHouseList] = useState(0);
+  const [totalHouseList, setTotalHouseList] = useState(0); 
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [{
