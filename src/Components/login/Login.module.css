@@ -192,3 +192,6 @@ input:checked + .slider:before {
     top: 10px;
   }
 }
+.forgotPassword{
+  margin-left: 250px;
+}

@@ -1,28 +1,22 @@
+/* 🌟 General Page Styles */
 .AllUsers {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    background: #f4f6f9;
     padding: 20px;
     max-width: 100%;
     margin: 0 auto;
     margin-top: 100px;
     margin-left: 300px;
   }
-  /* Disabled Button Styles */
-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-    background-color: #d3d3d3 !important;
-    color: #a0a0a0 !important;
-    border: 1px solid #ccc !important;
-    pointer-events: none;
-  }
   
-  .addButton:disabled {
-    background-color: #cccccc !important;
-    color: #666666 !important;
-    border: none;
-  }
-  .usersTableSection{
+  /* 🏆 Users Table Section */
+  .usersTableSection {
+    padding: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,159 +26,259 @@ button:disabled {
     background-color: white;
     border-radius: 20px;
     padding: 30px;
+    width: 90%;
   }
+  
+  /* 🎯 Header Section (Add, Search, Share) */
   .entriesHeader {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.addButton {
-    background-color: #007bff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.searchBar {
-    width: 300px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.entriesTable {
-    border-collapse: collapse;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eee;
+  }
+  
+  /* 🔹 Add User Button */
+  .addButton {
+    background: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
     border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    margin-right: 700px;
+  }
+  
+  .addButton:hover {
+    background: #218838;
+  }
+  
+  /* 🔎 Search Bar */
+  .searchBar {
+    flex-grow: 1;
+    margin-left: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .searchBar:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* 📤 Share Button */
+  .exportContainer {
+    position: relative;
+  }
+  
+  .exportButton {
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+  }
+  .exportButton:hover {
+    background: #0056b3;
+  }
+  .shareButton:hover {
+    background: #0056b3;
+  }
+  
+  /* 📂 Export Dropdown */
+  .exportDropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .exportOption{
+    background: transparent;
+    color: #007bff;
+    border: none;
+    padding: 10px 20px;
     width: 100%;
-}
-
-.entriesTable th,
-.entriesTable td {
-    padding: 15px;
     text-align: left;
     font-size: 16px;
-    color: #333;
-    text-align: center;
-}
-
-.entriesTable th {
-    background-color: #007bff;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .exportOption:hover {
+    background: #f1f1f1;
+  }
+  
+  /* 🔄 Fade In Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* 🏛️ Users Table */
+  .entriesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .entriesTable th {
+    background: linear-gradient(135deg, #007bff, #004085);
     color: white;
-    font-weight: bold;
+    padding: 14px;
+    font-size: 16px;
     text-transform: uppercase;
-}
-
-.entriesTable tr {
-    background-color: white;
-    transition: background-color 0.3s ease;
-}
-
-.entriesTable tr:hover {
-    background-color: #f1f1f1;
-}
-
-.entriesTable td {
-    border-top: 1px solid #eee;
-}
-
-.entryLogo {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-}
-
-.entryLogo:hover {
-    transform: scale(1.1);
-}
-
-.actionButton {
-    background: none;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  
+  .entriesTable td {
+    padding: 14px;
+    font-size: 16px;
+    color: black;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .entriesTable tbody tr:hover {
+    background: rgba(0, 123, 255, 0.1);
+  }
+  
+  /* 🎨 Action Buttons */
+  .actionButton {
     border: none;
     cursor: pointer;
-    color: #007bff;
     font-size: 18px;
-    transition: color 0.3s ease;
-}
-
-.actionButton:hover {
-    color: #0056b3;
-}
-
-.actionButton:focus {
-    outline: none;
-}
-
-.actionButton.edit {
-    color: #28a745;
-}
-
-.actionButton.delete {
+    padding: 5px;
+    transition: 0.3s;
+  }
+  
+  .edit {
+    color: #ffc107;
+  }
+  
+  .edit:hover {
+    color: #e0a800;
+  }
+  
+  .delete {
     color: #dc3545;
-}
-
-.modalBackdrop {
+  }
+  
+  .delete:hover {
+    color: #c82333;
+  }
+  
+  /* 🚫 No Access Message */
+  .noAccessMessage {
+    text-align: center;
+    font-size: 18px;
+    color: #dc3545;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  /* ⚠️ Delete Confirmation Modal */
+  .modalBackdrop {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
-
-.deleteModal {
-    background-color: white;
+  }
+  
+  .deleteModal {
+    background: white;
     padding: 20px;
-    border-radius: 8px;
-    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.deleteModal h3 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.modalActions {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modalActions {
     display: flex;
-    justify-content: space-between;
-}
-
-.confirmButton,
-.cancelButton {
-    padding: 10px 20px;
-    border-radius: 5px;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .confirmButton {
+    background: #dc3545;
+    color: white;
     border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-}
-
-.confirmButton {
-    background-color: #28a745;
+    transition: 0.3s;
+  }
+  
+  .confirmButton:hover {
+    background: #c82333;
+  }
+  
+  .cancelButton {
+    background: #6c757d;
     color: white;
-}
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .cancelButton:hover {
+    background: #5a6268;
+  }
+  
+  /* 📱 Responsive Design */
+  @media (max-width: 768px) {
+    .entriesHeader {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .searchBar {
+      width: 100%;
+      margin: 10px 0;
+    }
+  
+    .entriesTable th,
+    .entriesTable td {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .actionButton {
+      font-size: 16px;
+    }
+  }
+  
 
-.confirmButton:hover {
-    background-color: #218838;
-}
-
-.cancelButton {
-    background-color: #dc3545;
-    color: white;
-}
-
-.cancelButton:hover {
-    background-color: #c82333;
-}

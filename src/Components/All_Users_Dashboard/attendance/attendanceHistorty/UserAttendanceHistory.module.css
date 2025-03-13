@@ -18,7 +18,9 @@
   align-items: center;
   margin-bottom: 15px;
 }
-
+.header input{
+width: 150px;
+}
 /* 🔹 Back Button */
 .backButton {
   background: linear-gradient(135deg, #ff6a00, #ee0979);

@@ -38,7 +38,9 @@ const All_Subscriptions = () => {
         if (!confirmDelete) return;
 
         try {
-            const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app/api/subscription/delete/${planId}`, {
+            const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/subscription/delete/${planId}`, {
                 method: 'DELETE',
             });
             const data = await response.json();

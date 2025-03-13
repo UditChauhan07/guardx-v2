@@ -12,6 +12,7 @@ const translations = {
     passwordLabel: "Password",
     passwordPlaceholder: "Enter your password",
     submitButton: "Submit",
+    forgotPassword: "Forgot Password?",
     languageToggle: "English",
   },
   hi: {
@@ -21,6 +22,7 @@ const translations = {
     passwordLabel: "पासवर्ड",
     passwordPlaceholder: "अपना पासवर्ड दर्ज करें",
     submitButton: "जमा करें",
+    forgotPassword: "पासवर्ड भूल गए?",
     languageToggle: "हिंदी",
   }
 };
@@ -40,9 +42,7 @@ const Login = () => {
   
       if (response.data.user) {
         const user = response.data.user;
-        const loginTime = new Date().toISOString(); // Get current date & time in ISO format
-  
-        // Save user details in localStorage
+        const loginTime = new Date().toISOString(); 
         localStorage.setItem('user', JSON.stringify({
           id: user.id,
           name: user.name || '',
@@ -55,8 +55,6 @@ const Login = () => {
         }));
   
         toast.success('Login successful!');
-  
-        // 🔹 **Save Attendance Record**
         await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/attendance/login', {
           userId: user.id,
           email: user.email,
@@ -67,12 +65,10 @@ const Login = () => {
         }).catch((err) => {
           console.error("⚠️ Error recording attendance:", err);
         });
-  
-        // 🔹 **Navigate Based on Permissions**
         if (user.permissions?.guardAccess?.public) {
           navigate('/guard-dashboard'); 
         } else {
-          navigate('/dashboard'); // 🚀 Redirect to Main Dashboard
+          navigate('/dashboard'); 
         } 
       } else {
         toast.error('Invalid response from server');
@@ -128,10 +124,16 @@ const Login = () => {
               </span>
             </div>
           </div>
-
+          {/* Forgot Password Link */}
+          <div className={styles.forgotPassword}>
+            <span onClick={() => navigate('/forgot-password')}>
+              {translations[language].forgotPassword}
+            </span>
+          </div>
           <button type="submit" className={styles.submitButton}>
             {translations[language].submitButton}
           </button>
+          
         </form>
       </div>
     </div>

@@ -19,7 +19,9 @@ const EditEntry = () => {
     const fetchEntry = async () => {
       try {
         const response = await axios.get(
-          `https://api-kpur6ixuza-uc.a.run.app/api/get-type-of-entry/${id}`
+          `https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-type-of-entry/${id}`
         );
         const entryData = response.data.entry;
         setTitle(entryData.title);
@@ -53,7 +55,9 @@ const EditEntry = () => {
     setLoading(true);
 
     try {
-      await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-type-of-entry/${id}`, {
+      await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/update-type-of-entry/${id}`, {
         title,
         entryType,
         logoBase64: logoBase64 || existingLogo, // Send Base64 or existing URL

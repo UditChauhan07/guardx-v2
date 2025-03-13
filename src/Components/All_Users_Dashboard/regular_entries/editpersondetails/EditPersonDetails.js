@@ -38,6 +38,8 @@ const EditPersonDetails = () => {
   useEffect(() => {
     if (personId) {
       axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /getPersonById/${personId}`)
         .then((response) => {
           console.log("✅ API Response:", response.data.person); // Debugging
@@ -60,6 +62,8 @@ const EditPersonDetails = () => {
   useEffect(() => {
     if (societyId) {
       axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /api/get-houses/${societyId}`)
         .then((response) => {
           setHouses(response.data.houses);
@@ -132,6 +136,8 @@ const EditPersonDetails = () => {
       console.log("📤 Update Payload:", payload);
 
       const response = await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /updatePersonDetails/${personId}`, payload);
       
       toast.success("✅ Person details updated successfully!");
@@ -182,6 +188,8 @@ const EditPersonDetails = () => {
   {formData.image && (
     <img 
       src={formData.image.startsWith("data:image") ? formData.image : `https://api-kpur6ixuza-uc.a.run.app
+
+
 /uploads/${formData.image}`} 
       alt="Person" 
       className={styles.previewImage} 
@@ -196,6 +204,8 @@ const EditPersonDetails = () => {
   {formData.adharImage && (
     <img 
       src={formData.adharImage.startsWith("data:image") ? formData.adharImage : `https://api-kpur6ixuza-uc.a.run.app
+
+
 /uploads/${formData.adharImage}`} 
       alt="Aadhar" 
       className={styles.previewImage} 

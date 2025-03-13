@@ -36,7 +36,8 @@ const HouseList = () => {
     if (societyId) {
       const fetchHouses = async () => {
         try {
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-houses/${societyId}`);
+          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/get-houses/${societyId}`);
           setHouses(response.data.houses);
         } catch (error) {
           console.error('Error fetching houses:', error);
@@ -82,7 +83,8 @@ const HouseList = () => {
   // Confirm deletion
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-house`, {
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+/api/delete-house`, {
         data: { id: houseToDelete, societyId }
       });
       setHouses(houses.filter((house) => house.id !== houseToDelete));

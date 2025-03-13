@@ -37,7 +37,9 @@ const AddPeopleEntry = () => {
   // ✅ Fetch houses based on society ID
   useEffect(() => {
     if (societyId) {
-      axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-houses/${societyId}`)
+      axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-houses/${societyId}`)
         .then((response) => {
           console.log("✅ Houses Fetched:", response.data.houses); // Debugging
           setHouses(response.data.houses);

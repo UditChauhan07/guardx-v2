@@ -3,7 +3,7 @@
   flex-direction: column;
   margin-left: 300px;
     padding: 50px;
-    margin-top: 50px;
+    margin-top: 80px;
     z-index: 1000;
     position: relative;
     background-color: #ffffff;
@@ -45,13 +45,19 @@
   margin-bottom: 5px;
 }
 
-.input-wrapper2 input,
-.input-wrapper2 select {
+.input-wrapper2 input{
   padding: 12px;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #121212;
   width: 90%;
+}
+.input-wrapper2 select {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #121212;
+  width: 94%;
 }
 
 .input-wrapper2 input:focus,
@@ -104,4 +110,21 @@
 
 .cancel-button1:hover {
   background-color: #e2e6ea;
+}
+.input-wrapper3 select{
+  width: 480px;
+  border: 1px solid;
+}
+.plan{
+  display: flex;
+}
+.discount{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.input-wrapper3 input{
+  width: 450px;
+  border: 1px solid;
+  margin-right: 30px;
 }

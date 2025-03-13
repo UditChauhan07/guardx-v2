@@ -37,7 +37,7 @@
   
   /* Add button */
   .addButton {
-    background-color: #007bff;
+    background: #007bff;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -409,4 +409,74 @@ button:disabled:hover {
   background-color: #cce5ff !important;
   color: #004085 !important;
   border: 1px solid #b8daff !important;
+}
+.exportDropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.exportButton {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease-in-out;
+  margin-right: 500px;
+}
+
+.exportButton:hover {
+  background: #45a049;
+}
+
+.exportDropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 45px;
+  right: 0;
+  background: rgb(13, 147, 231);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 160px;
+  overflow: hidden;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-in-out;
+  padding: 10px;
+}
+.exportDropdown button{
+  background: rgb(53, 131, 226);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exportOption {
+  padding: 12px;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s;
+  background: rgb(54, 144, 240);
+}
+
+.exportOption:hover {
+  background: #f1f1f1;
+}
+
+.exportOption svg {
+  color: #4CAF50;
 }

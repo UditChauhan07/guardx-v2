@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../sidebar/Sidebar';
 import Navbar from '../../Navbar/Navbar';
 import './Society.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { FaEdit, FaTrash, FaEye, FaFileImport, FaFileExport, FaShareAlt, FaChevronDown } from 'react-icons/fa';import { toast } from 'react-toastify';
 
 const Society = () => {
   
@@ -17,7 +16,10 @@ const Society = () => {
   const [endDate, setEndDate] = useState('');
   const [selectedSociety, setSelectedSociety] = useState(null); 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); 
+  const [showShareOptions, setShowShareOptions] = useState(false); 
+  const [file, setFile] = useState(null); 
   const [moduleTitle, setModuleTitle] = useState('Society Details');
+  const navigate = useNavigate()
   const handleSidebarClick = (title) => {
     setModuleTitle(title);  
   };
@@ -25,16 +27,34 @@ const Society = () => {
     const fetchSocieties = async () => {
       try {
         const response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-societies');
-        setSocieties(response.data.societies);
-        setFilteredSocieties(response.data.societies);
+        const societiesWithFormattedDate = response.data.societies.map(society => {
+          let formattedDate = 'N/A';
+          if (society.createdAt) {
+            if (typeof society.createdAt === 'object' && society.createdAt._seconds) {
+              formattedDate = new Date(society.createdAt._seconds * 1000).toLocaleDateString();
+            } else if (typeof society.createdAt === 'string') {
+              formattedDate = new Date(society.createdAt).toLocaleDateString();
+            }
+          }
+          return {
+            ...society,
+            createdAt: formattedDate
+          };
+        });
+  
+        setSocieties(societiesWithFormattedDate);
+        setFilteredSocieties(societiesWithFormattedDate);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching societies: ', error);
         setLoading(false);
       }
     };
+  
     fetchSocieties();
   }, []);
+  
+
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -67,7 +87,8 @@ const Society = () => {
 
   const handleDeleteSociety = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-society/${selectedSociety.id}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+/api/delete-society/${selectedSociety.id}`);
       toast.success('Society deleted successfully!');
       setFilteredSocieties(filteredSocieties.filter(society => society.id !== selectedSociety.id)); 
       setShowDeleteConfirm(false);
@@ -76,6 +97,30 @@ const Society = () => {
       console.error(error);
     }
   };
+
+  const handleExport = async (format) => {
+    try {
+      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/download-societies?format=${format}`, { responseType: 'blob' });
+
+      const blob = new Blob([response.data]);
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `societies.${format}`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast.success(`Societies exported as ${format.toUpperCase()} successfully!`);
+    } catch (error) {
+      toast.error(`Error exporting societies as ${format.toUpperCase()}.`);
+      console.error(error);
+    }
+  };
+const handleImportClick = () => {
+  navigate('/addexcelsociety'); // Redirect to AddExcelSociety Page
+};
 
   return (
     <div className="society-container">
@@ -89,6 +134,27 @@ const Society = () => {
             <Link to="/add-society">
               <button className="add-button">Add Society</button>
             </Link>
+            {/* Share Button */}
+            <div className="share-container">
+              <button className="share-button" onClick={() => setShowShareOptions(!showShareOptions)}>
+                <FaShareAlt /> Share <FaChevronDown />
+              </button>
+
+              {/* Dropdown for Export Options */}
+              {showShareOptions && (
+                <div className="share-dropdown">
+                  <button className="import-button" onClick={handleImportClick}>
+                    <FaFileImport /> Import Excel
+                  </button>
+                  <button className="export-button" onClick={() => handleExport('xlsx')}>
+                    <FaFileExport /> Export Excel
+                  </button>
+                  <button className="export-button" onClick={() => handleExport('csv')}>
+                    <FaFileExport /> Export CSV
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
           <div className="filters">
             <input

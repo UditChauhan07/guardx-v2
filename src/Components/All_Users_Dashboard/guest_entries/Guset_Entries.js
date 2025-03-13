@@ -37,7 +37,9 @@ const Guest_Entries = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://api-kpur6ixuza-uc.a.run.app/api/getVisitorEntries/${societyId}`
+        `https://api-kpur6ixuza-uc.a.run.app
+
+/api/getVisitorEntries/${societyId}`
       );
       setVisitorEntries(response.data.entries || []);
     } catch (error) {
@@ -51,7 +53,9 @@ const Guest_Entries = () => {
   const fetchHouses = async () => {
     try {
       const response = await axios.get(
-        `https://api-kpur6ixuza-uc.a.run.app/api/get-houses/${societyId}`
+        `https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-houses/${societyId}`
       );
       const houseMap = {};
       response.data.houses.forEach((house) => {
@@ -70,7 +74,9 @@ const Guest_Entries = () => {
   const fetchEntryTypes = async () => {
     try {
       const response = await axios.get(
-        `https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`
+        `https://api-kpur6ixuza-uc.a.run.app
+
+/api/society/get-entries/${societyId}`
       );
       const entryMap = {};
       response.data.entries.forEach((entry) => {
@@ -93,7 +99,9 @@ const Guest_Entries = () => {
     if (!window.confirm("Are you sure you want to delete this entry?")) return;
     try {
       await axios.delete(
-        `https://api-kpur6ixuza-uc.a.run.app/api/deleteVisitorEntry/${entryId}`
+        `https://api-kpur6ixuza-uc.a.run.app
+
+/api/deleteVisitorEntry/${entryId}`
       );
       toast.success("✅ Visitor entry deleted successfully!");
       fetchVisitorEntries(); // Refresh list

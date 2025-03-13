@@ -62,21 +62,23 @@
 }
 
 /* 🔹 Input Fields */
-.input-wrapper input, 
-.input-wrapper select {
+.input-wrapper input{
   padding: 12px;
   border-radius: 8px;
-  border: none;
+  border: 1 px solid;
   font-size: 15px;
   background: rgba(255, 255, 255, 0.2);
   color: rgb(11, 11, 11);
-  transition: all 0.3s ease-in-out;
-}
-
-.input-wrapper input:focus, 
-.input-wrapper select:focus {
-  outline: none;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+  width: 90%;
+} 
+.input-wrapper select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1 px solid;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(11, 11, 11);
+  width: 94%;
 }
 
 /* 🔹 Required Field Indicator */

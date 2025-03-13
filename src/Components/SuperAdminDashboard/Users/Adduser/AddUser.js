@@ -25,10 +25,8 @@ const AddUser = () => {
       try {
         let response;
         if (societyId) {
-          // Fetch society-specific roles
           response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
         } else {
-          // Fetch all roles
           response = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
         }
         setRoles(response.data.roles);
@@ -51,24 +49,25 @@ const AddUser = () => {
       email,
       password,
       roleTitle,
-      societyId, // Always get societyId from localStorage
+      societyId, 
     };
 
     try {
       if (societyId) {
-        // Add society user
         await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-society-user', userData);
       } else {
-        // Add normal user
         await axios.post('https://api-kpur6ixuza-uc.a.run.app/api/add-user', userData);
       }
 
       toast.success('User added successfully!');
       navigate('/users');
     } catch (error) {
-      setLoading(false);
-      console.error('Error adding user:', error.response?.data || error.message);
-      toast.error('Error adding user.');
+      const errorMessage =
+        error.response && error.response.data && error.response.data.error
+          ? error.response.data.error
+          : 'An unexpected error occurred. Please try again.';
+  
+      toast.warning(errorMessage);
     }
   };
 

@@ -16,6 +16,8 @@ const PersonDetails = () => {
   // ✅ Fetch person details from API
   useEffect(() => {
     axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /getPersonById/${personId}`)
       .then((response) => {
         setPerson(response.data.person);
@@ -52,6 +54,8 @@ const PersonDetails = () => {
             <div className={styles.imageBox}>
               <img 
                 src={person.image.startsWith("data:image") ? person.image : `https://api-kpur6ixuza-uc.a.run.app
+
+
 /uploads/${person.image}`} 
                 alt="Profile" 
                 className={styles.profileImage} 
@@ -62,6 +66,8 @@ const PersonDetails = () => {
             <div className={styles.imageBox}>
               <img 
                 src={person.adharImage.startsWith("data:image") ? person.adharImage : `https://api-kpur6ixuza-uc.a.run.app
+
+
 /uploads/${person.adharImage}`} 
                 alt="Aadhar" 
                 className={styles.adharImage} 

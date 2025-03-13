@@ -28,7 +28,9 @@ const Attendance = () => {
         }
 
         const response = await axios.get(
-          `https://api-kpur6ixuza-uc.a.run.app/api/attendance/${societyId}`
+          `https://api-kpur6ixuza-uc.a.run.app
+
+/api/attendance/${societyId}`
         );
 
         console.log("📌 Attendance API Response:", response.data);
@@ -62,7 +64,9 @@ const Attendance = () => {
       );
       if (!confirmDelete) return;
 
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-attendance/${attendanceId}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/delete-attendance/${attendanceId}`);
 
       // ✅ Remove deleted record from state
       setAttendanceRecords(attendanceRecords.filter((record) => record.id !== attendanceId));

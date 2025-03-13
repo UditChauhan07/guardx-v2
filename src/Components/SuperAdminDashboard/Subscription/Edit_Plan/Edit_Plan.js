@@ -22,7 +22,9 @@ const Edit_Plan = () => {
     useEffect(() => {
         const fetchPlanDetails = async () => {
             try {
-                const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app/api/subscription/${planId}`);
+                const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/subscription/${planId}`);
                 const data = await response.json();
                 if (response.ok) {
                     setPlan(data);
@@ -51,7 +53,9 @@ const Edit_Plan = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app/api/subscription/edit/${planId}`, {
+            const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/subscription/edit/${planId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

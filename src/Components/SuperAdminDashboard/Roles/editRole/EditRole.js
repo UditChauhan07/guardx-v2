@@ -23,7 +23,8 @@ const EditRole = () => {
     purpose: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
     users: { view: false, create: false, edit: false, delete: false, show: false },
-    subscription: { view: false, create: false, edit: false, delete: false, show: false }
+    subscription: { view: false, create: false, edit: false, delete: false, show: false },
+    billing: { view: false, create: false, edit: false, delete: false, show: false }
   };
 
   // Default permissions for Society role
@@ -35,7 +36,8 @@ const EditRole = () => {
     houseList: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
     users: { view: false, create: false, edit: false, delete: false, show: false },
-    attendance: { read: false, show: false }
+    attendance: { read: false, show: false },
+    societybilling: { view: false, show : false }
   };
 
   // Default permissions for Guard Access role (society-specific)
@@ -60,10 +62,14 @@ const EditRole = () => {
         let response;
         if (userData.societyId) {
           // For society users, fetch society role details
-          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-role/${id}`);
+          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-society-role/${id}`);
         } else {
           // For superadmin/global roles, fetch global role details
-          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-role/${id}`);
+          response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-role/${id}`);
         }
         const roleData = response.data.role;
 
@@ -133,8 +139,12 @@ const EditRole = () => {
     try {
       // Choose the endpoint based on whether the user has a societyId
       const endpoint = userData && userData.societyId
-        ? `https://api-kpur6ixuza-uc.a.run.app/api/update-society-role/${id}`
-        : `https://api-kpur6ixuza-uc.a.run.app/api/update-role/${id}`;
+        ? `https://api-kpur6ixuza-uc.a.run.app
+
+/api/update-society-role/${id}`
+        : `https://api-kpur6ixuza-uc.a.run.app
+
+/api/update-role/${id}`;
 
       await axios.put(endpoint, updatedRoleData);
       setLoading(false);

@@ -22,7 +22,9 @@ const Visitors_List = () => {
     if (!societyId) return;
     setLoading(true);
     try {
-      const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app/api/getVisitorEntries/${societyId}`);
+      const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/getVisitorEntries/${societyId}`);
       const data = await response.json();
       setVisitors(data.entries || []);
       setFilteredVisitors(data.entries || []); // ✅ Initialize filtered data
@@ -52,7 +54,9 @@ const Visitors_List = () => {
   // ✅ Handle Clock Out
   const handleClockOut = async (visitorId) => {
     try {
-      const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app/api/visitor/clock-out/${visitorId}`, {
+      const response = await fetch(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/visitor/clock-out/${visitorId}`, {
         method: "PUT",
       });
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Navbar/Navbar';
 import Sidebar from '../sidebar/Sidebar';
 import styles from './AllPurposes.module.css';
-import { FaTrash, FaCheckCircle, FaEdit } from 'react-icons/fa';
+import { FaTrash, FaCheckCircle, FaEdit, FaShareAlt, FaFileExport } from 'react-icons/fa';
 
 const AllPurposes = () => {
   const [moduleTitle, setModuleTitle] = useState('Purpose of Occasional');
@@ -22,6 +22,7 @@ const AllPurposes = () => {
   const [purposeToDelete, setPurposeToDelete] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [permissions, setPermissions] = useState({ create: false, edit: false, delete: false });
+  const [showExportOptions, setShowExportOptions] = useState(false);
 
   const navigate = useNavigate();
 
@@ -131,13 +132,6 @@ const AllPurposes = () => {
     }
   };
   
-
-  // Open Add Purpose Modal
-  const handleAddClick = () => {
-    setShowAddModal(true);
-    setErrorMessage('');
-  };
-
   // Toggle Purpose Selection in Modal
   const toggleSelectPurpose = (purpose) => {
     if (societyPurposes.some((p) => p.purposeId === purpose.id)) {
@@ -173,6 +167,20 @@ const AllPurposes = () => {
       console.error('Error adding purposes to society:', error);
     }
   };
+// ✅ Export to Excel or CSV
+const handleExport = async (format) => {
+  try {
+    if (societyId) {
+      window.open(`https://api-kpur6ixuza-uc.a.run.app
+/api/export-all-society-purposes/${societyId}?format=${format}`, '_blank');
+    } else {
+      window.open(`https://api-kpur6ixuza-uc.a.run.app
+/api/export-all-purposes?format=${format}`, '_blank');
+    }
+  } catch (error) {
+    console.error('Error exporting:', error);
+  }
+};
 
   return (
     <div className={styles.purposePageContainer}>
@@ -190,6 +198,24 @@ const AllPurposes = () => {
             >
               Add +
             </button>
+            {/* ✅ Share / Export Button */}
+          <div className={styles.shareContainer}>
+            <button className={styles.shareButton} onClick={() => setShowExportOptions(!showExportOptions)}>
+              <FaShareAlt /> Export
+            </button>
+
+            {/* Export Dropdown */}
+            {showExportOptions && (
+              <div className={styles.exportDropdown}>
+                <button className={styles.exportButton} onClick={() => handleExport('xlsx')}>
+                  <FaFileExport /> Export as Excel
+                </button>
+                <button className={styles.exportButton} onClick={() => handleExport('csv')}>
+                  <FaFileExport /> Export as CSV
+                </button>
+              </div>
+            )}
+          </div>
           <input
             type="text"
             className={styles.searchBar}
@@ -275,6 +301,23 @@ const AllPurposes = () => {
         <button className={styles.addButton} onClick={() => setShowAddModal(true)} disabled={!permissions.create}>
               Add Purpose
             </button>         
+            <div className={styles.shareContainer}>
+            <button className={styles.shareButton} onClick={() => setShowExportOptions(!showExportOptions)}>
+              <FaShareAlt /> Export
+            </button>
+
+            {/* Export Dropdown */}
+            {showExportOptions && (
+              <div className={styles.exportDropdown}>
+                <button className={styles.exportButton} onClick={() => handleExport('xlsx')}>
+                  <FaFileExport />  Excel
+                </button>
+                <button className={styles.exportButton} onClick={() => handleExport('csv')}>
+                  <FaFileExport />  CSV
+                </button>
+              </div>
+            )}
+          </div>
              <input
             type="text"
             className={styles.searchBar}
@@ -301,7 +344,7 @@ const AllPurposes = () => {
                 <td>{purpose.purpose}</td>
                 <td>{purpose.purposeType}</td>
                 <td>
-                <button className={`${styles.actionButton} ${styles.delete}`} onClick={() => handleDeleteClick(purpose.id)} disabled={!permissions.delete}>
+                <button className={`${styles.actionButton} ${styles.delete}`} onClick={() =>  handleDeletePurpose(purpose.id)} disabled={!permissions.delete}>
                       <FaTrash />
                     </button>
                 </td>
@@ -350,4 +393,4 @@ const AllPurposes = () => {
   );
 };
 
-export default AllPurposes;
+export default AllPurposes; 

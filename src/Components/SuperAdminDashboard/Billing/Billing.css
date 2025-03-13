@@ -1,0 +1,249 @@
+.billing-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-left: 300px;
+}
+
+.billing-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+}
+/* 🔹 Billing Header */
+.billing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.billing-header h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* All Bills Button */
+.all-bills-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s ease;
+    margin-left: 20px;
+    width: 90px;
+    margin-bottom: 30px;
+}
+.clear-filters-button{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s ease;
+    margin-left: 20px;
+    width: 150px;
+    margin-bottom: 30px;
+}
+
+.all-bills-button:hover {
+    background-color: #0056b3;
+}
+.clear-filters-button:hover {
+    background-color: #0056b3;
+}
+
+/* 🔹 Filters Section */
+.filters-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* 🔹 Society Selection */
+.society-selection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.society-selection label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.society-selection select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 🔹 Search Filter */
+.search-filter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    height: 35px;
+
+}
+
+.search-filter .search-icon {
+    color: #555;
+    font-size: 16px;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+}
+
+/* 🔹 Date Filters */
+.date-filters {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.date-filters .filter-icon {
+    color: #555;
+    font-size: 16px;
+}
+
+.filter-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.society-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.society-selection label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.society-selection select {
+    padding: 8px;
+    font-size: 16px;
+}
+
+.billing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.billing-table th, .billing-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.billing-table th {
+    background: #2c3e50;
+    color: white;
+}
+
+.paid {
+    color: green;
+    font-weight: bold;
+}
+
+.unpaid {
+    color: red;
+    font-weight: bold;
+}
+
+.pay-button, .unpay-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.pay-button {
+    background: green;
+
+}
+.pay-button:hover {
+    background: green;
+
+}
+.unpay-button {
+    background: red;
+   
+}
+.unpay-button:hover {
+    background: red;
+   
+}
+.invoice-actions{
+    display: flex;                           
+}
+.export-buttons {
+    background: #007bff;
+    padding: 5px;
+    
+}
+.export-buttons button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    gap: 5px; 
+}

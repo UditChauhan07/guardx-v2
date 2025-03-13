@@ -31,7 +31,8 @@ const AddRole = () => {
     purpose: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
     users: { view: false, create: false, edit: false, delete: false, show: false },
-    subscription: { view: false, create: false, edit: false, delete: false, show: false }
+    subscription: { view: false, create: false, edit: false, delete: false, show: false },
+    billing: { view: false, create: false, edit: false, delete: false, show: false }
   };
 
   // Default permissions for Society role
@@ -43,7 +44,8 @@ const AddRole = () => {
     houseList: { view: false, create: false, edit: false, delete: false, show: false },
     roles: { view: false, create: false, edit: false, delete: false, show: false },
     users: { view: false, create: false, edit: false, delete: false, show: false },
-    attendance: { read: false, show: false }
+    attendance: { read: false, show: false },
+    societybilling: { view: false,show: false }
   };
 
   // Default permissions for Guard Access role (society-specific)

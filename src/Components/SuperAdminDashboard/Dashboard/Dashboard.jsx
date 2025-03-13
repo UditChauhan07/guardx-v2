@@ -121,7 +121,9 @@ const Dashboard = () => {
           if (userData.societyId) {
             // Fetch all entries for the society
             const societyEntriesResponse = await axios.get(
-              `https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${userData.societyId}`
+              `https://api-kpur6ixuza-uc.a.run.app
+
+/api/society/get-entries/${userData.societyId}`
             );
             const societyEntriesData = societyEntriesResponse.data.entries;
             allEntriesCount = societyEntriesData.length;
@@ -131,13 +133,17 @@ const Dashboard = () => {
   
             // Fetch purposes specific to the society
             const societyPurposesResponse = await axios.get(
-              `https://api-kpur6ixuza-uc.a.run.app/api/society/get-purposes/${userData.societyId}`
+              `https://api-kpur6ixuza-uc.a.run.app
+
+/api/society/get-purposes/${userData.societyId}`
             );
             purposesCount = societyPurposesResponse.data.purposes.length;
   
             // Fetch houses specific to the society
             const housesResponse = await axios.get(
-              `https://api-kpur6ixuza-uc.a.run.app/api/get-houses/${userData.societyId}`
+              `https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-houses/${userData.societyId}`
             );
             housesCount = housesResponse.data.houses.length;
   

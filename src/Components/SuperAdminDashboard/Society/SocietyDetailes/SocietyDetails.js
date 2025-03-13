@@ -24,6 +24,8 @@ const SocietyDetails = () => {
     const fetchSociety = async () => {
       try {
         const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /api/get-society/${id}`);
         setSociety(response.data.society);
       } catch (error) {
@@ -36,7 +38,9 @@ const SocietyDetails = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-users/${id}`);
+        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-society-users/${id}`);
         setUsers(response.data.users);
       } catch (error) {
         console.error('Error fetching society users:', error);
@@ -88,7 +92,9 @@ const SocietyDetails = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-user/${userToDelete}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/delete-user/${userToDelete}`);
       toast.success('User deleted successfully!');
       setUsers(users.filter(user => user.id !== userToDelete));
       setShowDeleteModal(false);

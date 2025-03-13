@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import {
   FaHome, FaBuilding, FaCalendarAlt, FaLightbulb, FaUsers, FaUserAlt,
   FaClipboardList, FaUserCheck, FaHouseUser, FaClipboard, FaChevronDown,
-  FaSubscript,
-  FaLaptop
+  FaLaptop,
+  FaMoneyBill
 } from 'react-icons/fa';
 import axios from 'axios';
 import {
@@ -38,7 +38,8 @@ const Sidebar = ({ onClick }) => {
     if (societyId) {
       const fetchRegularEntries = async () => {
         try {
-          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+          const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/society/get-entries/${societyId}`);
           // ✅ Filter only "Regular" entries
           const regularEntriesData = response.data.entries.filter(entry => entry.entryType === 'regular');
           setRegularEntries(regularEntriesData);
@@ -94,7 +95,7 @@ const Sidebar = ({ onClick }) => {
               <li className="menu-item">
                 <NavLink to="/purpose" className="menu-link" activeClassName="active" onClick={() => onClick('Purpose of Occasional')}>
                   <FaLightbulb className="menu-icon" />
-                  Purpose of Occasional
+                  Purpose 
                 </NavLink>
               </li>
             )}
@@ -103,6 +104,14 @@ const Sidebar = ({ onClick }) => {
                 <NavLink to="/subscription" className="menu-link" activeClassName="active" onClick={() => onClick('Subscription')}>
                   <FaLaptop className="menu-icon" />
                   Subscription
+                </NavLink>
+              </li>
+            )}
+            {hasPermission('billing') && (
+              <li className="menu-item">
+                <NavLink to="/billing" className="menu-link" activeClassName="active" onClick={() => onClick('billing')}>
+                  <FaMoneyBill className="menu-icon" />
+                  Billing 
                 </NavLink>
               </li>
             )}
@@ -138,7 +147,7 @@ const Sidebar = ({ onClick }) => {
               <li className="menu-item">
                 <NavLink to="/purpose" className="menu-link" activeClassName="active" onClick={() => onClick('Purpose of Occasional')}>
                   <FaLightbulb className="menu-icon" />
-                  Purpose of Occasional
+                  Purpose
                 </NavLink>
               </li>
             )}
@@ -212,6 +221,14 @@ const Sidebar = ({ onClick }) => {
                 <NavLink to="/attendance" className="menu-link" activeClassName="active" onClick={() => onClick('Attendance')}>
                   <FaClipboard className="menu-icon" />
                   Attendance
+                </NavLink>
+              </li>
+            )}
+            {hasPermission('societybilling') && (
+              <li className="menu-item">
+                <NavLink to="/society-billing" className="menu-link" activeClassName="active" onClick={() => onClick('societybilling')}>
+                  <FaMoneyBill className="menu-icon" />
+                  Billing
                 </NavLink>
               </li>
             )}

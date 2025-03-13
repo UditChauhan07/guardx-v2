@@ -20,7 +20,9 @@ const Guest_Entries_info = () => {
   const fetchVisitorDetails = async () => {
     try {
       const response = await axios.get(
-        `https://api-kpur6ixuza-uc.a.run.app/api/getVisitorEntry/${entryId}`
+        `https://api-kpur6ixuza-uc.a.run.app
+
+/api/getVisitorEntry/${entryId}`
       );
       setVisitorDetails(response.data);
     } catch (error) {

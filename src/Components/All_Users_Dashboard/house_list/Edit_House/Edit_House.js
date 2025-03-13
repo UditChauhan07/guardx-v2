@@ -25,6 +25,8 @@ const EditHouse = () => {
         try {
           console.log("Fetching details for house ID:", houseId);
           const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /api/get-house/${houseId}`);
           setHouseNo(response.data.house.houseNo);
           setBlockNo(response.data.house.blockNo);
@@ -50,6 +52,8 @@ const EditHouse = () => {
 
     try {
       await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /api/update-house/${houseId}`, {
         houseNo,
         blockNo,

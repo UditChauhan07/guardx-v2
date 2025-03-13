@@ -167,7 +167,6 @@ h2, h3 {
 /* 🔹 Delete Button */
 button {
   padding: 8px 15px;
-  background: linear-gradient(135deg, #ff4b2b, #ff416c);
   color: white;
   border: none;
   border-radius: 6px;
@@ -176,7 +175,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+ 
   transform: scale(1.1);
 }
 

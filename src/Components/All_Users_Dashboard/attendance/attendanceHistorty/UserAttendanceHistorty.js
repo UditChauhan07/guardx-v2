@@ -6,7 +6,7 @@ const UserAttendanceHistory = () => {
   const navigate = useNavigate();
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [searchDate, setSearchDate] = useState(new Date().toISOString().split("T")[0]); // Default to today's date
+  const [searchDate, setSearchDate] = useState(new Date().toISOString().split("T")[0]); 
   const [userName, setUserName] = useState("User");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +33,8 @@ const UserAttendanceHistory = () => {
 
       try {
         const response = await fetch(
-          `https://api-kpur6ixuza-uc.a.run.app/api/user-attendance/${userData.id}`
+          `https://api-kpur6ixuza-uc.a.run.app
+/api/user-attendance/${userData.id}`
         );
         const result = await response.json();
 

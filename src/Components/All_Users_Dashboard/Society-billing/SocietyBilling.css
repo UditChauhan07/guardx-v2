@@ -1,0 +1,232 @@
+/* General Styles */
+.society-billing-container {
+  display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-left: 300px;}
+
+.society-billing-content {
+  flex-grow: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Loader */
+.society-billing-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Plan Details Card */
+.society-billing-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    border: 1px solid #ddd;
+    z-index: 1000;
+}
+.society-billing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.society-billing-card::before {
+  content: "";
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(to right, #2c3e50, #4a6572);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.society-billing-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.society-billing-text {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.society-billing-text span {
+  font-weight: bold;
+  color: #131313;
+}
+
+/* Billing History Section */
+.society-bills-section {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  animation: slideIn 0.8s ease-in-out;
+}
+
+.society-bills-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Billing Table */
+.billing-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  margin-top: 20px;
+}
+
+.billing-table th {
+  background: #007bff;
+  color: #ffffff;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.billing-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+}
+
+.billing-table tbody tr:hover {
+  background: rgba(0, 123, 255, 0.1);
+  transition: 0.3s ease-in-out;
+}
+
+/* Payment Status Styling */
+.billing-table td:last-child {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.billing-table td:last-child[data-status="Paid"] {
+  color: #28a745;
+}
+
+.billing-table td:last-child[data-status="Unpaid"] {
+  color: #dc3545;
+}
+
+/* No Records Message */
+.society-no-bills {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ✅ Export Button Container */
+.export-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* ✅ Export Button */
+.export-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
+}
+
+.export-button:hover {
+  background: #0056b3;
+}
+
+/* ✅ Dropdown Menu */
+.export-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgb(49, 176, 250);
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  margin-top: 5px;
+}
+
+/* ✅ Dropdown Items */
+.export-dropdown button {
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.export-dropdown button:hover {
+  background: #24a4e4;
+}
+
+/* ✅ Ensure Export Button & Dropdown Align Properly */
+.billing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}

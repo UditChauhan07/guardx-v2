@@ -105,7 +105,8 @@ const Navbar = ({ setProfile: setProfileFromProps, moduleTitle }) => {
     try {
       // 🔹 **Check if the user is in the Attendance API**
       const response = await axios.get(
-        `https://api-kpur6ixuza-uc.a.run.app/api/attendance/${storedUser.id}`
+        `https://api-kpur6ixuza-uc.a.run.app
+/api/attendance/${storedUser.id}`
       );
   
       if (response.data) {

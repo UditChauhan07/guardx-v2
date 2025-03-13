@@ -27,10 +27,14 @@ const EditUser = () => {
         let userResponse;
         if (societyId) {
           // Fetch society user details
-          userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-society-user/${id}`);
+          userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-society-user/${id}`);
         } else {
           // Fetch normal user details
-          userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-user/${id}`);
+          userResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-user/${id}`);
         }
 
         const userData = userResponse.data.user;
@@ -42,7 +46,9 @@ const EditUser = () => {
         let rolesResponse;
         if (societyId) {
           // Fetch roles for society users
-          rolesResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-all-society-roles/${societyId}`);
+          rolesResponse = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-all-society-roles/${societyId}`);
         } else {
           // Fetch all roles for normal users
           rolesResponse = await axios.get('https://api-kpur6ixuza-uc.a.run.app/api/get-all-roles');
@@ -72,10 +78,14 @@ const EditUser = () => {
     try {
       if (societyId) {
         // Update society user
-        await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-society-user/${id}`, updatedUserData);
+        await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/update-society-user/${id}`, updatedUserData);
       } else {
         // Update normal user
-        await axios.put(`https://api-kpur6ixuza-uc.a.run.app/api/update-user/${id}`, updatedUserData);
+        await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/update-user/${id}`, updatedUserData);
       }
 
       toast.success('User updated successfully!');

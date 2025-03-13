@@ -39,6 +39,10 @@ import Guest_Entries_info from './Components/All_Users_Dashboard/guest_entries/G
 import All_Subscriptions from './Components/SuperAdminDashboard/Subscription/All_Subscriptions';
 import Add_Subscription_Plan from './Components/SuperAdminDashboard/Subscription/Add_plan/Add_Subscription_Plan';
 import Edit_Plan from './Components/SuperAdminDashboard/Subscription/Edit_Plan/Edit_Plan';
+import Billing from './Components/SuperAdminDashboard/Billing/Billing';
+import ExcelAddsociety from './Components/SuperAdminDashboard/Society/addsociety/ExcelAddsociety';
+import SocietyBilling from './Components/All_Users_Dashboard/Society-billing/SocietyBilling';
+import ResetPassword from './Components/login/ResetPassword';
 
 function App() {
   
@@ -85,6 +89,10 @@ function App() {
           <Route  path='/subscription' element= {<All_Subscriptions/>}/>
           <Route path='/add-plan' element = {<Add_Subscription_Plan/>}/>
           <Route path='/edit/:planId' element = {<Edit_Plan/>}/>
+          <Route path ='/billing' element = {<Billing/>}/>
+          <Route path="/addexcelsociety" element={<ExcelAddsociety />} />
+          <Route path="/society-billing" element={<SocietyBilling />} />
+          <Route path="/forgot-password" element={<ResetPassword />} />
         </Routes>
       </Router>
     </>

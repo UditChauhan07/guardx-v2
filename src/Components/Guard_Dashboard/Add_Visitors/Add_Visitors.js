@@ -41,7 +41,9 @@ const Add_Visitors = () => {
   const fetchSocietyEntries = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/society/get-entries/${societyId}`);
       setSocietyEntries(response.data.entries || []);
     } catch (error) {
       console.error("❌ Error fetching society entries:", error);
@@ -53,7 +55,9 @@ const Add_Visitors = () => {
   const fetchPurposes = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-purposes/${societyId}`);
+      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/society/get-purposes/${societyId}`);
       setPurposes(response.data.purposes || []);
     } catch (error) {
       console.error("❌ Error fetching purposes:", error);
@@ -65,7 +69,9 @@ const Add_Visitors = () => {
   const fetchHouses = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/get-houses/${societyId}`);
+      const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+/api/get-houses/${societyId}`);
       setHouses(response.data.houses || []);
     } catch (error) {
       console.error("❌ Error fetching houses:", error);

@@ -20,6 +20,8 @@ const EditPurpose = () => {
     const fetchPurpose = async () => {
       try {
         const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /api/get-purpose/${id}`);
         const purposeData = response.data.purpose;
         setPurpose(purposeData.purpose);
@@ -62,6 +64,8 @@ const EditPurpose = () => {
 
     try {
       await axios.put(`https://api-kpur6ixuza-uc.a.run.app
+
+
 /api/update-purpose/${id}`, purposeData, {
         headers: {
           'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Navbar/Navbar';
 import Sidebar from '../sidebar/Sidebar';
 import styles from './TypeOfEntryPage.module.css';
-import { FaTrash, FaCheckCircle, FaEdit } from 'react-icons/fa';
+import { FaTrash, FaCheckCircle, FaEdit, FaShareAlt, FaFileExport, FaChevronDown } from 'react-icons/fa';
 
 const TypeOfEntryPage = () => {
   const [moduleTitle, setModuleTitle] = useState('Type of Entries');
@@ -21,6 +21,7 @@ const TypeOfEntryPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [entryToDelete, setEntryToDelete] = useState(null);
   const [permissions, setPermissions] = useState({ create: false, edit: false, delete: false });
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
   const navigate = useNavigate();
 
   const handleSidebarClick = (title) => {
@@ -66,7 +67,8 @@ const TypeOfEntryPage = () => {
 
   const handleDeleteConfirmation = async () => {
     try {
-      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app/api/delete-type-of-entry/${entryToDelete}`);
+      await axios.delete(`https://api-kpur6ixuza-uc.a.run.app
+/api/delete-type-of-entry/${entryToDelete}`);
       setEntries(entries.filter(entry => entry.id !== entryToDelete));
       setShowDeleteModal(false);
     } catch (error) {
@@ -89,7 +91,8 @@ useEffect(() => {
   if (userRole !== 'superadmin' && societyId) {
     const fetchSocietyEntries = async () => {
       try {
-        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app/api/society/get-entries/${societyId}`);
+        const response = await axios.get(`https://api-kpur6ixuza-uc.a.run.app
+/api/society/get-entries/${societyId}`);
         setSocietyEntries(response.data.entries);
       } catch (error) {
         console.error('Error fetching society entries: ', error);
@@ -102,12 +105,6 @@ useEffect(() => {
 
   const handleSearchChangesociety = (e) => {
     setSearch(e.target.value);
-  };
-
-  // Open modal to select entries
-  const handleAddClick = () => {
-    setShowAddModal(true);
-    setErrorMessage(''); // Reset error message when opening modal
   };
 
   // Select/Deselect entries in the modal with validation
@@ -164,6 +161,38 @@ useEffect(() => {
     (entryFilter === 'all' || entry.entryType === entryFilter) &&
     entry.title.toLowerCase().includes(modalSearch.toLowerCase())
   );
+  const handleExport = async (format) => {
+    try {
+        const url = userRole === 'superadmin'
+            ? `https://api-kpur6ixuza-uc.a.run.app
+/api/export-all-type-entries?format=${format}`
+            : `https://api-kpur6ixuza-uc.a.run.app
+/api/export-all-society-entries/${societyId}?format=${format}`;
+
+        console.log(`Sending export request to: ${url}`);
+        const response = await axios.get(url, { responseType: 'blob' });
+
+        if (response.status !== 200) {
+            console.error("Unexpected response status:", response.status);
+            return;
+        }
+
+        const blob = new Blob([response.data]);
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', `entries.${format}`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        console.log("File downloaded successfully.");
+    } catch (error) {
+        console.error("❌ Error exporting file:", error);
+        alert("Error exporting file. Please try again.");
+    }
+};
+
 
   return (
     <div className={styles.entryPageContainer}>
@@ -179,6 +208,17 @@ useEffect(() => {
               <button className={styles.addButton}  disabled={!permissions.create} onClick={() => navigate('/add-entry')}>
                 Add +
               </button>
+              <div className={styles.exportDropdownContainer}>
+            <button className={styles.exportButton} onClick={() => setShowExportDropdown(!showExportDropdown)}>
+              <FaShareAlt /> Export <FaChevronDown />
+            </button>
+            {showExportDropdown && (
+              <div className={styles.exportDropdown}>
+                <button onClick={() => handleExport('xlsx')}><FaFileExport /> Excel</button>
+                <button onClick={() => handleExport('csv')}><FaFileExport /> CSV</button>
+              </div>
+            )}
+          </div>
               <input
                 type="text"
                 className={styles.searchBar}
@@ -186,6 +226,7 @@ useEffect(() => {
                 onChange={handleSearchChange}
                 placeholder="Search by Entry or Type"
               />
+              
             </div>
   
             {/* Table */}
@@ -247,6 +288,17 @@ useEffect(() => {
             <button className={styles.addButton} onClick={() => setShowAddModal(true)} disabled={!permissions.create}>
               Add +
             </button>
+            <div className={styles.exportDropdownContainer}>
+            <button className={styles.exportButton} onClick={() => setShowExportDropdown(!showExportDropdown)}>
+              <FaShareAlt /> Export <FaChevronDown />
+            </button>
+            {showExportDropdown && (
+              <div className={styles.exportDropdown}>
+                <button onClick={() => handleExport('xlsx')}><FaFileExport /> Excel</button>
+                <button onClick={() => handleExport('csv')}><FaFileExport /> CSV</button>
+              </div>
+            )}
+          </div>
               <input
                 type="text"
                 className={styles.searchBar}
